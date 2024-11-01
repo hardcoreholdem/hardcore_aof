@@ -4,70 +4,6 @@ use crate::aux::join_calc_s_and_beta;
 use crate::format::pretty_percent;
 use hardcore_equitizer::Equitizer;
 
-pub struct Alpha4 {
-    pub ats: f64,
-    pub ako: f64,
-}
-
-pub fn calc_alpha4(equitizer: &mut Equitizer, s: f64) -> Alpha4 {
-    let p_and_eq_0 = equitizer.query_prob_and_eq("AKs", "AA,AKs,A5s");
-    let p_and_eq_1 = equitizer.query_prob_and_eq("AKs", "ATs");
-    let p_and_eq_2 = equitizer.query_prob_and_eq("AKs", "AKo");
-    let p_and_eq_3 = equitizer.query_prob_and_eq("KK", "AA,AKs,A5s");
-    let p_and_eq_4 = equitizer.query_prob_and_eq("KK", "ATs");
-    let p_and_eq_5 = equitizer.query_prob_and_eq("KK", "AKo");
-
-    let (ats, ako) = calc_alpha_2d(
-        (p_and_eq_0, p_and_eq_1, p_and_eq_2),
-        (p_and_eq_3, p_and_eq_4, p_and_eq_5),
-        s,
-    );
-
-    Alpha4 { ats, ako }
-}
-
-// TODO: rename all beta* to calc_beta*
-
-pub struct Beta4 {
-    pub aks: f64,
-    pub kk: f64,
-}
-
-pub fn calc_beta4(equitizer: &mut Equitizer, s: f64) -> Beta4 {
-    let (p1, eq1) = equitizer.query_prob_and_eq("ATs", "AKs");
-    let (p2, eq2) = equitizer.query_prob_and_eq("ATs", "KK");
-    let (p0, eq0) = equitizer.query_prob_and_eq("ATs", "AA");
-    let (p4, eq4) = equitizer.query_prob_and_eq("AKo", "AKs");
-    let (p5, eq5) = equitizer.query_prob_and_eq("AKo", "KK");
-    let (p3, eq3) = equitizer.query_prob_and_eq("AKo", "AA");
-
-    let (aks, kk) = calc_beta_2d(
-        ((p0, eq0), (p1, eq1), (p2, eq2)),
-        ((p3, eq3), (p4, eq4), (p5, eq5)),
-        s,
-    );
-
-    Beta4 { aks, kk }
-}
-
-pub fn calc_s4_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
-    // TODO: refactor
-    let (p1, eq1, p2, eq2) = (
-        equitizer.query_prob("ATs", "AA"),
-        equitizer.query_eq("ATs", "AA"),
-        equitizer.query_prob("ATs", "AKs"),
-        equitizer.query_eq("ATs", "AKs"),
-    );
-    let (p3, eq3, p4, eq4) = (
-        equitizer.query_prob("AKo", "AA"),
-        equitizer.query_eq("AKo", "AA"),
-        equitizer.query_prob("AKo", "AKs"),
-        equitizer.query_eq("AKo", "AKs"),
-    );
-
-    join_calc_s_and_beta(((p1, eq1), (p2, eq2)), ((p3, eq3), (p4, eq4)))
-}
-
 pub fn section04(equitizer: &mut Equitizer) {
     let (s4, beta) = calc_s4_and_beta(equitizer);
 
@@ -141,4 +77,66 @@ pub fn section04(equitizer: &mut Equitizer) {
     let beta4 = calc_beta4(equitizer, s4);
     println!("beta4_AKs: {}", pretty_percent(beta4.aks));
     println!("beta4_KK: {}", pretty_percent(beta4.kk));
+}
+
+pub struct Alpha4 {
+    pub ats: f64,
+    pub ako: f64,
+}
+
+pub fn calc_alpha4(equitizer: &mut Equitizer, s: f64) -> Alpha4 {
+    let p_and_eq_0 = equitizer.query_prob_and_eq("AKs", "AA,AKs,A5s");
+    let p_and_eq_1 = equitizer.query_prob_and_eq("AKs", "ATs");
+    let p_and_eq_2 = equitizer.query_prob_and_eq("AKs", "AKo");
+    let p_and_eq_3 = equitizer.query_prob_and_eq("KK", "AA,AKs,A5s");
+    let p_and_eq_4 = equitizer.query_prob_and_eq("KK", "ATs");
+    let p_and_eq_5 = equitizer.query_prob_and_eq("KK", "AKo");
+
+    let (ats, ako) = calc_alpha_2d(
+        (p_and_eq_0, p_and_eq_1, p_and_eq_2),
+        (p_and_eq_3, p_and_eq_4, p_and_eq_5),
+        s,
+    );
+
+    Alpha4 { ats, ako }
+}
+
+pub struct Beta4 {
+    pub aks: f64,
+    pub kk: f64,
+}
+
+pub fn calc_beta4(equitizer: &mut Equitizer, s: f64) -> Beta4 {
+    let (p1, eq1) = equitizer.query_prob_and_eq("ATs", "AKs");
+    let (p2, eq2) = equitizer.query_prob_and_eq("ATs", "KK");
+    let (p0, eq0) = equitizer.query_prob_and_eq("ATs", "AA");
+    let (p4, eq4) = equitizer.query_prob_and_eq("AKo", "AKs");
+    let (p5, eq5) = equitizer.query_prob_and_eq("AKo", "KK");
+    let (p3, eq3) = equitizer.query_prob_and_eq("AKo", "AA");
+
+    let (aks, kk) = calc_beta_2d(
+        ((p0, eq0), (p1, eq1), (p2, eq2)),
+        ((p3, eq3), (p4, eq4), (p5, eq5)),
+        s,
+    );
+
+    Beta4 { aks, kk }
+}
+
+pub fn calc_s4_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
+    // TODO: refactor
+    let (p1, eq1, p2, eq2) = (
+        equitizer.query_prob("ATs", "AA"),
+        equitizer.query_eq("ATs", "AA"),
+        equitizer.query_prob("ATs", "AKs"),
+        equitizer.query_eq("ATs", "AKs"),
+    );
+    let (p3, eq3, p4, eq4) = (
+        equitizer.query_prob("AKo", "AA"),
+        equitizer.query_eq("AKo", "AA"),
+        equitizer.query_prob("AKo", "AKs"),
+        equitizer.query_eq("AKo", "AKs"),
+    );
+
+    join_calc_s_and_beta(((p1, eq1), (p2, eq2)), ((p3, eq3), (p4, eq4)))
 }

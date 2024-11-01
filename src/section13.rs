@@ -4,7 +4,7 @@ use crate::aux::join_calc_s_and_beta;
 use crate::format::pretty_percent;
 use crate::format::pretty_s;
 use crate::search::binary_search;
-use crate::section12::beta12;
+use crate::section12::calc_beta12;
 use hardcore_equitizer::Equitizer;
 
 pub fn section13(equitizer: &mut Equitizer) {
@@ -26,7 +26,7 @@ pub fn section13(equitizer: &mut Equitizer) {
 }
 
 fn search_s_for_beta_12_equals_1(equitizer: &mut Equitizer) -> f64 {
-    let f = |s| beta12(equitizer, s) - 1.0;
+    let f = |s| calc_beta12(equitizer, s) - 1.0;
     binary_search(0.0, 300.0, f)
 }
 

@@ -1,6 +1,7 @@
-use super::aux::calc_beta;
-use super::aux::calc_s;
-use super::combos::calc_all_combos;
+use crate::aux::calc_beta_1d;
+use crate::aux::calc_s;
+use crate::combos::calc_all_combos;
+use crate::format::pretty_percent;
 use hardcore_equitizer::Equitizer;
 
 #[deprecated]
@@ -21,7 +22,7 @@ pub fn calc_alpha_new((p1, eq1): (f64, f64), (p2, eq2): (f64, f64), s: f64) -> f
     -b / a
 }
 
-fn alpha1(equitizer: &mut Equitizer, s: f64) -> f64 {
+fn calc_alpha1(equitizer: &mut Equitizer, s: f64) -> f64 {
     let p1 = equitizer.query_prob("AKs", "AA,ATs");
     let eq1 = equitizer.query_eq("AKs", "AA,ATs");
     let p2 = equitizer.query_prob("AKs", "A5s");
@@ -29,10 +30,10 @@ fn alpha1(equitizer: &mut Equitizer, s: f64) -> f64 {
     calc_alpha_old(p1, eq1, p2, eq2, s)
 }
 
-fn beta1(equitizer: &mut Equitizer, s: f64) -> f64 {
+fn calc_beta1(equitizer: &mut Equitizer, s: f64) -> f64 {
     let (p0, eq0) = equitizer.query_prob_and_eq("A5s", "AA");
     let (p1, eq1) = equitizer.query_prob_and_eq("A5s", "AKs");
-    calc_beta((p0, eq0), (p1, eq1), s)
+    calc_beta_1d((p0, eq0), (p1, eq1), s)
 }
 
 pub fn section01(equitizer: &mut Equitizer) {
@@ -56,8 +57,8 @@ pub fn section01(equitizer: &mut Equitizer) {
         println!("");
     }
 
-    println!("alpha1(s1)={:.2}%", alpha1(equitizer, s1) * 100.0);
-    println!("beta1(s1)={:.15}%", beta1(equitizer, s1) * 100.0);
+    println!("alpha1(s1)={}", pretty_percent(calc_alpha1(equitizer, s1)));
+    println!("beta1(s1)={}", pretty_percent(calc_beta1(equitizer, s1)));
 
     {
         println!("AA ({:.2}%)", equitizer.query_prob("", "AA") * 100.0);
@@ -69,8 +70,8 @@ pub fn section01(equitizer: &mut Equitizer) {
         let p_aa_ats = equitizer.query_prob("", "AA,ATs");
         let p_a5s = equitizer.query_prob("", "A5s");
         println!(
-            "AA,ATs,A5s:alpha ({:.2}%)",
-            (p_aa_ats + p_a5s * alpha1(equitizer, s1)) * 100.0
+            "AA,ATs,A5s:alpha ({})",
+            pretty_percent(p_aa_ats + p_a5s * calc_alpha1(equitizer, s1))
         );
     }
 

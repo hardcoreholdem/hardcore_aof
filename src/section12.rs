@@ -1,5 +1,5 @@
-use crate::aux::calc_alpha;
-use crate::aux::calc_beta;
+use crate::aux::calc_alpha_1d;
+use crate::aux::calc_beta_1d;
 use crate::aux::calc_s;
 use crate::format::pretty_percent;
 use crate::format::pretty_s;
@@ -9,10 +9,10 @@ pub fn section12(equitizer: &mut Equitizer) {
     let s12 = calc_s12(equitizer);
     println!("s12: {}", pretty_s(s12));
 
-    let alpha12 = alpha12(equitizer, s12);
+    let alpha12 = calc_alpha12(equitizer, s12);
     println!("alpha12: {}", pretty_percent(alpha12));
 
-    let beta12 = beta12(equitizer, s12);
+    let beta12 = calc_beta12(equitizer, s12);
     println!("beta12: {}", pretty_percent(beta12));
 }
 
@@ -22,16 +22,16 @@ pub fn calc_s12(equitizer: &mut Equitizer) -> f64 {
     calc_s(p_and_e)
 }
 
-pub fn alpha12(equitizer: &mut Equitizer, s: f64) -> f64 {
+pub fn calc_alpha12(equitizer: &mut Equitizer, s: f64) -> f64 {
     let (p0, eq0) = equitizer.query_prob_and_eq("AKo", "KK+,AK,ATs,A5s,A4s");
     let (p1, eq1) = equitizer.query_prob_and_eq("AKo", "A3s");
 
-    calc_alpha((p0, eq0), (p1, eq1), s)
+    calc_alpha_1d((p0, eq0), (p1, eq1), s)
 }
 
-pub fn beta12(equitizer: &mut Equitizer, s: f64) -> f64 {
+pub fn calc_beta12(equitizer: &mut Equitizer, s: f64) -> f64 {
     let (p0, eq0) = equitizer.query_prob_and_eq("A3s", "KK+,AKs");
     let (p1, eq1) = equitizer.query_prob_and_eq("A3s", "AKo");
 
-    calc_beta((p0, eq0), (p1, eq1), s)
+    calc_beta_1d((p0, eq0), (p1, eq1), s)
 }

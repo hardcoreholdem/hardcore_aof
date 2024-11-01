@@ -8,8 +8,6 @@ use crate::section13::calc_alpha13;
 use crate::section13::calc_beta13;
 use hardcore_equitizer::Equitizer;
 
-// TODO: remove all #[allow(non_snake_case)]
-
 pub fn section14(equitizer: &mut Equitizer) {
     let s14 = search_s14_for_ev_qq_equals_0(equitizer);
     println!("s14={}", pretty_s(s14));

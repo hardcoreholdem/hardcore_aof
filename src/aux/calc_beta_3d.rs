@@ -1,4 +1,4 @@
-use super::solve_linear_eq::solve_linear_eq_3d;
+use super::solve_linear_eq_3d::solve_linear_eq_3d;
 
 pub fn calc_beta_3d(
     ((p00, eq00), (p01, eq01), (p02, eq02), (p03, eq03)): (

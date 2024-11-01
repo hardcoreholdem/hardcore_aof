@@ -1,4 +1,4 @@
-use super::solve_linear_eq::solve_linear_eq_2d;
+use super::solve_linear_eq_2d::solve_linear_eq_2d;
 
 pub fn calc_alpha_2d(
     ((p0, eq0), (p1, eq1), (p2, eq2)): ((f64, f64), (f64, f64), (f64, f64)),

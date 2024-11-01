@@ -1,5 +1,6 @@
-use super::aux::calc_beta;
-use super::section01::calc_alpha_old;
+use crate::aux::calc_beta_1d;
+use crate::format::pretty_percent;
+use crate::section01::calc_alpha_old;
 use hardcore_equitizer::Equitizer;
 
 fn inv_beta1(equitizer: &mut Equitizer, beta: f64) -> f64 {
@@ -22,7 +23,7 @@ fn inv_beta1(equitizer: &mut Equitizer, beta: f64) -> f64 {
     -b / a
 }
 
-fn alpha2(equitizer: &mut Equitizer, s: f64) -> f64 {
+fn calc_alpha2(equitizer: &mut Equitizer, s: f64) -> f64 {
     // TODO: use query_prob_and_eq
     let p1 = equitizer.query_prob("AKs", "AA,A5s");
     let eq1 = equitizer.query_eq("AKs", "AA,A5s");
@@ -31,10 +32,10 @@ fn alpha2(equitizer: &mut Equitizer, s: f64) -> f64 {
     calc_alpha_old(p1, eq1, n2, p2, s)
 }
 
-fn beta2(equitizer: &mut Equitizer, s: f64) -> f64 {
+fn calc_beta2(equitizer: &mut Equitizer, s: f64) -> f64 {
     let (p0, eq0) = equitizer.query_prob_and_eq("ATs", "AA");
     let (p1, eq1) = equitizer.query_prob_and_eq("ATs", "AKs");
-    calc_beta((p0, eq0), (p1, eq1), s)
+    calc_beta_1d((p0, eq0), (p1, eq1), s)
 }
 
 pub fn section02(equitizer: &mut Equitizer) {
@@ -101,6 +102,6 @@ pub fn section02(equitizer: &mut Equitizer) {
         println!("");
     }
 
-    println!("alpha2(s2)={:.2}%", alpha2(equitizer, s2) * 100.0);
-    println!("beta2(s2)={:.2}%", beta2(equitizer, s2) * 100.0);
+    println!("alpha2(s2)={}", pretty_percent(calc_alpha2(equitizer, s2)));
+    println!("beta2(s2)={}", pretty_percent(calc_beta2(equitizer, s2)));
 }

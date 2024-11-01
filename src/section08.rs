@@ -4,8 +4,8 @@ use crate::format::pretty_percent;
 
 use super::format::pretty_s;
 use super::search::binary_search;
-use super::section06::beta6;
-use super::section07::alpha7;
+use super::section06::calc_beta6;
+use super::section07::calc_alpha7;
 
 pub fn section08(equitizer: &mut Equitizer) {
     println!("# section 8");
@@ -17,8 +17,8 @@ pub fn section08(equitizer: &mut Equitizer) {
         println!(
             "s: {}, alpha7: {}, beta6: {}",
             pretty_s(s),
-            pretty_percent(alpha7(equitizer, s)),
-            pretty_percent(beta6(equitizer, s)),
+            pretty_percent(calc_alpha7(equitizer, s)),
+            pretty_percent(calc_beta6(equitizer, s)),
         );
     }
 
@@ -30,6 +30,6 @@ pub fn section08(equitizer: &mut Equitizer) {
 }
 
 pub fn search_s8_for_beta6_equals_1(equitizer: &mut Equitizer) -> f64 {
-    let f = |s| beta6(equitizer, s) - 1.0;
+    let f = |s| calc_beta6(equitizer, s) - 1.0;
     binary_search(0.0, 315.0, f)
 }
