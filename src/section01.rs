@@ -3,6 +3,7 @@ use super::aux::calc_s;
 use super::combos::calc_all_combos;
 use hardcore_equitizer::Equitizer;
 
+#[deprecated]
 pub fn calc_alpha_old(p1: f64, eq1: f64, p2: f64, eq2: f64, s: f64) -> f64 {
     // a x + b = 0
     let a = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
@@ -11,6 +12,7 @@ pub fn calc_alpha_old(p1: f64, eq1: f64, p2: f64, eq2: f64, s: f64) -> f64 {
     -b / a
 }
 
+#[deprecated]
 pub fn calc_alpha_new((p1, eq1): (f64, f64), (p2, eq2): (f64, f64), s: f64) -> f64 {
     // a x + b = 0
     let a = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;

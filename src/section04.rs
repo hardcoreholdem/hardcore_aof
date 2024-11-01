@@ -1,63 +1,15 @@
+use crate::aux::calc_alpha_pair;
+use crate::aux::calc_beta_pair;
 use crate::aux::join_calc_s_and_beta;
 use hardcore_equitizer::Equitizer;
-
-pub fn det2(
-    (a, b): (f64, f64), // first row
-    (c, d): (f64, f64), // second row
-) -> f64 {
-    a * d - b * c
-}
-
-pub fn solve_linear_eq(
-    (a, b, c): (f64, f64, f64), // ax + by + c = 0
-    (d, e, f): (f64, f64, f64), // dx + ey + f = 0
-) -> (f64, f64) {
-    let det = det2(
-        (a, b), //
-        (d, e), //
-    );
-
-    let det_x = det2(
-        (c, b), //
-        (f, e), //
-    );
-
-    let det_y = det2(
-        (a, c), //
-        (d, f), //
-    );
-
-    let x = -det_x / det;
-    let y = -det_y / det;
-
-    (x, y)
-}
-
-pub fn calc_alpha_pair(
-    (p1, eq1, p2, eq2, p3, eq3): (f64, f64, f64, f64, f64, f64),
-    (p4, eq4, p5, eq5, p6, eq6): (f64, f64, f64, f64, f64, f64),
-    s: f64,
-) -> (f64, f64) {
-    // ax + by + c = 0
-    let a = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;
-    let b = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
-    let c = p3 * eq3 * (2.0 * s + 1.0) - p3 * s;
-
-    // dx + ey + f = 0
-    let d = p4 * eq4 * (2.0 * s + 1.0) - p4 * s;
-    let e = p5 * eq5 * (2.0 * s + 1.0) - p5 * s;
-    let f = p6 * eq6 * (2.0 * s + 1.0) - p6 * s;
-
-    solve_linear_eq((a, b, c), (d, e, f))
-}
 
 pub fn alpha4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     let (p1, eq1) = equitizer.query_prob_and_eq("AKs", "ATs");
     let (p2, eq2) = equitizer.query_prob_and_eq("AKs", "AKo");
-    let (p3, eq3) = equitizer.query_prob_and_eq("AKs", "AA,AKs,A5s");
+    let (p0, eq0) = equitizer.query_prob_and_eq("AKs", "AA,AKs,A5s");
     let (p4, eq4) = equitizer.query_prob_and_eq("KK", "ATs");
     let (p5, eq5) = equitizer.query_prob_and_eq("KK", "AKo");
-    let (p6, eq6) = equitizer.query_prob_and_eq("KK", "AA,AKs,A5s");
+    let (p3, eq3) = equitizer.query_prob_and_eq("KK", "AA,AKs,A5s");
 
     // println!("n1={}", p1 * 50.0 * 49.0 / 2.0);
     // println!("n2={}", p2 * 50.0 * 49.0 / 2.0);
@@ -66,38 +18,20 @@ pub fn alpha4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     // println!("n5={}", p5 * 50.0 * 49.0 / 2.0);
     // println!("n6={}", p6 * 50.0 * 49.0 / 2.0);
 
-    calc_alpha_pair((p1, eq1, p2, eq2, p3, eq3), (p4, eq4, p5, eq5, p6, eq6), s)
-}
-
-fn calc_beta_pair(
-    ((p1, eq1), (p2, eq2), (p3, eq3)): ((f64, f64), (f64, f64), (f64, f64)),
-    ((p4, eq4), (p5, eq5), (p6, eq6)): ((f64, f64), (f64, f64), (f64, f64)),
-    s: f64,
-) -> (f64, f64) {
-    // a x + b y + c = 0
-    let a = p1 * (eq1 * (2.0 * s + 1.0) - s) - p1;
-    let b = p2 * (eq2 * (2.0 * s + 1.0) - s) - p2;
-    let c = p3 * (eq3 * (2.0 * s + 1.0) - s) + (1.0 - p3) * 1.0;
-
-    // c x + d y + e = 0
-    let d = p4 * (eq4 * (2.0 * s + 1.0) - s) - p4;
-    let e = p5 * (eq5 * (2.0 * s + 1.0) - s) - p5;
-    let f = p6 * (eq6 * (2.0 * s + 1.0) - s) + (1.0 - p6) * 1.0;
-
-    solve_linear_eq((a, b, c), (d, e, f))
+    calc_alpha_pair((p0, eq0, p1, eq1, p2, eq2), (p3, eq3, p4, eq4, p5, eq5), s)
 }
 
 pub fn beta4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     let (p1, eq1) = equitizer.query_prob_and_eq("ATs", "AKs");
     let (p2, eq2) = equitizer.query_prob_and_eq("ATs", "KK");
-    let (p3, eq3) = equitizer.query_prob_and_eq("ATs", "AA");
+    let (p0, eq0) = equitizer.query_prob_and_eq("ATs", "AA");
     let (p4, eq4) = equitizer.query_prob_and_eq("AKo", "AKs");
     let (p5, eq5) = equitizer.query_prob_and_eq("AKo", "KK");
-    let (p6, eq6) = equitizer.query_prob_and_eq("AKo", "AA");
+    let (p3, eq3) = equitizer.query_prob_and_eq("AKo", "AA");
 
     calc_beta_pair(
-        ((p1, eq1), (p2, eq2), (p3, eq3)),
-        ((p4, eq4), (p5, eq5), (p6, eq6)),
+        ((p0, eq0), (p1, eq1), (p2, eq2)),
+        ((p3, eq3), (p4, eq4), (p5, eq5)),
         s,
     )
 }
