@@ -1,4 +1,4 @@
-pub fn calc_ev_two_betas(
+pub fn calc_attacker_ev_2d(
     (p0, eq0): (f64, f64),
     (p1, eq1): (f64, f64),
     (p2, eq2): (f64, f64),

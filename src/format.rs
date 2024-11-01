@@ -3,7 +3,11 @@ const EPS: f64 = 1e-9;
 pub fn pretty_s(v: f64) -> String {
     let rounded = v.round();
     if (v - rounded).abs() < EPS {
-        format!("{:.0}", rounded)
+        if v.abs() < EPS {
+            "0".into()
+        } else {
+            format!("{:.0}", rounded)
+        }
     } else if v.abs() > 1.0 {
         format!("{:.2}", v)
     } else {

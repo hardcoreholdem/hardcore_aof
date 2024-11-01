@@ -20,6 +20,12 @@ mod section11;
 mod section12;
 mod section13;
 mod section14;
+mod section15;
+mod section16;
+mod section17;
+mod section18;
+mod section19;
+mod section20;
 
 use clap::Parser;
 use section00::section00;
@@ -37,6 +43,13 @@ use section11::section11;
 use section12::section12;
 use section13::section13;
 use section14::section14;
+use section15::section15;
+use section16::section16;
+use section17::section17;
+use section18::section18;
+use section19::section19;
+use section20::section20;
+
 #[derive(Parser)]
 struct Cli {
     #[arg(short, long)]
@@ -70,6 +83,12 @@ fn main() {
         12 => section12(&mut equitizer),
         13 => section13(&mut equitizer),
         14 => section14(&mut equitizer),
+        15 => section15(&mut equitizer),
+        16 => section16(&mut equitizer),
+        17 => section17(&mut equitizer),
+        18 => section18(&mut equitizer),
+        19 => section19(&mut equitizer),
+        20 => section20(&mut equitizer),
         _ => panic!("invalid section"),
     }
 }

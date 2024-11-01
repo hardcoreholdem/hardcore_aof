@@ -1,12 +1,13 @@
 use crate::aux::calc_alpha_3d;
+use crate::aux::calc_attacker_ev_2d;
 use crate::aux::calc_beta_3d;
-use crate::aux::calc_ev_two_betas;
 use crate::format::pretty_percent;
 use crate::format::pretty_s;
 use crate::search::binary_search;
 use crate::section13::calc_alpha13;
 use crate::section13::calc_beta13;
 use hardcore_equitizer::Equitizer;
+use std::fmt;
 
 pub fn section14(equitizer: &mut Equitizer) {
     let s14 = search_s14_for_ev_qq_equals_0(equitizer);
@@ -23,9 +24,7 @@ pub fn section14(equitizer: &mut Equitizer) {
     println!("");
 
     let alpha = calc_alpha14(equitizer, s14);
-    println!("alpha_A3s={}", pretty_percent(alpha.a3s));
-    println!("alpha_TT={}", pretty_percent(alpha.tt));
-    println!("alpha_QQ={}", pretty_percent(alpha.qq));
+    println!("alpha={}", alpha);
     println!("");
 
     let beta14 = calc_beta14(equitizer, s14);
@@ -42,7 +41,7 @@ fn search_s14_for_ev_qq_equals_0(equitizer: &mut Equitizer) -> f64 {
 
     let f = |s| {
         let beta = calc_beta13(equitizer, s);
-        calc_ev_two_betas(p_and_eq_0, p_and_eq_1, p_and_eq_2, beta.ako, beta.jj, s)
+        calc_attacker_ev_2d(p_and_eq_0, p_and_eq_1, p_and_eq_2, beta.ako, beta.jj, s)
     };
 
     binary_search(0.0, 300.0, f)
@@ -52,6 +51,18 @@ pub struct Alpha14 {
     pub a3s: f64,
     pub tt: f64,
     pub qq: f64,
+}
+
+impl fmt::Display for Alpha14 {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "A3s:{},TT:{},QQ:{}",
+            pretty_percent(self.a3s),
+            pretty_percent(self.tt),
+            pretty_percent(self.qq)
+        )
+    }
 }
 
 pub fn calc_alpha14(equitizer: &mut Equitizer, s: f64) -> Alpha14 {
@@ -82,6 +93,18 @@ pub struct Beta14 {
     pub ako: f64,
     pub jj: f64,
     pub qq: f64,
+}
+
+impl fmt::Display for Beta14 {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "AKo:{},JJ:{},QQ:{}",
+            pretty_percent(self.ako),
+            pretty_percent(self.jj),
+            pretty_percent(self.qq)
+        )
+    }
 }
 
 pub fn calc_beta14(equitizer: &mut Equitizer, s: f64) -> Beta14 {
