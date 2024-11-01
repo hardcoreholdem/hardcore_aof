@@ -4,21 +4,18 @@ use crate::aux::join_calc_s_and_beta;
 use hardcore_equitizer::Equitizer;
 
 pub fn alpha4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
-    let (p1, eq1) = equitizer.query_prob_and_eq("AKs", "ATs");
-    let (p2, eq2) = equitizer.query_prob_and_eq("AKs", "AKo");
-    let (p0, eq0) = equitizer.query_prob_and_eq("AKs", "AA,AKs,A5s");
-    let (p4, eq4) = equitizer.query_prob_and_eq("KK", "ATs");
-    let (p5, eq5) = equitizer.query_prob_and_eq("KK", "AKo");
-    let (p3, eq3) = equitizer.query_prob_and_eq("KK", "AA,AKs,A5s");
+    let p_and_eq_0 = equitizer.query_prob_and_eq("AKs", "AA,AKs,A5s");
+    let p_and_eq_1 = equitizer.query_prob_and_eq("AKs", "ATs");
+    let p_and_eq_2 = equitizer.query_prob_and_eq("AKs", "AKo");
+    let p_and_eq_3 = equitizer.query_prob_and_eq("KK", "AA,AKs,A5s");
+    let p_and_eq_4 = equitizer.query_prob_and_eq("KK", "ATs");
+    let p_and_eq_5 = equitizer.query_prob_and_eq("KK", "AKo");
 
-    // println!("n1={}", p1 * 50.0 * 49.0 / 2.0);
-    // println!("n2={}", p2 * 50.0 * 49.0 / 2.0);
-    // println!("n3={}", p3 * 50.0 * 49.0 / 2.0);
-    // println!("n4={}", p4 * 50.0 * 49.0 / 2.0);
-    // println!("n5={}", p5 * 50.0 * 49.0 / 2.0);
-    // println!("n6={}", p6 * 50.0 * 49.0 / 2.0);
-
-    calc_alpha_pair((p0, eq0, p1, eq1, p2, eq2), (p3, eq3, p4, eq4, p5, eq5), s)
+    calc_alpha_pair(
+        (p_and_eq_0, p_and_eq_1, p_and_eq_2),
+        (p_and_eq_3, p_and_eq_4, p_and_eq_5),
+        s,
+    )
 }
 
 pub fn beta4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {

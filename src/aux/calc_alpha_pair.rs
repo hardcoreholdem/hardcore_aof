@@ -1,8 +1,8 @@
 use super::solve_linear_eq::solve_linear_eq;
 
 pub fn calc_alpha_pair(
-    (p0, eq0, p1, eq1, p2, eq2): (f64, f64, f64, f64, f64, f64),
-    (p3, eq3, p4, eq4, p5, eq5): (f64, f64, f64, f64, f64, f64),
+    ((p0, eq0), (p1, eq1), (p2, eq2)): ((f64, f64), (f64, f64), (f64, f64)),
+    ((p3, eq3), (p4, eq4), (p5, eq5)): ((f64, f64), (f64, f64), (f64, f64)),
     s: f64,
 ) -> (f64, f64) {
     // ax + by + c = 0
