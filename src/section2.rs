@@ -1,4 +1,5 @@
 use super::all_combos::calc_all_combos;
+use super::calc_beta::calc_beta;
 use super::section1::f1;
 use hardcore_equitizer::Equitizer;
 
@@ -26,14 +27,6 @@ fn alpha1(equitizer: &mut Equitizer, s: f64) -> f64 {
     let p2 = equitizer.query_prob("AKs", "A5s");
     let eq2 = equitizer.query_eq("AKs", "A5s");
     calc_alpha_old(p1, eq1, p2, eq2, s)
-}
-
-pub fn calc_beta(p1: f64, eq1: f64, p2: f64, eq2: f64, s: f64) -> f64 {
-    // a x + b = 0
-    let a = p2 * (eq2 * (2.0 * s + 1.0) - s) - p2;
-    let b = p1 * (eq1 * (2.0 * s + 1.0) - s) + 1.0 - p1;
-
-    -b / a
 }
 
 fn beta1(equitizer: &mut Equitizer, s: f64) -> f64 {
@@ -83,10 +76,7 @@ pub fn section2(equitizer: &mut Equitizer) {
     println!("beta1(s1)={:.15}%", beta1(equitizer, s1) * 100.0);
 
     {
-        println!(
-            "AA ({:.2}%)",
-            equitizer.query_prob("", "AA") * 100.0
-        );
+        println!("AA ({:.2}%)", equitizer.query_prob("", "AA") * 100.0);
         println!(
             "AA,ATs ({:.2}%)",
             equitizer.query_prob("", "AA,ATs") * 100.0

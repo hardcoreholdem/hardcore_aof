@@ -2,6 +2,7 @@ use std::panic;
 
 use hardcore_equitizer::Equitizer;
 
+use super::calc_beta::calc_beta;
 use crate::section2::calc_alpha_new;
 use crate::section5::alpha4;
 use crate::section5::beta4;
@@ -38,6 +39,13 @@ fn alpha5(equitizer: &mut Equitizer, s: f64) -> f64 {
     calc_alpha_new((p1, eq1), (p2, eq2), s)
 }
 
+fn beta5(equitizer: &mut Equitizer, s: f64) -> f64 {
+    let (p0, eq0) = equitizer.query_prob_and_eq("AKo", "AA");
+    let (p1, eq1) = equitizer.query_prob_and_eq("AKo", "KK");
+
+    calc_beta(p0, eq0, p1, eq1, s)
+}
+
 pub fn section6(equitizer: &mut Equitizer) {
     println!("# section 6");
 
@@ -63,4 +71,6 @@ pub fn section6(equitizer: &mut Equitizer) {
     println!("s5: {:.2}", s5);
 
     println!("alpha5(s5): {:.2}%", alpha5(equitizer, s5) * 100.0);
+
+    println!("beta5(s5): {:.2}%", beta5(equitizer, s5) * 100.0);
 }

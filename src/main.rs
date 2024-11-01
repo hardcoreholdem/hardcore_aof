@@ -2,6 +2,7 @@ use hardcore_equitizer::Equitizer;
 use hardcore_equitizer::HandRanker;
 
 pub mod all_combos;
+pub mod calc_beta;
 pub mod section1;
 pub mod section2;
 pub mod section3;
