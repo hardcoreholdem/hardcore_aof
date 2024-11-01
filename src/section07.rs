@@ -1,10 +1,6 @@
+use crate::aux::calc_alpha;
+use crate::aux::join_calc_s_and_beta;
 use hardcore_equitizer::Equitizer;
-
-// use crate::section7::alpha6;
-
-use super::calc_alpha::calc_alpha;
-use super::section06::beta6;
-use crate::join_calc_s_and_beta::join_calc_s_and_beta;
 
 pub fn section07(equitizer: &mut Equitizer) {
     // for s in [318.0, 315.0, 310.0, 300.0] {

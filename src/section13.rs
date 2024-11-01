@@ -1,9 +1,9 @@
-use super::calc_alpha::calc_alpha;
-use super::calc_beta::calc_beta;
-use super::calc_s::calc_s;
-use super::format::pretty_s;
+use crate::aux::calc_alpha;
+use crate::aux::calc_beta;
+use crate::aux::calc_s;
+use crate::aux::join_calc_s_and_beta;
 use crate::format::pretty_percent;
-use crate::join_calc_s_and_beta::join_calc_s_and_beta;
+use crate::format::pretty_s;
 use crate::search::binary_search;
 use crate::section12::beta12;
 use hardcore_equitizer::Equitizer;

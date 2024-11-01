@@ -1,6 +1,5 @@
+use crate::aux::join_calc_s_and_beta;
 use hardcore_equitizer::Equitizer;
-
-use crate::join_calc_s_and_beta::join_calc_s_and_beta;
 
 pub fn det2(
     (a, b): (f64, f64), // first row

@@ -1,8 +1,8 @@
-use super::calc_alpha::calc_alpha;
-use super::calc_beta::calc_beta;
-use super::calc_s::calc_s;
-use super::format::pretty_s;
+use crate::aux::calc_alpha;
+use crate::aux::calc_beta;
+use crate::aux::calc_s;
 use crate::format::pretty_percent;
+use crate::format::pretty_s;
 use hardcore_equitizer::Equitizer;
 
 pub fn section12(equitizer: &mut Equitizer) {

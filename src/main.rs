@@ -1,12 +1,9 @@
 use hardcore_equitizer::Equitizer;
 use hardcore_equitizer::HandRanker;
 
-mod calc_alpha;
-mod calc_beta;
-mod calc_s;
+mod aux;
 mod combos;
 mod format;
-mod join_calc_s_and_beta;
 mod search;
 mod section00;
 mod section01;

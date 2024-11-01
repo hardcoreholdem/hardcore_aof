@@ -1,6 +1,6 @@
 use hardcore_equitizer::Equitizer;
 
-use crate::calc_s::calc_s;
+use crate::aux::calc_s;
 
 pub fn section00(equitizer: &mut Equitizer) {
     println!("# section 1");

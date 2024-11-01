@@ -1,4 +1,4 @@
-use super::calc_beta::calc_beta;
+use super::aux::calc_beta;
 use super::section01::calc_alpha_old;
 use hardcore_equitizer::Equitizer;
 

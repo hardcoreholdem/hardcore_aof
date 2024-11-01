@@ -1,5 +1,5 @@
-use super::calc_beta::calc_beta;
-use super::calc_s::calc_s;
+use super::aux::calc_beta;
+use super::aux::calc_s;
 use super::combos::calc_all_combos;
 use hardcore_equitizer::Equitizer;
 

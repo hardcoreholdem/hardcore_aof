@@ -1,4 +1,4 @@
-use super::calc_s::calc_s;
+use super::aux::calc_s;
 use super::format::pretty_s;
 use hardcore_equitizer::Equitizer;
 
