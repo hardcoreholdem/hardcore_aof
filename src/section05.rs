@@ -18,7 +18,6 @@ fn search_s_for_beta4_equals_0(equitizer: &mut Equitizer, mut low: f64, mut high
     for _ in 0..100 {
         let mid = (high + low) / 2.0;
 
-        #[allow(non_snake_case)]
         let beta4 = calc_beta4(equitizer, mid);
 
         match beta4.aks.signum() {
@@ -52,7 +51,6 @@ pub fn section05(equitizer: &mut Equitizer) {
     let (s4, _) = calc_s4_and_beta(equitizer);
 
     for s in [s4, 465.0, 460.0, 450.0, 440.0, 430.0, 420.0, 410.0, 400.0] {
-        #[allow(non_snake_case)]
         let alpha4 = calc_alpha4(equitizer, s);
         println!(
             "s: {:.2}, alpha4_ATs: {}, alpha4_AKo: {}",
@@ -61,7 +59,6 @@ pub fn section05(equitizer: &mut Equitizer) {
             pretty_percent(alpha4.ako)
         );
 
-        #[allow(non_snake_case)]
         let beta4 = calc_beta4(equitizer, s);
         println!("beta4_AKs: {}", pretty_percent(beta4.aks));
         println!("beta4_KK: {}", pretty_percent(beta4.kk));

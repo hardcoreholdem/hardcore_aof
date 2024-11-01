@@ -14,16 +14,14 @@ pub fn section14(equitizer: &mut Equitizer) {
     let s14 = search_s14_for_ev_qq_equals_0(equitizer);
     println!("s14={}", pretty_s(s14));
 
-    #[allow(non_snake_case)]
-    let (alpha_A3s, alpha_TT) = calc_alpha13(equitizer, s14);
-    println!("alpha_A3s={}", pretty_percent(alpha_A3s));
-    println!("alpha_TT={}", pretty_percent(alpha_TT));
+    let alpha13 = calc_alpha13(equitizer, s14);
+    println!("alpha_A3s={}", pretty_percent(alpha13.a3s));
+    println!("alpha_TT={}", pretty_percent(alpha13.tt));
     println!("");
 
-    #[allow(non_snake_case)]
-    let (beta_AKo, beta_JJ) = calc_beta13(equitizer, s14);
-    println!("beta_AKo={}", pretty_percent(beta_AKo));
-    println!("beta_JJ={}", pretty_percent(beta_JJ));
+    let beta = calc_beta13(equitizer, s14);
+    println!("beta_AKo={}", pretty_percent(beta.ako));
+    println!("beta_JJ={}", pretty_percent(beta.jj));
     println!("");
 
     #[allow(non_snake_case)]
@@ -47,8 +45,8 @@ fn search_s14_for_ev_qq_equals_0(equitizer: &mut Equitizer) -> f64 {
     let p_and_eq_2 = equitizer.query_prob_and_eq("QQ", "JJ");
 
     let f = |s| {
-        let (beta_1, beta_2) = calc_beta13(equitizer, s);
-        calc_ev_two_betas(p_and_eq_0, p_and_eq_1, p_and_eq_2, beta_1, beta_2, s)
+        let beta = calc_beta13(equitizer, s);
+        calc_ev_two_betas(p_and_eq_0, p_and_eq_1, p_and_eq_2, beta.ako, beta.jj, s)
     };
 
     binary_search(0.0, 300.0, f)
