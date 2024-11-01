@@ -1,16 +1,9 @@
 use hardcore_equitizer::Equitizer;
 
-pub fn f1(p: f64, eq: f64) -> f64 {
-    // a s + b = 0
-    let a = p * (eq * 2.0 - 1.0);
-    let b = p * eq + 1.0 - p;
-    -b / a
-}
+use crate::calc_s::calc_s;
 
 pub fn section0(equitizer: &mut Equitizer) {
     println!("# section 1");
-
-    const C_50_2: f64 = 50.0 * 49.0 / 2.0;
 
     let all_combos = {
         let mut combos: Vec<String> = Vec::new();
@@ -48,7 +41,7 @@ pub fn section0(equitizer: &mut Equitizer) {
 
     println!(
         "s(65s;AA)={:.2}",
-        f1(
+        calc_s(
             equitizer.query_prob("65s", "AA"),
             equitizer.query_eq("65s", "AA")
         )
@@ -70,7 +63,7 @@ pub fn section0(equitizer: &mut Equitizer) {
         println!("");
     }
 
-    let s0 = f1(
+    let s0 = calc_s(
         equitizer.query_prob("ATs", "AA"),
         equitizer.query_eq("ATs", "AA"),
     );
@@ -88,14 +81,8 @@ pub fn section0(equitizer: &mut Equitizer) {
             .collect::<Vec<_>>();
         combo_and_eq_vs_attacker.sort_by(|(_, eq1), (_, eq2)| eq2.partial_cmp(eq1).unwrap());
 
-        let mut cum_num_combos = 0.0;
         for (combo, eq) in combo_and_eq_vs_attacker.iter().take(5) {
-            cum_num_combos += equitizer.query_avg_num_combos(attacker_range, combo);
-            println!(
-                "EQ[{combo};{attacker_range}]={:.2}%, 累计占比={:.2}%",
-                eq * 100.0,
-                cum_num_combos as f64 / C_50_2 * 100.0
-            );
+            println!("EQ[{combo};{attacker_range}]={:.2}%", eq * 100.0,);
         }
         println!("");
     }

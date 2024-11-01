@@ -1,6 +1,6 @@
-use super::all_combos::calc_all_combos;
 use super::calc_beta::calc_beta;
-use super::section0::f1;
+use super::calc_s::calc_s;
+use super::combos::calc_all_combos;
 use hardcore_equitizer::Equitizer;
 
 pub fn calc_alpha_old(p1: f64, eq1: f64, p2: f64, eq2: f64, s: f64) -> f64 {
@@ -39,7 +39,7 @@ pub fn section1(equitizer: &mut Equitizer) {
 
     const C_50_2: f64 = 50.0 * 49.0 / 2.0;
 
-    let s1 = f1(
+    let s1 = calc_s(
         equitizer.query_prob("A5s", "AA"),
         equitizer.query_eq("A5s", "AA"),
     );
@@ -56,14 +56,8 @@ pub fn section1(equitizer: &mut Equitizer) {
             .collect::<Vec<_>>();
         combo_and_eq_vs_attacker.sort_by(|(_, eq1), (_, eq2)| eq2.partial_cmp(eq1).unwrap());
 
-        let mut cum_num_combos = 0.0;
         for (combo, eq) in combo_and_eq_vs_attacker.iter().take(5) {
-            cum_num_combos += equitizer.query_avg_num_combos(attacker_range, combo);
-            println!(
-                "EQ[{combo};{attacker_range}]={:.2}%, 累计占比={:.2}%",
-                eq * 100.0,
-                cum_num_combos as f64 / C_50_2 * 100.0
-            );
+            println!("EQ[{combo};{attacker_range}]={:.2}%", eq * 100.0,);
         }
         println!("");
     }

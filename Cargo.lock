@@ -107,9 +107,9 @@ dependencies = [
 
 [[package]]
 name = "hardcore_equitizer"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd8d0027e2f75c818251e2536d7ff0840bd31749b10d129a7d1803ebb20ee380"
+checksum = "18ff8b355c4ce9543582f2570105ca6406c482a8700a16918e2dd4e89001ef36"
 dependencies = [
  "permutohedron",
 ]

@@ -10,10 +10,10 @@ use crate::section4::calc_s4_and_beta;
 
 fn search_s_for_beta4_equals_0(equitizer: &mut Equitizer, mut low: f64, mut high: f64) -> f64 {
     if beta4(equitizer, low).0 >= 0.0 {
-        panic!("beta4(equitizer, low).0 <= 0");
+        panic!("!(beta4(equitizer, low).0 < 0)");
     }
     if beta4(equitizer, high).0 <= 0.0 {
-        panic!("beta4(equitizer, high).0 >= 0.0");
+        panic!("!(beta4(equitizer, high).0 > 0.0)");
     }
 
     for _ in 0..100 {
