@@ -4,8 +4,8 @@ use crate::format::pretty_percent;
 
 use super::format::pretty_s;
 use super::search::binary_search;
-use super::section6::beta6;
-use super::section7::alpha7;
+use super::section06::beta6;
+use super::section07::alpha7;
 
 pub fn section8(equitizer: &mut Equitizer) {
     println!("# section 8");

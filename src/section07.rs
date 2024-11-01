@@ -4,7 +4,7 @@ use hardcore_equitizer::Equitizer;
 
 use super::calc_alpha::calc_alpha;
 use super::calc_beta::join_calc_s_and_beta;
-use super::section6::beta6;
+use super::section06::beta6;
 
 pub fn section7(equitizer: &mut Equitizer) {
     // for s in [318.0, 315.0, 310.0, 300.0] {

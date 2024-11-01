@@ -1,5 +1,5 @@
 use super::calc_beta::calc_beta;
-use super::section1::calc_alpha_old;
+use super::section01::calc_alpha_old;
 use hardcore_equitizer::Equitizer;
 
 const C_50_2: f64 = 1225.0;

@@ -1,6 +1,6 @@
 use hardcore_equitizer::Equitizer;
 
-use super::section1::calc_alpha_old;
+use super::section01::calc_alpha_old;
 
 fn inv_beta2(equitizer: &mut Equitizer, beta: f64) -> f64 {
     #[allow(non_snake_case)]

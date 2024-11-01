@@ -3,10 +3,10 @@ use std::panic;
 use hardcore_equitizer::Equitizer;
 
 use super::calc_beta::calc_beta;
-use crate::section1::calc_alpha_new;
-use crate::section4::alpha4;
-use crate::section4::beta4;
-use crate::section4::calc_s4_and_beta;
+use crate::section01::calc_alpha_new;
+use crate::section04::alpha4;
+use crate::section04::beta4;
+use crate::section04::calc_s4_and_beta;
 
 fn search_s_for_beta4_equals_0(equitizer: &mut Equitizer, mut low: f64, mut high: f64) -> f64 {
     if beta4(equitizer, low).0 >= 0.0 {
