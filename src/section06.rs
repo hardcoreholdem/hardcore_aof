@@ -1,5 +1,6 @@
 use super::calc_alpha::calc_alpha;
-use super::calc_beta::{calc_beta, join_calc_s_and_beta};
+use super::calc_beta::calc_beta;
+use crate::join_calc_s_and_beta::join_calc_s_and_beta;
 use hardcore_equitizer::Equitizer;
 
 pub fn section06(equitizer: &mut Equitizer) {

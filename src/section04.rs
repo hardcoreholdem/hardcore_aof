@@ -1,6 +1,6 @@
 use hardcore_equitizer::Equitizer;
 
-use crate::calc_beta::join_calc_s_and_beta;
+use crate::join_calc_s_and_beta::join_calc_s_and_beta;
 
 pub fn det2(
     (a, b): (f64, f64), // first row
@@ -104,6 +104,7 @@ pub fn beta4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
 }
 
 pub fn calc_s4_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
+    // TODO: refactor
     let (p1, eq1, p2, eq2) = (
         equitizer.query_prob("ATs", "AA"),
         equitizer.query_eq("ATs", "AA"),

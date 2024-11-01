@@ -6,6 +6,7 @@ mod calc_beta;
 mod calc_s;
 mod combos;
 mod format;
+mod join_calc_s_and_beta;
 mod search;
 mod section00;
 mod section01;
@@ -20,6 +21,7 @@ mod section09;
 mod section10;
 mod section11;
 mod section12;
+mod section13;
 
 use clap::Parser;
 use section00::section00;
@@ -35,6 +37,7 @@ use section09::section09;
 use section10::section10;
 use section11::section11;
 use section12::section12;
+use section13::section13;
 
 #[derive(Parser)]
 struct Cli {
@@ -67,6 +70,7 @@ fn main() {
         10 => section10(&mut equitizer),
         11 => section11(&mut equitizer),
         12 => section12(&mut equitizer),
+        13 => section13(&mut equitizer),
         _ => panic!("invalid section"),
     }
 }
