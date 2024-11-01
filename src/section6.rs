@@ -19,6 +19,7 @@ fn search_s_for_beta4_equals_0(equitizer: &mut Equitizer, mut low: f64, mut high
     for _ in 0..100 {
         let mid = (high + low) / 2.0;
 
+        #[allow(non_snake_case)]
         let (beta4_AKs, _) = beta4(equitizer, mid);
 
         match beta4_AKs.signum() {

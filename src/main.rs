@@ -11,6 +11,7 @@ pub mod section4;
 pub mod section5;
 pub mod section6;
 mod section7;
+mod section8;
 
 use section1::section1;
 use section2::section2;
@@ -19,6 +20,7 @@ use section4::section4;
 use section5::section5;
 use section6::section6;
 use section7::section7;
+use section8::section8;
 
 use clap::Parser;
 
@@ -44,6 +46,7 @@ fn main() {
         5 => section5(&mut equitizer),
         6 => section6(&mut equitizer),
         7 => section7(&mut equitizer),
+        8 => section8(&mut equitizer),
         _ => panic!("invalid section"),
     }
 }

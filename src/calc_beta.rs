@@ -51,11 +51,13 @@ pub fn join_calc_s_and_beta(
         _ => panic!("no unique beta"),
     };
 
-    let s = -(b * beta + d) / (a * beta + c);
-    let s_prime = -(f * beta + h) / (e * beta + g); // TODO: avoid using _prime
-    if (s - s_prime).abs() > 1e-9 {
+    let s1 = -(b * beta + d) / (a * beta + c);
+    let s2 = -(f * beta + h) / (e * beta + g);
+    if (s1 - s2).abs() > 1e-9 {
         panic!("s != s'");
     }
+
+    let s = (s1 + s2) / 2.0;
 
     (s, beta)
 }
