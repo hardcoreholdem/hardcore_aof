@@ -7,7 +7,7 @@ fn calc_s6_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
     let (p2, eq2) = equitizer.query_prob_and_eq("AKo", "AA");
     let (p3, eq3) = equitizer.query_prob_and_eq("AKo", "KK");
 
-    join_calc_s_and_beta((p0, eq0, p1, eq1), (p2, eq2, p3, eq3))
+    join_calc_s_and_beta(((p0, eq0), (p1, eq1)), ((p2, eq2), (p3, eq3)))
 }
 
 pub fn section7(equitizer: &mut Equitizer) {

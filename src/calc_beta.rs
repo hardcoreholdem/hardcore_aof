@@ -14,8 +14,8 @@ pub fn calc_beta(
 pub fn join_calc_s_and_beta(
     // p0 (eq0 (2s+1) - s) + β p1 (eq1 (2s+1) - s) + (1 - p0 - βp1) = 0
     // p2 (eq2 (2s+1) - s) + β p3 (eq3 (2s+1) - s) + (1 - p2 - βp3) = 0
-    (p0, eq0, p1, eq1): (f64, f64, f64, f64),
-    (p2, eq2, p3, eq3): (f64, f64, f64, f64),
+    ((p0, eq0), (p1, eq1)): ((f64, f64), (f64, f64)),
+    ((p2, eq2), (p3, eq3)): ((f64, f64), (f64, f64)),
 ) -> (f64, f64) {
     // a βs + b β + c s + d = 0
     let a = p1 * (eq1 * 2.0 - 1.0);

@@ -117,7 +117,7 @@ pub fn calc_s4_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
         equitizer.query_eq("AKo", "AKs"),
     );
 
-    join_calc_s_and_beta((p1, eq1, p2, eq2), (p3, eq3, p4, eq4))
+    join_calc_s_and_beta(((p1, eq1), (p2, eq2)), ((p3, eq3), (p4, eq4)))
 }
 
 pub fn section5(equitizer: &mut Equitizer) {
