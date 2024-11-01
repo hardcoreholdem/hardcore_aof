@@ -10,6 +10,8 @@ mod search;
 mod section0;
 mod section1;
 mod section10;
+mod section11;
+mod section12;
 mod section2;
 mod section3;
 mod section4;
@@ -23,6 +25,8 @@ use clap::Parser;
 use section0::section0;
 use section1::section1;
 use section10::section10;
+use section11::section11;
+use section12::section12;
 use section2::section2;
 use section3::section3;
 use section4::section4;
@@ -46,6 +50,9 @@ fn main() {
 
     let cli = Cli::parse();
 
+    println!("section {}", cli.section);
+    println!("");
+
     match cli.section {
         0 => section0(&mut equitizer),
         1 => section1(&mut equitizer),
@@ -58,6 +65,8 @@ fn main() {
         8 => section8(&mut equitizer),
         9 => section9(&mut equitizer),
         10 => section10(&mut equitizer),
+        11 => section11(&mut equitizer),
+        12 => section12(&mut equitizer),
         _ => panic!("invalid section"),
     }
 }

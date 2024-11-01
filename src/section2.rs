@@ -67,7 +67,7 @@ pub fn section2(equitizer: &mut Equitizer) {
         }
     }
 
-    let beta_A5s_eq_ATs = {
+    let beta_a5s_eq_ats = {
         // ax + b = 0
         let a = equitizer.query_prob("A5s", "AKs") * equitizer.query_eq("A5s", "AKs")
             - equitizer.query_prob("ATs", "AKs") * equitizer.query_eq("ATs", "AKs");
@@ -75,15 +75,15 @@ pub fn section2(equitizer: &mut Equitizer) {
             - equitizer.query_prob("ATs", "AA") * equitizer.query_eq("ATs", "AA");
         -b / a
     };
-    println!("beta_A5s_eq_ATs={:.2}%", beta_A5s_eq_ATs * 100.0);
+    println!("beta_A5s_eq_ATs={:.2}%", beta_a5s_eq_ats * 100.0);
 
-    let s2 = inv_beta1(equitizer, beta_A5s_eq_ATs);
+    let s2 = inv_beta1(equitizer, beta_a5s_eq_ats);
 
     println!("s2=inv_beta1={:.2}", s2);
     println!("");
 
     {
-        let ratio = beta_A5s_eq_ATs;
+        let ratio = beta_a5s_eq_ats;
         let mut combo_and_eq_vec = Vec::new();
         for combo in [
             "AKs", "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s", "A5s", "A4s", "A3s", "A2s",

@@ -41,10 +41,7 @@ pub fn section0(equitizer: &mut Equitizer) {
 
     println!(
         "s(65s;AA)={:.2}",
-        calc_s(
-            equitizer.query_prob("65s", "AA"),
-            equitizer.query_eq("65s", "AA")
-        )
+        calc_s(equitizer.query_prob_and_eq("65s", "AA"),)
     );
 
     {
@@ -63,10 +60,7 @@ pub fn section0(equitizer: &mut Equitizer) {
         println!("");
     }
 
-    let s0 = calc_s(
-        equitizer.query_prob("ATs", "AA"),
-        equitizer.query_eq("ATs", "AA"),
-    );
+    let s0 = calc_s(equitizer.query_prob_and_eq("ATs", "AA"));
 
     println!("s0=s(ATs;AA)={:.2}", s0);
 

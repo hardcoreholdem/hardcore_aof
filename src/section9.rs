@@ -8,6 +8,6 @@ pub fn section9(equitizer: &mut Equitizer) {
 }
 
 fn calc_s9(equitizer: &mut Equitizer) -> f64 {
-    let (p, eq) = equitizer.query_prob_and_eq("A4s", "KK+");
-    calc_s(p, eq)
+    let p_and_eq = equitizer.query_prob_and_eq("A4s", "KK+");
+    calc_s(p_and_eq)
 }

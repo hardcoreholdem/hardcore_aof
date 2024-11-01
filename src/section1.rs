@@ -34,14 +34,7 @@ fn beta1(equitizer: &mut Equitizer, s: f64) -> f64 {
 }
 
 pub fn section1(equitizer: &mut Equitizer) {
-    println!("# section 2");
-
-    const C_50_2: f64 = 50.0 * 49.0 / 2.0;
-
-    let s1 = calc_s(
-        equitizer.query_prob("A5s", "AA"),
-        equitizer.query_eq("A5s", "AA"),
-    );
+    let s1 = calc_s(equitizer.query_prob_and_eq("A5s", "AA"));
     println!("s1=s(A5s;AA)={:.2}", s1);
 
     {
