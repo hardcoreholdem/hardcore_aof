@@ -3,8 +3,6 @@ use super::calc_beta::calc_beta;
 use super::section1::f1;
 use hardcore_equitizer::Equitizer;
 
-const C_50_2: f64 = 50.0 * 49.0 / 2.0;
-
 pub fn calc_alpha_old(p1: f64, eq1: f64, p2: f64, eq2: f64, s: f64) -> f64 {
     // a x + b = 0
     let a = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
