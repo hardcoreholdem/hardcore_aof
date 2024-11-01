@@ -2,7 +2,7 @@ use hardcore_equitizer::Equitizer;
 
 use crate::format::pretty_percent;
 
-use super::format::pretty_f64;
+use super::format::pretty_s;
 use super::search::binary_search;
 use super::section6::beta6;
 use super::section7::alpha7;
@@ -16,7 +16,7 @@ pub fn section8(equitizer: &mut Equitizer) {
     for s in [315.0, 310.0, 305.0, 300.0, 295.0, s8] {
         println!(
             "s: {}, alpha7: {}, beta6: {}",
-            pretty_f64(s),
+            pretty_s(s),
             pretty_percent(alpha7(equitizer, s)),
             pretty_percent(beta6(equitizer, s)),
         );

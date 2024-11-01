@@ -1,4 +1,4 @@
-pub fn pretty_f64(v: f64) -> String {
+pub fn pretty_s(v: f64) -> String {
     let rounded = v.round();
     if (v - rounded).abs() < 1e-9 {
         format!("{:.0}", rounded)
