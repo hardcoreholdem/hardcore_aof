@@ -1,91 +1,111 @@
-use super::all_combos::calc_all_combos;
 use super::calc_beta::calc_beta;
-use super::section1::f1;
+use super::section1::calc_alpha_old;
 use hardcore_equitizer::Equitizer;
 
-pub fn calc_alpha_old(p1: f64, eq1: f64, p2: f64, eq2: f64, s: f64) -> f64 {
-    // a x + b = 0
-    let a = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
-    let b = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;
+const C_50_2: f64 = 1225.0;
+
+fn inv_beta1(equitizer: &mut Equitizer, beta: f64) -> f64 {
+    #[allow(non_snake_case)]
+    let prob_A5s_vs_AA = equitizer.query_prob("A5s", "AA");
+
+    #[allow(non_snake_case)]
+    let eq_A5s_vs_AA = equitizer.query_eq("A5s", "AA");
+
+    #[allow(non_snake_case)]
+    let prob_A5s_vs_AKs = equitizer.query_prob("A5s", "AKs");
+
+    #[allow(non_snake_case)]
+    let eq_A5s_vs_AKs = equitizer.query_eq("A5s", "AKs");
+
+    // a s + b = 0
+    let a = prob_A5s_vs_AA * (eq_A5s_vs_AA * 2.0 - 1.0)
+        + beta * prob_A5s_vs_AKs * (eq_A5s_vs_AKs * 2.0 - 1.0);
+
+    let b = prob_A5s_vs_AA * eq_A5s_vs_AA + beta * prob_A5s_vs_AKs * eq_A5s_vs_AKs + 1.0
+        - prob_A5s_vs_AA
+        - beta * prob_A5s_vs_AKs;
 
     -b / a
 }
 
-pub fn calc_alpha_new((p1, eq1): (f64, f64), (p2, eq2): (f64, f64), s: f64) -> f64 {
-    // a x + b = 0
-    let a = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;
-    let b = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
-
-    -b / a
+fn alpha2(equitizer: &mut Equitizer, s: f64) -> f64 {
+    let p1 = equitizer.query_prob("AKs", "AA,A5s");
+    let eq1 = equitizer.query_eq("AKs", "AA,A5s");
+    let n2 = equitizer.query_prob("AKs", "ATs");
+    let p2 = equitizer.query_eq("AKs", "ATs");
+    calc_alpha_old(p1, eq1, n2, p2, s)
 }
 
-fn alpha1(equitizer: &mut Equitizer, s: f64) -> f64 {
-    let p1 = equitizer.query_prob("AKs", "AA,ATs");
-    let eq1 = equitizer.query_eq("AKs", "AA,ATs");
-    let p2 = equitizer.query_prob("AKs", "A5s");
-    let eq2 = equitizer.query_eq("AKs", "A5s");
-    calc_alpha_old(p1, eq1, p2, eq2, s)
-}
-
-fn beta1(equitizer: &mut Equitizer, s: f64) -> f64 {
-    let (p0, eq0) = equitizer.query_prob_and_eq("A5s", "AA");
-    let (p1, eq1) = equitizer.query_prob_and_eq("A5s", "AKs");
-    let eq1 = equitizer.query_eq("A5s", "AKs");
+fn beta2(equitizer: &mut Equitizer, s: f64) -> f64 {
+    let (p0, eq0) = equitizer.query_prob_and_eq("ATs", "AA");
+    let (p1, eq1) = equitizer.query_prob_and_eq("ATs", "AKs");
     calc_beta((p0, eq0), (p1, eq1), s)
 }
 
-pub fn section2(equitizer: &mut Equitizer) {
-    println!("# section 2");
+pub fn section3(equitizer: &mut Equitizer) {
+    println!("# section 3");
 
-    const C_50_2: f64 = 50.0 * 49.0 / 2.0;
-    const C_52_2: f64 = 52.0 * 51.0 / 2.0;
+    for ratio in (0..6).map(|i| i as f64 / 100.0) {
+        let mut combo_and_eq_vec = Vec::new();
+        for combo in [
+            "AKs", "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s", "A5s", "A4s", "A3s", "A2s",
+        ]
+        .iter()
+        {
+            let p1 = equitizer.query_prob(&combo, "AA");
+            let eq1 = equitizer.query_eq(&combo, "AA");
+            let p2 = equitizer.query_prob(&combo, "AKs");
+            let eq2 = equitizer.query_eq(&combo, "AKs");
+            let eq = (eq1 * p1 + eq2 * p2 * ratio) / (p1 + p2 * ratio);
+            combo_and_eq_vec.push((combo, eq));
+        }
+        combo_and_eq_vec.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
 
-    let s1 = f1(
-        equitizer.query_prob("A5s", "AA"),
-        equitizer.query_eq("A5s", "AA"),
-    );
-    println!("s1=s(A5s;AA)={:.2}", s1);
+        println!("ratio={:.2}", ratio);
+        for (combo, eq) in combo_and_eq_vec.iter().take(5) {
+            println!("{:?}: {:.2}%", combo, eq * 100.0);
+        }
+    }
+
+    let beta_A5s_eq_ATs = {
+        // ax + b = 0
+        let a = equitizer.query_prob("A5s", "AKs") * equitizer.query_eq("A5s", "AKs")
+            - equitizer.query_prob("ATs", "AKs") * equitizer.query_eq("ATs", "AKs");
+        let b = equitizer.query_prob("A5s", "AA") * equitizer.query_eq("A5s", "AA")
+            - equitizer.query_prob("ATs", "AA") * equitizer.query_eq("ATs", "AA");
+        -b / a
+    };
+    println!("beta_A5s_eq_ATs={:.2}%", beta_A5s_eq_ATs * 100.0);
+
+    let s2 = inv_beta1(equitizer, beta_A5s_eq_ATs);
+
+    println!("s2=inv_beta1={:.2}", s2);
+    println!("");
 
     {
-        let attacker_range = "AA,ATs,A5s";
+        let ratio = beta_A5s_eq_ATs;
+        let mut combo_and_eq_vec = Vec::new();
+        for combo in [
+            "AKs", "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s", "A5s", "A4s", "A3s", "A2s",
+        ]
+        .iter()
+        {
+            let p1 = equitizer.query_prob(&combo, "AA");
+            let eq1 = equitizer.query_eq(&combo, "AA");
+            let p2 = equitizer.query_prob(&combo, "AKs");
+            let eq2 = equitizer.query_eq(&combo, "AKs");
+            let eq = (eq1 * p1 + eq2 * p2 * ratio) / (p1 + p2 * ratio);
+            combo_and_eq_vec.push((combo, eq));
+        }
+        combo_and_eq_vec.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
 
-        let all_combos = calc_all_combos();
-
-        let mut combo_and_eq_vs_attacker = all_combos
-            .iter()
-            .map(|c| (c, equitizer.query_eq(c, attacker_range)))
-            .collect::<Vec<_>>();
-        combo_and_eq_vs_attacker.sort_by(|(_, eq1), (_, eq2)| eq2.partial_cmp(eq1).unwrap());
-
-        let mut cum_num_combos = 0.0;
-        for (combo, eq) in combo_and_eq_vs_attacker.iter().take(5) {
-            cum_num_combos += equitizer.query_avg_num_combos(attacker_range, combo);
-            println!(
-                "EQ[{combo};{attacker_range}]={:.2}%, 累计占比={:.2}%",
-                eq * 100.0,
-                cum_num_combos as f64 / C_50_2 * 100.0
-            );
+        println!("ratio={:.2}%", ratio * 100.0);
+        for (combo, eq) in combo_and_eq_vec.iter().take(5) {
+            println!("{:?}: {:.2}%", combo, eq * 100.0);
         }
         println!("");
     }
 
-    println!("alpha1(s1)={:.2}%", alpha1(equitizer, s1) * 100.0);
-    println!("beta1(s1)={:.15}%", beta1(equitizer, s1) * 100.0);
-
-    {
-        println!("AA ({:.2}%)", equitizer.query_prob("", "AA") * 100.0);
-        println!(
-            "AA,ATs ({:.2}%)",
-            equitizer.query_prob("", "AA,ATs") * 100.0
-        );
-
-        let p_AA_ATs = equitizer.query_prob("", "AA,ATs");
-        let p_A5s = equitizer.query_prob("", "A5s");
-        println!(
-            "AA,ATs,A5s:alpha ({:.2}%)",
-            (p_AA_ATs + p_A5s * alpha1(equitizer, s1)) * 100.0
-        );
-    }
-
-    println!();
+    println!("alpha2(s2)={:.2}%", alpha2(equitizer, s2) * 100.0);
+    println!("beta2(s2)={:.2}%", beta2(equitizer, s2) * 100.0);
 }

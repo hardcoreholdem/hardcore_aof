@@ -1,37 +1,30 @@
-use super::calc_alpha::calc_alpha;
-use super::calc_beta::{calc_beta, join_calc_s_and_beta};
 use hardcore_equitizer::Equitizer;
 
-pub fn section7(equitizer: &mut Equitizer) {
-    println!("# section 7");
+// use crate::section7::alpha6;
 
-    let (s6, beta) = s6_and_beta(equitizer);
+use super::calc_beta::join_calc_s_and_beta;
+use super::section6::beta6;
 
-    println!("s: {:.2}", s6);
-    println!("beta: {:.2}%", beta * 100.0);
-
-    println!("alpha6(s6): {:.2}%", alpha6(equitizer, s6) * 100.0);
-}
-
-fn s6_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
-    let (p0, eq0) = equitizer.query_prob_and_eq("A5s", "AA");
-    let (p1, eq1) = equitizer.query_prob_and_eq("A5s", "KK");
-    let (p2, eq2) = equitizer.query_prob_and_eq("AKo", "AA");
-    let (p3, eq3) = equitizer.query_prob_and_eq("AKo", "KK");
+fn s7_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
+    let (p0, eq0) = equitizer.query_prob_and_eq("KK", "AA");
+    let (p1, eq1) = equitizer.query_prob_and_eq("KK", "KK");
+    let (p2, eq2) = equitizer.query_prob_and_eq("A5s", "AA");
+    let (p3, eq3) = equitizer.query_prob_and_eq("A5s", "KK");
 
     join_calc_s_and_beta(((p0, eq0), (p1, eq1)), ((p2, eq2), (p3, eq3)))
 }
 
-pub fn beta6(equitizer: &mut Equitizer, s: f64) -> f64 {
-    let (p0, eq0) = equitizer.query_prob_and_eq("A5s", "AA");
-    let (p1, eq1) = equitizer.query_prob_and_eq("A5s", "KK");
+pub fn section8(equitizer: &mut Equitizer) {
+    println!("# section 8");
 
-    calc_beta((p0, eq0), (p1, eq1), s)
-}
+    // for s in [318.0, 315.0, 310.0, 300.0] {
+    //     println!("s: {}", s);
+    //     println!("alpha6(s): {:.2}%", alpha6(equitizer, s) * 100.0);
+    //     //        println!("beta6(): {:.2}%", beta6(equitizer, s) * 100);
+    // }
 
-pub fn alpha6(equitizer: &mut Equitizer, s: f64) -> f64 {
-    let (p0, eq0) = equitizer.query_prob_and_eq("KK", "AA,AK");
-    let (p1, eq1) = equitizer.query_prob_and_eq("KK", "A5s");
+    let (s7, beta) = s7_and_beta(equitizer);
 
-    calc_alpha((p0, eq0), (p1, eq1), s)
+    println!("s: {:.2}", s7);
+    println!("beta: {:.2}%", beta * 100.0);
 }
