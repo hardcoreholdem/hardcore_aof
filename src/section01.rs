@@ -66,11 +66,11 @@ pub fn section01(equitizer: &mut Equitizer) {
             equitizer.query_prob("", "AA,ATs") * 100.0
         );
 
-        let p_AA_ATs = equitizer.query_prob("", "AA,ATs");
-        let p_A5s = equitizer.query_prob("", "A5s");
+        let p_aa_ats = equitizer.query_prob("", "AA,ATs");
+        let p_a5s = equitizer.query_prob("", "A5s");
         println!(
             "AA,ATs,A5s:alpha ({:.2}%)",
-            (p_AA_ATs + p_A5s * alpha1(equitizer, s1)) * 100.0
+            (p_aa_ats + p_a5s * alpha1(equitizer, s1)) * 100.0
         );
     }
 
