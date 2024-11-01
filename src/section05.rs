@@ -1,15 +1,17 @@
 use crate::aux::calc_beta;
+use crate::format::pretty_percent;
 use crate::section01::calc_alpha_new;
-use crate::section04::alpha4;
-use crate::section04::beta4;
+use crate::section04::calc_alpha4;
+use crate::section04::calc_beta4;
 use crate::section04::calc_s4_and_beta;
 use hardcore_equitizer::Equitizer;
 
 fn search_s_for_beta4_equals_0(equitizer: &mut Equitizer, mut low: f64, mut high: f64) -> f64 {
-    if beta4(equitizer, low).0 >= 0.0 {
+    // TODO: use the universal search fn
+    if calc_beta4(equitizer, low).aks >= 0.0 {
         panic!("!(beta4(equitizer, low).0 < 0)");
     }
-    if beta4(equitizer, high).0 <= 0.0 {
+    if calc_beta4(equitizer, high).aks <= 0.0 {
         panic!("!(beta4(equitizer, high).0 > 0.0)");
     }
 
@@ -17,9 +19,9 @@ fn search_s_for_beta4_equals_0(equitizer: &mut Equitizer, mut low: f64, mut high
         let mid = (high + low) / 2.0;
 
         #[allow(non_snake_case)]
-        let (beta4_AKs, _) = beta4(equitizer, mid);
+        let beta4 = calc_beta4(equitizer, mid);
 
-        match beta4_AKs.signum() {
+        match beta4.aks.signum() {
             0.0 => return mid,
             1.0 => high = mid,
             -1.0 => low = mid,
@@ -51,18 +53,18 @@ pub fn section05(equitizer: &mut Equitizer) {
 
     for s in [s4, 465.0, 460.0, 450.0, 440.0, 430.0, 420.0, 410.0, 400.0] {
         #[allow(non_snake_case)]
-        let (alpha4_ATs, alpha4_AKo) = alpha4(equitizer, s);
+        let alpha4 = calc_alpha4(equitizer, s);
         println!(
-            "s: {:.2}, alpha4_ATs: {:.2}%, alpha4_AKo: {:.2}%",
+            "s: {:.2}, alpha4_ATs: {}, alpha4_AKo: {}",
             s,
-            alpha4_ATs * 100.0,
-            alpha4_AKo * 100.0
+            pretty_percent(alpha4.ats),
+            pretty_percent(alpha4.ako)
         );
 
         #[allow(non_snake_case)]
-        let (beta4_AKs, beta4_KK) = beta4(equitizer, s);
-        println!("beta4_AKs: {:.2}%", beta4_AKs * 100.0);
-        println!("beta4_KK: {:.2}%", beta4_KK * 100.0);
+        let beta4 = calc_beta4(equitizer, s);
+        println!("beta4_AKs: {}", pretty_percent(beta4.aks));
+        println!("beta4_KK: {}", pretty_percent(beta4.kk));
     }
 
     println!("s4: {:.2}", s4);
@@ -70,7 +72,7 @@ pub fn section05(equitizer: &mut Equitizer) {
     let s5 = search_s_for_beta4_equals_0(equitizer, 0.0, s4);
     println!("s5: {:.2}", s5);
 
-    println!("alpha5(s5): {:.2}%", alpha5(equitizer, s5) * 100.0);
+    println!("alpha5(s5): {}", pretty_percent(alpha5(equitizer, s5)));
 
-    println!("beta5(s5): {:.2}%", beta5(equitizer, s5) * 100.0);
+    println!("beta5(s5): {}", pretty_percent(beta5(equitizer, s5)));
 }

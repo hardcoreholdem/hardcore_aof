@@ -26,14 +26,13 @@ pub fn section00(equitizer: &mut Equitizer) {
     };
 
     {
-        #[allow(non_snake_case)]
-        let mut combo_and_eq_vs_AA = all_combos
+        let mut combo_and_eq_vs_aa = all_combos
             .iter()
             .map(|c| (c, equitizer.query_eq(c, "AA")))
             .collect::<Vec<_>>();
-        combo_and_eq_vs_AA.sort_by(|(_, eq1), (_, eq2)| eq2.partial_cmp(eq1).unwrap());
+        combo_and_eq_vs_aa.sort_by(|(_, eq1), (_, eq2)| eq2.partial_cmp(eq1).unwrap());
 
-        for (combo, eq) in combo_and_eq_vs_AA.iter().take(10) {
+        for (combo, eq) in combo_and_eq_vs_aa.iter().take(10) {
             println!("EQ[{combo};AA]={:.2}%", eq * 100.0,);
         }
         println!("");
@@ -45,16 +44,15 @@ pub fn section00(equitizer: &mut Equitizer) {
     );
 
     {
-        #[allow(non_snake_case)]
-        let mut combo_and_eq_vs_AA = [
+        let mut combo_and_eq_vs_aa = [
             "AKs", "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s", "A5s", "A4s", "A3s", "A2s",
         ]
         .iter()
         .map(|c| (c, equitizer.query_eq(c, "AA")))
         .collect::<Vec<_>>();
-        combo_and_eq_vs_AA.sort_by(|(_, eq1), (_, eq2)| eq2.partial_cmp(eq1).unwrap());
+        combo_and_eq_vs_aa.sort_by(|(_, eq1), (_, eq2)| eq2.partial_cmp(eq1).unwrap());
 
-        for (combo, eq) in combo_and_eq_vs_AA.iter().take(5) {
+        for (combo, eq) in combo_and_eq_vs_aa.iter().take(5) {
             println!("EQ[{combo};AA]={:.2}%", eq * 100.0,);
         }
         println!("");
@@ -68,7 +66,6 @@ pub fn section00(equitizer: &mut Equitizer) {
 
     {
         let attacker_range = "AA,ATs";
-        #[allow(non_snake_case)]
         let mut combo_and_eq_vs_attacker = all_combos
             .iter()
             .map(|c| (c, equitizer.query_eq(c, attacker_range)))

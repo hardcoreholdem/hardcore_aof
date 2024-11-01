@@ -3,25 +3,21 @@ use hardcore_equitizer::Equitizer;
 use super::section01::calc_alpha_old;
 
 fn inv_beta2(equitizer: &mut Equitizer, beta: f64) -> f64 {
-    #[allow(non_snake_case)]
-    let prob_ATs_vs_AA = equitizer.query_prob("ATs", "AA");
+    // TODO: use query_prob_and_eq
+    let prob_ats_vs_aa = equitizer.query_prob("ATs", "AA");
+    let eq_ats_vs_aa = equitizer.query_eq("ATs", "AA");
 
-    #[allow(non_snake_case)]
-    let eq_ATs_vs_AA = equitizer.query_eq("ATs", "AA");
-
-    #[allow(non_snake_case)]
-    let prob_ATs_vs_AKs = equitizer.query_prob("ATs", "AKs");
-
-    #[allow(non_snake_case)]
-    let eq_ATs_vs_AKs = equitizer.query_eq("ATs", "AKs");
+    // TODO: use query_prob_and_eq
+    let prob_ats_vs_aks = equitizer.query_prob("ATs", "AKs");
+    let eq_ats_vs_aks = equitizer.query_eq("ATs", "AKs");
 
     // a s + b = 0
-    let a = prob_ATs_vs_AA * (eq_ATs_vs_AA * 2.0 - 1.0)
-        + beta * prob_ATs_vs_AKs * (eq_ATs_vs_AKs * 2.0 - 1.0);
+    let a = prob_ats_vs_aa * (eq_ats_vs_aa * 2.0 - 1.0)
+        + beta * prob_ats_vs_aks * (eq_ats_vs_aks * 2.0 - 1.0);
 
-    let b = prob_ATs_vs_AA * eq_ATs_vs_AA + beta * prob_ATs_vs_AKs * eq_ATs_vs_AKs + 1.0
-        - prob_ATs_vs_AA
-        - beta * prob_ATs_vs_AKs;
+    let b = prob_ats_vs_aa * eq_ats_vs_aa + beta * prob_ats_vs_aks * eq_ats_vs_aks + 1.0
+        - prob_ats_vs_aa
+        - beta * prob_ats_vs_aks;
 
     -b / a
 }
@@ -60,8 +56,8 @@ pub fn section03(equitizer: &mut Equitizer) {
         }
     }
 
-    #[allow(non_snake_case)]
-    let beta_AKs_eq_ATs = {
+    // TODO: use other methods to calculate beta_AKs_eq_ATs
+    let beta_aks_eq_ats = {
         // ax + b = 0
         let a = equitizer.query_prob("AKs", "AKs") * equitizer.query_eq("AKs", "AKs")
             - equitizer.query_prob("ATs", "AKs") * equitizer.query_eq("ATs", "AKs");
@@ -70,13 +66,13 @@ pub fn section03(equitizer: &mut Equitizer) {
         -b / a
     };
 
-    println!("beta_AKs_eq_ATs={:.2}%", beta_AKs_eq_ATs * 100.0);
+    println!("beta_AKs_eq_ATs={:.2}%", beta_aks_eq_ats * 100.0);
 
-    let s3 = inv_beta2(equitizer, beta_AKs_eq_ATs);
+    let s3 = inv_beta2(equitizer, beta_aks_eq_ats);
     println!("s3=inv_beta2={:.2}", s3);
 
     {
-        let ratio = beta_AKs_eq_ATs;
+        let ratio = beta_aks_eq_ats;
         let mut combo_and_eq_vec = Vec::new();
         for combo in [
             "AKs", "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s", "A5s", "A4s", "A3s", "A2s",

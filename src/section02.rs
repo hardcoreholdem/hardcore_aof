@@ -2,33 +2,28 @@ use super::aux::calc_beta;
 use super::section01::calc_alpha_old;
 use hardcore_equitizer::Equitizer;
 
-const C_50_2: f64 = 1225.0;
-
 fn inv_beta1(equitizer: &mut Equitizer, beta: f64) -> f64 {
-    #[allow(non_snake_case)]
-    let prob_A5s_vs_AA = equitizer.query_prob("A5s", "AA");
+    // TODO: rename to p_and_eq_xxx
+    let prob_a5s_vs_a = equitizer.query_prob("A5s", "AA");
+    let eq_a5s_vs_aa = equitizer.query_eq("A5s", "AA");
 
-    #[allow(non_snake_case)]
-    let eq_A5s_vs_AA = equitizer.query_eq("A5s", "AA");
-
-    #[allow(non_snake_case)]
-    let prob_A5s_vs_AKs = equitizer.query_prob("A5s", "AKs");
-
-    #[allow(non_snake_case)]
-    let eq_A5s_vs_AKs = equitizer.query_eq("A5s", "AKs");
+    // TODO: rename to p_and_eq_xxx
+    let prob_a5s_vs_aks = equitizer.query_prob("A5s", "AKs");
+    let eq_a5s_vs_aks = equitizer.query_eq("A5s", "AKs");
 
     // a s + b = 0
-    let a = prob_A5s_vs_AA * (eq_A5s_vs_AA * 2.0 - 1.0)
-        + beta * prob_A5s_vs_AKs * (eq_A5s_vs_AKs * 2.0 - 1.0);
+    let a = prob_a5s_vs_a * (eq_a5s_vs_aa * 2.0 - 1.0)
+        + beta * prob_a5s_vs_aks * (eq_a5s_vs_aks * 2.0 - 1.0);
 
-    let b = prob_A5s_vs_AA * eq_A5s_vs_AA + beta * prob_A5s_vs_AKs * eq_A5s_vs_AKs + 1.0
-        - prob_A5s_vs_AA
-        - beta * prob_A5s_vs_AKs;
+    let b = prob_a5s_vs_a * eq_a5s_vs_aa + beta * prob_a5s_vs_aks * eq_a5s_vs_aks + 1.0
+        - prob_a5s_vs_a
+        - beta * prob_a5s_vs_aks;
 
     -b / a
 }
 
 fn alpha2(equitizer: &mut Equitizer, s: f64) -> f64 {
+    // TODO: use query_prob_and_eq
     let p1 = equitizer.query_prob("AKs", "AA,A5s");
     let eq1 = equitizer.query_eq("AKs", "AA,A5s");
     let n2 = equitizer.query_prob("AKs", "ATs");

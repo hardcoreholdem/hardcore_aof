@@ -1,9 +1,15 @@
 use crate::aux::calc_alpha_2d;
 use crate::aux::calc_beta_2d;
 use crate::aux::join_calc_s_and_beta;
+use crate::format::pretty_percent;
 use hardcore_equitizer::Equitizer;
 
-pub fn alpha4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
+pub struct Alpha4 {
+    pub ats: f64,
+    pub ako: f64,
+}
+
+pub fn calc_alpha4(equitizer: &mut Equitizer, s: f64) -> Alpha4 {
     let p_and_eq_0 = equitizer.query_prob_and_eq("AKs", "AA,AKs,A5s");
     let p_and_eq_1 = equitizer.query_prob_and_eq("AKs", "ATs");
     let p_and_eq_2 = equitizer.query_prob_and_eq("AKs", "AKo");
@@ -11,14 +17,23 @@ pub fn alpha4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     let p_and_eq_4 = equitizer.query_prob_and_eq("KK", "ATs");
     let p_and_eq_5 = equitizer.query_prob_and_eq("KK", "AKo");
 
-    calc_alpha_2d(
+    let (ats, ako) = calc_alpha_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,
-    )
+    );
+
+    Alpha4 { ats, ako }
 }
 
-pub fn beta4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
+// TODO: rename all beta* to calc_beta*
+
+pub struct Beta4 {
+    pub aks: f64,
+    pub kk: f64,
+}
+
+pub fn calc_beta4(equitizer: &mut Equitizer, s: f64) -> Beta4 {
     let (p1, eq1) = equitizer.query_prob_and_eq("ATs", "AKs");
     let (p2, eq2) = equitizer.query_prob_and_eq("ATs", "KK");
     let (p0, eq0) = equitizer.query_prob_and_eq("ATs", "AA");
@@ -26,11 +41,13 @@ pub fn beta4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     let (p5, eq5) = equitizer.query_prob_and_eq("AKo", "KK");
     let (p3, eq3) = equitizer.query_prob_and_eq("AKo", "AA");
 
-    calc_beta_2d(
+    let (aks, kk) = calc_beta_2d(
         ((p0, eq0), (p1, eq1), (p2, eq2)),
         ((p3, eq3), (p4, eq4), (p5, eq5)),
         s,
-    )
+    );
+
+    Beta4 { aks, kk }
 }
 
 pub fn calc_s4_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
@@ -116,14 +133,12 @@ pub fn section04(equitizer: &mut Equitizer) {
         println!("");
     }
 
-    #[allow(non_snake_case)]
-    let (alpha4_ATs, alpha4_AKo) = alpha4(equitizer, s4);
+    let alpha4 = calc_alpha4(equitizer, s4);
 
-    println!("alpha4_ATs: {:.2}%", alpha4_ATs * 100.0);
-    println!("alpha4_AKo: {:.2}%", alpha4_AKo * 100.0);
+    println!("alpha4_ATs: {}", pretty_percent(alpha4.ats));
+    println!("alpha4_AKo: {}", pretty_percent(alpha4.ako));
 
-    #[allow(non_snake_case)]
-    let (beta4_AKs, beta4_KK) = beta4(equitizer, s4);
-    println!("beta4_AKs: {:.2}%", beta4_AKs * 100.0);
-    println!("beta4_KK: {:.2}%", beta4_KK * 100.0);
+    let beta4 = calc_beta4(equitizer, s4);
+    println!("beta4_AKs: {}", pretty_percent(beta4.aks));
+    println!("beta4_KK: {}", pretty_percent(beta4.kk));
 }
