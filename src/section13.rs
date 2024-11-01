@@ -1,5 +1,5 @@
-use crate::aux::calc_alpha_pair;
-use crate::aux::calc_beta_pair;
+use crate::aux::calc_alpha_2d;
+use crate::aux::calc_beta_2d;
 use crate::aux::join_calc_s_and_beta;
 use crate::format::pretty_percent;
 use crate::format::pretty_s;
@@ -17,14 +17,14 @@ pub fn section13(equitizer: &mut Equitizer) {
     println!("beta: {}", pretty_percent(beta));
 
     #[allow(non_snake_case)]
-    let (alpha_AKo, alpha_JJ) = alpha13(equitizer, s13);
-    println!("alpha_AKo: {}", pretty_percent(alpha_AKo));
-    println!("alpha_JJ: {}", pretty_percent(alpha_JJ));
+    let (alpha_A3s, alpha_TT) = calc_alpha13(equitizer, s13);
+    println!("alpha_A3s: {}", pretty_percent(alpha_A3s));
+    println!("alpha_TT: {}", pretty_percent(alpha_TT));
 
     #[allow(non_snake_case)]
-    let (beta_AKo, beta_TT) = beta13(equitizer, s13);
+    let (beta_AKo, beta_JJ) = calc_beta13(equitizer, s13);
     println!("beta_AKo: {}", pretty_percent(beta_AKo));
-    println!("beta_TT: {}", pretty_percent(beta_TT));
+    println!("beta_JJ: {}", pretty_percent(beta_JJ));
 }
 
 fn search_s_for_beta_12_equals_1(equitizer: &mut Equitizer) -> f64 {
@@ -41,7 +41,7 @@ pub fn calc_s13_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
     join_calc_s_and_beta((p_and_eq_0, p_and_eq_1), (p_and_eq_2, p_and_eq_3))
 }
 
-fn alpha13(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
+pub fn calc_alpha13(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     let p_and_eq_0 = equitizer.query_prob_and_eq("AKo", "KK+,AK,ATs,A5s,A4s");
     let p_and_eq_1 = equitizer.query_prob_and_eq("AKo", "A3s");
     let p_and_eq_2 = equitizer.query_prob_and_eq("AKo", "TT");
@@ -50,16 +50,16 @@ fn alpha13(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     let p_and_eq_5 = equitizer.query_prob_and_eq("JJ", "TT");
 
     #[allow(non_snake_case)]
-    let (alpha_AKo, alpha_JJ) = calc_alpha_pair(
+    let (alpha_A3s, alpha_TT) = calc_alpha_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,
     );
 
-    (alpha_AKo, alpha_JJ)
+    (alpha_A3s, alpha_TT)
 }
 
-fn beta13(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
+pub fn calc_beta13(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     let p_and_eq_0 = equitizer.query_prob_and_eq("A3s", "KK+,AKs");
     let p_and_eq_1 = equitizer.query_prob_and_eq("A3s", "AKo");
     let p_and_eq_2 = equitizer.query_prob_and_eq("A3s", "JJ");
@@ -68,7 +68,7 @@ fn beta13(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     let p_and_eq_5 = equitizer.query_prob_and_eq("TT", "JJ");
 
     #[allow(non_snake_case)]
-    let (beta_AKo, beta_TT) = calc_beta_pair(
+    let (beta_AKo, beta_TT) = calc_beta_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,

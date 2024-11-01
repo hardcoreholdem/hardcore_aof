@@ -1,6 +1,6 @@
-use super::solve_linear_eq::solve_linear_eq;
+use super::solve_linear_eq::solve_linear_eq_2d;
 
-pub fn calc_alpha_pair(
+pub fn calc_alpha_2d(
     ((p0, eq0), (p1, eq1), (p2, eq2)): ((f64, f64), (f64, f64), (f64, f64)),
     ((p3, eq3), (p4, eq4), (p5, eq5)): ((f64, f64), (f64, f64), (f64, f64)),
     s: f64,
@@ -15,5 +15,5 @@ pub fn calc_alpha_pair(
     let e = p5 * eq5 * (2.0 * s + 1.0) - p5 * s;
     let f = p3 * eq3 * (2.0 * s + 1.0) - p3 * s;
 
-    solve_linear_eq((a, b, c), (d, e, f))
+    solve_linear_eq_2d((a, b, c), (d, e, f))
 }

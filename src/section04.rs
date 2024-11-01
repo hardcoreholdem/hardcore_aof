@@ -1,5 +1,5 @@
-use crate::aux::calc_alpha_pair;
-use crate::aux::calc_beta_pair;
+use crate::aux::calc_alpha_2d;
+use crate::aux::calc_beta_2d;
 use crate::aux::join_calc_s_and_beta;
 use hardcore_equitizer::Equitizer;
 
@@ -11,7 +11,7 @@ pub fn alpha4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     let p_and_eq_4 = equitizer.query_prob_and_eq("KK", "ATs");
     let p_and_eq_5 = equitizer.query_prob_and_eq("KK", "AKo");
 
-    calc_alpha_pair(
+    calc_alpha_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,
@@ -26,7 +26,7 @@ pub fn beta4(equitizer: &mut Equitizer, s: f64) -> (f64, f64) {
     let (p5, eq5) = equitizer.query_prob_and_eq("AKo", "KK");
     let (p3, eq3) = equitizer.query_prob_and_eq("AKo", "AA");
 
-    calc_beta_pair(
+    calc_beta_2d(
         ((p0, eq0), (p1, eq1), (p2, eq2)),
         ((p3, eq3), (p4, eq4), (p5, eq5)),
         s,
