@@ -14,7 +14,7 @@ fn s7_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
     join_calc_s_and_beta(((p0, eq0), (p1, eq1)), ((p2, eq2), (p3, eq3)))
 }
 
-pub fn section8(equitizer: &mut Equitizer) {
+pub fn section7(equitizer: &mut Equitizer) {
     println!("# section 8");
 
     // for s in [318.0, 315.0, 310.0, 300.0] {

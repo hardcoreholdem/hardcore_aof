@@ -47,7 +47,7 @@ fn beta5(equitizer: &mut Equitizer, s: f64) -> f64 {
     calc_beta((p0, eq0), (p1, eq1), s)
 }
 
-pub fn section6(equitizer: &mut Equitizer) {
+pub fn section5(equitizer: &mut Equitizer) {
     println!("# section 6");
 
     let (s4, _) = calc_s4_and_beta(equitizer);

@@ -42,7 +42,7 @@ fn beta2(equitizer: &mut Equitizer, s: f64) -> f64 {
     calc_beta((p0, eq0), (p1, eq1), s)
 }
 
-pub fn section3(equitizer: &mut Equitizer) {
+pub fn section2(equitizer: &mut Equitizer) {
     println!("# section 3");
 
     for ratio in (0..6).map(|i| i as f64 / 100.0) {

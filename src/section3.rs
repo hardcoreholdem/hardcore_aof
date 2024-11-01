@@ -35,7 +35,7 @@ fn alpha3(equitizer: &mut Equitizer, s3: f64) -> f64 {
     calc_alpha_old(p1, eq1, p2, eq2, s3)
 }
 
-pub fn section4(equitizer: &mut Equitizer) {
+pub fn section3(equitizer: &mut Equitizer) {
     println!("# section 4");
 
     for ratio in (4..7).map(|i| i as f64 / 100.0) {

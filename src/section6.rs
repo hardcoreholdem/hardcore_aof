@@ -2,7 +2,7 @@ use super::calc_alpha::calc_alpha;
 use super::calc_beta::{calc_beta, join_calc_s_and_beta};
 use hardcore_equitizer::Equitizer;
 
-pub fn section7(equitizer: &mut Equitizer) {
+pub fn section6(equitizer: &mut Equitizer) {
     println!("# section 7");
 
     let (s6, beta) = s6_and_beta(equitizer);

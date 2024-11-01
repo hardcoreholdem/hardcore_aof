@@ -1,7 +1,5 @@
 use hardcore_equitizer::Equitizer;
 
-const C_50_2: f64 = 50.0 * 49.0 / 2.0;
-
 pub fn f1(p: f64, eq: f64) -> f64 {
     // a s + b = 0
     let a = p * (eq * 2.0 - 1.0);
@@ -9,11 +7,10 @@ pub fn f1(p: f64, eq: f64) -> f64 {
     -b / a
 }
 
-pub fn section1(equitizer: &mut Equitizer) {
+pub fn section0(equitizer: &mut Equitizer) {
     println!("# section 1");
 
     const C_50_2: f64 = 50.0 * 49.0 / 2.0;
-    const C_52_2: f64 = 52.0 * 51.0 / 2.0;
 
     let all_combos = {
         let mut combos: Vec<String> = Vec::new();
