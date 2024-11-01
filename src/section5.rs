@@ -1,51 +1,6 @@
 use hardcore_equitizer::Equitizer;
 
-pub fn join_calc_s_and_beta(
-    (p1, eq1, p2, eq2): (f64, f64, f64, f64),
-    (p3, eq3, p4, eq4): (f64, f64, f64, f64),
-) -> (f64, f64) {
-    // a βs + b β + c s + d = 0
-    let a = p2 * (eq2 * 2.0 - 1.0);
-    let b = p2 * eq2 - p2 * 1.0;
-    let c = p1 * (eq1 * 2.0 - 1.0);
-    let d = p1 * eq1 + (1.0 - p1) * 1.0;
-
-    // e βs + f β + g s + h = 0
-    let e = p4 * (eq4 * 2.0 - 1.0);
-    let f = p4 * eq4 - p4 * 1.0;
-    let g = p3 * (eq3 * 2.0 - 1.0);
-    let h = p3 * eq3 + (1.0 - p3) * 1.0;
-
-    // A β^2 + B β + C = 0
-    #[allow(non_snake_case)]
-    let A = b * e - a * f;
-    #[allow(non_snake_case)]
-    let B = b * g + d * e - a * h - c * f;
-    #[allow(non_snake_case)]
-    let C = d * g - c * h;
-
-    #[allow(non_snake_case)]
-    let Delta = B * B - 4.0 * A * C;
-    #[allow(non_snake_case)]
-    let sqrt_Delta = Delta.sqrt();
-
-    let beta1 = (-B + sqrt_Delta) / (2.0 * A);
-    let beta2 = (-B - sqrt_Delta) / (2.0 * A);
-
-    let beta = match (0.0 <= beta1 && beta1 <= 1.0, 0.0 <= beta2 && beta2 <= 1.0) {
-        (true, false) => beta1,
-        (false, true) => beta2,
-        _ => panic!("no unique beta"),
-    };
-
-    let s = -(b * beta + d) / (a * beta + c);
-    let s_prime = -(f * beta + h) / (e * beta + g);
-    if (s - s_prime).abs() > 1e-9 {
-        panic!("s != s'");
-    }
-
-    (s, beta)
-}
+use crate::calc_beta::join_calc_s_and_beta;
 
 pub fn det2(
     (a, b): (f64, f64), // first row

@@ -37,11 +37,9 @@ fn alpha2(equitizer: &mut Equitizer, s: f64) -> f64 {
 }
 
 fn beta2(equitizer: &mut Equitizer, s: f64) -> f64 {
-    let p1 = equitizer.query_prob("ATs", "AA");
-    let eq1 = equitizer.query_eq("ATs", "AA");
-    let p2 = equitizer.query_prob("ATs", "AKs");
-    let eq2 = equitizer.query_eq("ATs", "AKs");
-    calc_beta(p1, eq1, p2, eq2, s)
+    let (p0, eq0) = equitizer.query_prob_and_eq("ATs", "AA");
+    let (p1, eq1) = equitizer.query_prob_and_eq("ATs", "AKs");
+    calc_beta((p0, eq0), (p1, eq1), s)
 }
 
 pub fn section3(equitizer: &mut Equitizer) {

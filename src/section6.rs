@@ -43,7 +43,7 @@ fn beta5(equitizer: &mut Equitizer, s: f64) -> f64 {
     let (p0, eq0) = equitizer.query_prob_and_eq("AKo", "AA");
     let (p1, eq1) = equitizer.query_prob_and_eq("AKo", "KK");
 
-    calc_beta(p0, eq0, p1, eq1, s)
+    calc_beta((p0, eq0), (p1, eq1), s)
 }
 
 pub fn section6(equitizer: &mut Equitizer) {
@@ -52,6 +52,7 @@ pub fn section6(equitizer: &mut Equitizer) {
     let (s4, _) = calc_s4_and_beta(equitizer);
 
     for s in [s4, 465.0, 460.0, 450.0, 440.0, 430.0, 420.0, 410.0, 400.0] {
+        #[allow(non_snake_case)]
         let (alpha4_ATs, alpha4_AKo) = alpha4(equitizer, s);
         println!(
             "s: {:.2}, alpha4_ATs: {:.2}%, alpha4_AKo: {:.2}%",
@@ -60,6 +61,7 @@ pub fn section6(equitizer: &mut Equitizer) {
             alpha4_AKo * 100.0
         );
 
+        #[allow(non_snake_case)]
         let (beta4_AKs, beta4_KK) = beta4(equitizer, s);
         println!("beta4_AKs: {:.2}%", beta4_AKs * 100.0);
         println!("beta4_KK: {:.2}%", beta4_KK * 100.0);
