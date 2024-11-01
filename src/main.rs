@@ -22,16 +22,16 @@ mod section11;
 mod section12;
 
 use clap::Parser;
-use section00::section0;
-use section01::section1;
-use section02::section2;
-use section03::section3;
-use section04::section4;
-use section05::section5;
-use section06::section6;
-use section07::section7;
-use section08::section8;
-use section09::section9;
+use section00::section00;
+use section01::section01;
+use section02::section02;
+use section03::section03;
+use section04::section04;
+use section05::section05;
+use section06::section06;
+use section07::section07;
+use section08::section08;
+use section09::section09;
 use section10::section10;
 use section11::section11;
 use section12::section12;
@@ -54,16 +54,16 @@ fn main() {
     println!("");
 
     match cli.section {
-        0 => section0(&mut equitizer),
-        1 => section1(&mut equitizer),
-        2 => section2(&mut equitizer),
-        3 => section3(&mut equitizer),
-        4 => section4(&mut equitizer),
-        5 => section5(&mut equitizer),
-        6 => section6(&mut equitizer),
-        7 => section7(&mut equitizer),
-        8 => section8(&mut equitizer),
-        9 => section9(&mut equitizer),
+        0 => section00(&mut equitizer),
+        1 => section01(&mut equitizer),
+        2 => section02(&mut equitizer),
+        3 => section03(&mut equitizer),
+        4 => section04(&mut equitizer),
+        5 => section05(&mut equitizer),
+        6 => section06(&mut equitizer),
+        7 => section07(&mut equitizer),
+        8 => section08(&mut equitizer),
+        9 => section09(&mut equitizer),
         10 => section10(&mut equitizer),
         11 => section11(&mut equitizer),
         12 => section12(&mut equitizer),

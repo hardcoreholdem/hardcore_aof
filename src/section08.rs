@@ -7,7 +7,7 @@ use super::search::binary_search;
 use super::section06::beta6;
 use super::section07::alpha7;
 
-pub fn section8(equitizer: &mut Equitizer) {
+pub fn section08(equitizer: &mut Equitizer) {
     println!("# section 8");
 
     let s8 = search_s8_for_beta6_equals_1(equitizer);

@@ -33,7 +33,7 @@ fn beta1(equitizer: &mut Equitizer, s: f64) -> f64 {
     calc_beta((p0, eq0), (p1, eq1), s)
 }
 
-pub fn section1(equitizer: &mut Equitizer) {
+pub fn section01(equitizer: &mut Equitizer) {
     let s1 = calc_s(equitizer.query_prob_and_eq("A5s", "AA"));
     println!("s1=s(A5s;AA)={:.2}", s1);
 

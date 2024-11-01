@@ -2,7 +2,7 @@ use super::calc_s::calc_s;
 use super::format::pretty_s;
 use hardcore_equitizer::Equitizer;
 
-pub fn section9(equitizer: &mut Equitizer) {
+pub fn section09(equitizer: &mut Equitizer) {
     let s9 = calc_s9(equitizer);
     println!("s9: {}", pretty_s(s9));
 }

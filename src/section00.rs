@@ -2,7 +2,7 @@ use hardcore_equitizer::Equitizer;
 
 use crate::calc_s::calc_s;
 
-pub fn section0(equitizer: &mut Equitizer) {
+pub fn section00(equitizer: &mut Equitizer) {
     println!("# section 1");
 
     let all_combos = {
