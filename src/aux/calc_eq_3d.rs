@@ -1,4 +1,5 @@
-pub fn calc_eq_3d(
+// TODO: rename file
+pub fn calc_eq_2d(
     (p0, eq0): (f64, f64),
     (p1, eq1): (f64, f64),
     (p2, eq2): (f64, f64),

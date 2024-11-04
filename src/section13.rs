@@ -21,8 +21,8 @@ pub fn section13(equitizer: &mut Equitizer) {
     println!("alpha_TT: {}", pretty_percent(alpha13.tt));
 
     let beta13 = calc_beta13(equitizer, s13);
-    println!("beta_AKo: {}", pretty_percent(beta13.ako));
-    println!("beta_JJ: {}", pretty_percent(beta13.jj));
+    println!("beta_AKo: {}", pretty_percent(beta13.ako_1));
+    println!("beta_JJ: {}", pretty_percent(beta13.jj_2));
 }
 
 fn search_s_for_beta_12_equals_1(equitizer: &mut Equitizer) -> f64 {
@@ -62,8 +62,8 @@ pub fn calc_alpha13(equitizer: &mut Equitizer, s: f64) -> Alpha13 {
 }
 
 pub struct Beta13 {
-    pub ako: f64,
-    pub jj: f64,
+    pub ako_1: f64,
+    pub jj_2: f64,
 }
 
 pub fn calc_beta13(equitizer: &mut Equitizer, s: f64) -> Beta13 {
@@ -80,5 +80,8 @@ pub fn calc_beta13(equitizer: &mut Equitizer, s: f64) -> Beta13 {
         s,
     );
 
-    Beta13 { ako, jj }
+    Beta13 {
+        ako_1: ako,
+        jj_2: jj,
+    }
 }

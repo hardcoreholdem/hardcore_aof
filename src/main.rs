@@ -4,6 +4,8 @@ use hardcore_equitizer::HandRanker;
 mod aux;
 mod combos;
 mod format;
+mod research_attacker;
+mod research_defender;
 mod search;
 mod section00;
 mod section01;
@@ -26,6 +28,7 @@ mod section17;
 mod section18;
 mod section19;
 mod section20;
+mod types;
 
 use clap::Parser;
 use section00::section00;

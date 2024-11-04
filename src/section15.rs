@@ -1,8 +1,8 @@
 use crate::aux::calc_alpha_2d;
 use crate::aux::calc_attacker_ev_2d;
 use crate::aux::calc_beta_2d;
+use crate::aux::calc_eq_2d;
 use crate::aux::calc_eq_3d;
-use crate::aux::calc_eq_4d;
 use crate::combos;
 use crate::format::pretty_percent;
 use crate::format::pretty_s;
@@ -39,9 +39,9 @@ pub fn section15(equitizer: &mut Equitizer) {
             let p_and_eq_1 = equitizer.query_prob_and_eq(&combo, defender_1);
             let p_and_eq_2 = equitizer.query_prob_and_eq(&combo, defender_2);
 
-            let eq = calc_eq_3d(p_and_eq_0, p_and_eq_1, p_and_eq_2, beta_1, beta_2);
+            let eq = calc_eq_2d(p_and_eq_0, p_and_eq_1, p_and_eq_2, beta_1, beta_2);
 
-            let ev = calc_attacker_ev_2d(p_and_eq_0, p_and_eq_1, p_and_eq_2, beta_1, beta_2, s15);
+            let ev = calc_attacker_ev_2d(p_and_eq_0, p_and_eq_1, beta_1, p_and_eq_2, beta_2, s15);
             // println!("{}: {}", combo, ev);
 
             combo_and_eq_and_ev_vec.push((combo, eq, ev));
@@ -73,7 +73,7 @@ pub fn section15(equitizer: &mut Equitizer) {
             let p_and_eq_2 = equitizer.query_prob_and_eq(&combo, attacker_2);
             let p_and_eq_3 = equitizer.query_prob_and_eq(&combo, attacker_3);
 
-            let eq = calc_eq_4d(
+            let eq = calc_eq_3d(
                 p_and_eq_0, p_and_eq_1, p_and_eq_2, p_and_eq_3, beta_1, beta_2, beta_3,
             );
 

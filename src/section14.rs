@@ -19,8 +19,8 @@ pub fn section14(equitizer: &mut Equitizer) {
     println!("");
 
     let beta = calc_beta13(equitizer, s14);
-    println!("beta_AKo={}", pretty_percent(beta.ako));
-    println!("beta_JJ={}", pretty_percent(beta.jj));
+    println!("beta_AKo={}", pretty_percent(beta.ako_1));
+    println!("beta_JJ={}", pretty_percent(beta.jj_2));
     println!("");
 
     let alpha = calc_alpha14(equitizer, s14);
@@ -41,7 +41,7 @@ fn search_s14_for_ev_qq_equals_0(equitizer: &mut Equitizer) -> f64 {
 
     let f = |s| {
         let beta = calc_beta13(equitizer, s);
-        calc_attacker_ev_2d(p_and_eq_0, p_and_eq_1, p_and_eq_2, beta.ako, beta.jj, s)
+        calc_attacker_ev_2d(p_and_eq_0, p_and_eq_1, beta.ako_1, p_and_eq_2, beta.jj_2, s)
     };
 
     binary_search(0.0, 300.0, f)

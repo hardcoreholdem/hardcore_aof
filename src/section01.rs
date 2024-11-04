@@ -4,38 +4,6 @@ use crate::combos::calc_all_combos;
 use crate::format::pretty_percent;
 use hardcore_equitizer::Equitizer;
 
-#[deprecated]
-pub fn calc_alpha_old(p1: f64, eq1: f64, p2: f64, eq2: f64, s: f64) -> f64 {
-    // a x + b = 0
-    let a = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
-    let b = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;
-
-    -b / a
-}
-
-#[deprecated]
-pub fn calc_alpha_new((p1, eq1): (f64, f64), (p2, eq2): (f64, f64), s: f64) -> f64 {
-    // a x + b = 0
-    let a = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;
-    let b = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
-
-    -b / a
-}
-
-fn calc_alpha1(equitizer: &mut Equitizer, s: f64) -> f64 {
-    let p1 = equitizer.query_prob("AKs", "AA,ATs");
-    let eq1 = equitizer.query_eq("AKs", "AA,ATs");
-    let p2 = equitizer.query_prob("AKs", "A5s");
-    let eq2 = equitizer.query_eq("AKs", "A5s");
-    calc_alpha_old(p1, eq1, p2, eq2, s)
-}
-
-fn calc_beta1(equitizer: &mut Equitizer, s: f64) -> f64 {
-    let (p0, eq0) = equitizer.query_prob_and_eq("A5s", "AA");
-    let (p1, eq1) = equitizer.query_prob_and_eq("A5s", "AKs");
-    calc_beta_1d((p0, eq0), (p1, eq1), s)
-}
-
 pub fn section01(equitizer: &mut Equitizer) {
     let s1 = calc_s(equitizer.query_prob_and_eq("A5s", "AA"));
     println!("s1=s(A5s;AA)={:.2}", s1);
@@ -76,4 +44,36 @@ pub fn section01(equitizer: &mut Equitizer) {
     }
 
     println!();
+}
+
+#[deprecated]
+pub fn calc_alpha_old(p1: f64, eq1: f64, p2: f64, eq2: f64, s: f64) -> f64 {
+    // a x + b = 0
+    let a = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
+    let b = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;
+
+    -b / a
+}
+
+#[deprecated]
+pub fn calc_alpha_new((p1, eq1): (f64, f64), (p2, eq2): (f64, f64), s: f64) -> f64 {
+    // a x + b = 0
+    let a = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;
+    let b = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
+
+    -b / a
+}
+
+fn calc_alpha1(equitizer: &mut Equitizer, s: f64) -> f64 {
+    let p1 = equitizer.query_prob("AKs", "AA,ATs");
+    let eq1 = equitizer.query_eq("AKs", "AA,ATs");
+    let p2 = equitizer.query_prob("AKs", "A5s");
+    let eq2 = equitizer.query_eq("AKs", "A5s");
+    calc_alpha_old(p1, eq1, p2, eq2, s)
+}
+
+fn calc_beta1(equitizer: &mut Equitizer, s: f64) -> f64 {
+    let (p0, eq0) = equitizer.query_prob_and_eq("A5s", "AA");
+    let (p1, eq1) = equitizer.query_prob_and_eq("A5s", "AKs");
+    calc_beta_1d((p0, eq0), (p1, eq1), s)
 }
