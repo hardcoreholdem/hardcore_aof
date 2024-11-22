@@ -3,19 +3,28 @@ use crate::combos;
 use crate::format::pretty_percent;
 use crate::types::S;
 use hardcore_equitizer::Equitizer;
+use hardcore_equitizer::Range;
 
 // 攻方的不同组合面对 attacker_0 + attacker_1:beta1, attacker_2:beta2 的 EQ
 // 2d表示两个自由度
 pub fn research_defender_2d(
     equitizer: &mut Equitizer,
     defender_0: &str,
-    defender_1: &str,
-    alpha_1: f64,
-    defender_2: &str,
-    alpha_2: f64,
+    (alpha_1, defender_1): (f64, &str),
+    (alpha_2, defender_2): (f64, &str),
     s: S,
     limit: usize,
 ) {
+    let range_0: Range = defender_0.into();
+    let range_1: Range = defender_1.into();
+    let range_2: Range = defender_2.into();
+    if !range_0.is_disjoint(&range_1)
+        || !range_0.is_disjoint(&range_2)
+        || !range_1.is_disjoint(&range_2)
+    {
+        panic!("defender ranges are not disjoint");
+    }
+
     println!(
         "EQ vs {defender_0},{defender_1}:{},{defender_2}:{}",
         pretty_percent(alpha_1),
@@ -24,11 +33,11 @@ pub fn research_defender_2d(
     let mut combo_and_eq_vec = Vec::new();
 
     for combo in combos::calc_all_combos() {
-        let p_and_eq_0 = equitizer.query_prob_and_eq(&combo, defender_0);
-        let p_and_eq_1 = equitizer.query_prob_and_eq(&combo, defender_1);
-        let p_and_eq_2 = equitizer.query_prob_and_eq(&combo, defender_2);
+        let (p_0, eq_0) = equitizer.query_prob_and_eq(&combo, defender_0);
+        let (p_1, eq_1) = equitizer.query_prob_and_eq(&combo, defender_1);
+        let (p_2, eq_2) = equitizer.query_prob_and_eq(&combo, defender_2);
 
-        let eq = aux::calc_eq_2d(p_and_eq_0, p_and_eq_1, p_and_eq_2, alpha_1, alpha_2);
+        let eq = aux::calc_eq_2d((p_0, eq_0), (alpha_1, p_1, eq_1), (alpha_2, p_2, eq_2));
 
         combo_and_eq_vec.push((combo, eq));
     }

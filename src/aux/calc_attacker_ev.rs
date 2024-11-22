@@ -1,10 +1,8 @@
 use crate::types::S;
 pub fn calc_attacker_ev_2d(
     (p_0, eq_0): (f64, f64),
-    beta_1: f64,
-    (p_1, eq_1): (f64, f64),
-    beta_2: f64,
-    (p_2, eq_2): (f64, f64),
+    (beta_1, p_1, eq_1): (f64, f64, f64),
+    (beta_2, p_2, eq_2): (f64, f64, f64),
     s: S,
 ) -> f64 {
     let s: f64 = s.into();

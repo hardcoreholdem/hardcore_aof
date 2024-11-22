@@ -36,12 +36,13 @@ pub fn section15(equitizer: &mut Equitizer) {
         let mut combo_and_eq_and_ev_vec = Vec::new();
 
         for combo in combos::calc_all_combos() {
-            let p_and_eq_0 = equitizer.query_prob_and_eq(&combo, defender_0);
-            let p_and_eq_1 = equitizer.query_prob_and_eq(&combo, defender_1);
-            let p_and_eq_2 = equitizer.query_prob_and_eq(&combo, defender_2);
+            let (p_0, eq_0) = equitizer.query_prob_and_eq(&combo, defender_0);
+            let (p_1, eq_1) = equitizer.query_prob_and_eq(&combo, defender_1);
+            let (p_2, eq_2) = equitizer.query_prob_and_eq(&combo, defender_2);
 
-            let eq = calc_eq_2d(p_and_eq_0, p_and_eq_1, p_and_eq_2, beta_1, beta_2);
-            let ev = calc_attacker_ev_2d(p_and_eq_0, beta_1, p_and_eq_1, beta_2, p_and_eq_2, s15);
+            let eq = calc_eq_2d((p_0, eq_0), (beta_1, p_1, eq_1), (beta_2, p_2, eq_2));
+            let ev =
+                calc_attacker_ev_2d((p_0, eq_0), (beta_1, p_1, eq_1), (beta_2, p_2, eq_2), s15);
 
             combo_and_eq_and_ev_vec.push((combo, eq, ev));
         }
@@ -132,8 +133,8 @@ pub fn calc_alpha15(equitizer: &mut Equitizer, s: S) -> Alpha15 {
 }
 
 pub struct Beta15 {
-    pub ako: f64,
-    pub qq: f64,
+    pub ako_1: f64,
+    pub qq_2: f64,
 }
 
 impl fmt::Display for Beta15 {
@@ -141,8 +142,8 @@ impl fmt::Display for Beta15 {
         write!(
             f,
             "AKo:{},QQ:{}",
-            pretty_percent(self.ako),
-            pretty_percent(self.qq)
+            pretty_percent(self.ako_1),
+            pretty_percent(self.qq_2)
         )
     }
 }
@@ -161,5 +162,8 @@ pub fn calc_beta15(equitizer: &mut Equitizer, s: S) -> Beta15 {
         s,
     );
 
-    Beta15 { ako, qq }
+    Beta15 {
+        ako_1: ako,
+        qq_2: qq,
+    }
 }

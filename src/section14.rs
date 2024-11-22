@@ -35,13 +35,18 @@ pub fn section14(equitizer: &mut Equitizer) {
 }
 
 fn search_s14_for_ev_qq_equals_0(equitizer: &mut Equitizer) -> S {
-    let p_and_eq_0 = equitizer.query_prob_and_eq("QQ", "KK+,AKs");
-    let p_and_eq_1 = equitizer.query_prob_and_eq("QQ", "AKo");
-    let p_and_eq_2 = equitizer.query_prob_and_eq("QQ", "JJ");
+    let (p_0, eq_0) = equitizer.query_prob_and_eq("QQ", "KK+,AKs");
+    let (p_1, eq_1) = equitizer.query_prob_and_eq("QQ", "AKo");
+    let (p_2, eq_2) = equitizer.query_prob_and_eq("QQ", "JJ");
 
     let f = |s| {
         let beta = calc_beta13(equitizer, s);
-        calc_attacker_ev_2d(p_and_eq_0, beta.ako_1, p_and_eq_1, beta.jj_2, p_and_eq_2, s)
+        calc_attacker_ev_2d(
+            (p_0, eq_0),
+            (beta.ako_1, p_1, eq_1),
+            (beta.jj_2, p_2, eq_2),
+            s,
+        )
     };
 
     binary_search(0.into(), 300.into(), f)

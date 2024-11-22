@@ -35,10 +35,8 @@ pub fn section20(equitizer: &mut Equitizer) {
     research_defender_2d(
         equitizer,
         "QQ+,AQs+,A5s-A3s,AKo",
-        "TT",
-        alpha.tt_1,
-        "ATs",
-        alpha.ats_2,
+        (alpha.tt_1, "TT"),
+        (alpha.ats_2, "ATs"),
         s_neighbour,
         10,
     );
@@ -62,10 +60,8 @@ pub fn section20(equitizer: &mut Equitizer) {
     research_defender_2d(
         equitizer,
         "QQ+,AQs+,A5s-A3s,AKo",
-        "TT",
-        alpha_s19.tt_1,
-        "ATs",
-        alpha_s19.ats_2,
+        (alpha_s19.tt_1, "TT"),
+        (alpha_s19.ats_2, "ATs"),
         s20,
         10,
     );

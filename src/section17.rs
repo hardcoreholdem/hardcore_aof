@@ -24,10 +24,8 @@ pub fn section17(equitizer: &mut Equitizer) {
     research_defender_2d(
         equitizer,
         "QQ+,AK,ATs,A5s-A3s",
-        "TT",
-        alpha.tt,
-        "AJs",
-        alpha.ajs,
+        (alpha.tt, "TT"),
+        (alpha.ajs, "AJs"),
         s,
         10,
     );
@@ -64,10 +62,8 @@ pub fn section17(equitizer: &mut Equitizer) {
     research_defender_2d(
         equitizer,
         "QQ+,AK,ATs,A5s-A3s",
-        "TT",
-        alpha.tt,
-        "AJs",
-        alpha.ajs,
+        (alpha.tt, "TT"),
+        (alpha.ajs, "AJs"),
         s,
         10,
     );
@@ -88,10 +84,8 @@ pub fn section17(equitizer: &mut Equitizer) {
     research_defender_2d(
         equitizer,
         "QQ+,AK,ATs,A5s-A3s",
-        "TT",
-        alpha.tt,
-        "AJs",
-        alpha.ajs,
+        (alpha.tt, "TT"),
+        (alpha.ajs, "AJs"),
         s,
         10,
     );
@@ -109,12 +103,13 @@ fn search_s_for_alpha16_ajs_ev_equals_0(equitizer: &mut Equitizer) -> S {
 fn search_s_for_attacker_ev_of_aqs_equals_0(equitizer: &mut Equitizer) -> S {
     let f = |s| -> f64 {
         let beta = calc_beta16(equitizer, s);
+        let (p_0, eq_0) = equitizer.query_prob_and_eq("AQs", "KK+,AKs");
+        let (p_1, eq_1) = equitizer.query_prob_and_eq("AQs", "AKo");
+        let (p_2, eq_2) = equitizer.query_prob_and_eq("AQs", "QQ");
         calc_attacker_ev_2d(
-            equitizer.query_prob_and_eq("AQs", "KK+,AKs"),
-            beta.ako_1,
-            equitizer.query_prob_and_eq("AQs", "AKo"),
-            beta.qq_2,
-            equitizer.query_prob_and_eq("AQs", "QQ"),
+            (p_0, eq_0),
+            (beta.ako_1, p_1, eq_1),
+            (beta.qq_2, p_2, eq_2),
             s,
         )
     };

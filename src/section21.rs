@@ -1,39 +1,75 @@
 use hardcore_equitizer::Equitizer;
 
-// use crate::aux;
+use crate::aux;
 // use crate::format::pretty_percent;
-// use crate::research_attacker::research_attacker_1d;
-// use crate::research_attacker::research_attacker_2d;
+use crate::research_attacker::research_attacker_2d;
 // use crate::research_defender::research_defender_1d;
-// use crate::research_defender::research_defender_2d;
+use crate::research_defender::research_defender_2d;
 // use crate::search::binary_search;
 // use crate::section19::calc_beta19;
 use crate::section20::calc_alpha20;
 use crate::section20::calc_beta20;
 // use std::fmt;
+use crate::search::binary_search;
+use crate::types::S;
 
 pub fn section21(equitizer: &mut Equitizer) {
     let s_neighbour = 122.into();
-    let alpha = calc_alpha20(equitizer, s_neighbour);
-    let beta = calc_beta20(equitizer, s_neighbour);
+    let alpha_neighbour = calc_alpha20(equitizer, s_neighbour);
+    let beta_neighbour = calc_beta20(equitizer, s_neighbour);
 
-    println!("α20({}) = {}", s_neighbour, alpha);
-    println!("β20({}) = {}", s_neighbour, beta);
+    println!("α20({}) = {}", s_neighbour, alpha_neighbour);
+    println!("β20({}) = {}", s_neighbour, beta_neighbour);
     println!("");
+
+    research_attacker_2d(
+        equitizer,
+        "QQ+,AKs",
+        "AKo",
+        beta_neighbour.ako_1,
+        "JJ",
+        beta_neighbour.jj_2,
+        s_neighbour,
+        15,
+    );
+
+    research_defender_2d(
+        equitizer,
+        "QQ+,AQs+,A5s-A3s,AKo",
+        (alpha_neighbour.tt_1, "TT"),
+        (alpha_neighbour.ats_2, "ATs"),
+        s_neighbour,
+        10,
+    );
+
+    for s in [120.into(), 115.into(), 110.into()] {
+        let alpha = calc_alpha20(equitizer, s);
+        let beta = calc_beta20(equitizer, s);
+        println!("s = {}, alpha = {}, beta = {}", s, alpha, beta);
+    }
+
+    let s21 = search_s21_for_attacker_ev_of_jj_equals_0(equitizer);
+    println!("s21 = {}", s21);
+}
+
+fn search_s21_for_attacker_ev_of_jj_equals_0(equitizer: &mut Equitizer) -> S {
+    let f = |s| -> f64 {
+        let (p_0, eq_0) = equitizer.query_prob_and_eq("JJ", "QQ+,AKs");
+        let (p_1, eq_1) = equitizer.query_prob_and_eq("JJ", "AKo");
+        let (p_2, eq_2) = equitizer.query_prob_and_eq("JJ", "JJ");
+        let beta = calc_beta20(equitizer, s);
+        aux::calc_attacker_ev_2d(
+            (p_0, eq_0),
+            (beta.ako_1, p_1, eq_1),
+            (beta.jj_2, p_2, eq_2),
+            s,
+        )
+    };
+
+    binary_search(100.into(), 123.into(), f)
 }
 
 // pub fn section21(equitizer: &mut Equitizer) {
-
-//     research_attacker_1d(equitizer, "QQ+,AKs", "AKo", beta.ako_1, s_neighbour, 15);
-
-//     research_defender_1d(
-//         equitizer,
-//         "QQ+,TT,AQs+,A5s-A3s,AKo",
-//         alpha.ats_1,
-//         "ATs",
-//         s_neighbour,
-//         10,
-//     );
 
 //     return;
 

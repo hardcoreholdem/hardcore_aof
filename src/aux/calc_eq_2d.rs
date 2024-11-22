@@ -1,13 +1,10 @@
-// TODO: rename file
 pub fn calc_eq_2d(
-    (p0, eq0): (f64, f64),
-    (p1, eq1): (f64, f64),
-    (p2, eq2): (f64, f64),
-    scale_1: f64,
-    scale_2: f64,
+    (p_0, eq_0): (f64, f64),
+    (scale_1, p_1, eq_1): (f64, f64, f64),
+    (scale_2, p_2, eq_2): (f64, f64, f64),
 ) -> f64 {
-    let num = p0 * eq0 + scale_1 * p1 * eq1 + scale_2 * p2 * eq2;
-    let den = p0 + scale_1 * p1 + scale_2 * p2;
+    let num = p_0 * eq_0 + scale_1 * p_1 * eq_1 + scale_2 * p_2 * eq_2;
+    let den = p_0 + scale_1 * p_1 + scale_2 * p_2;
 
     num / den
 }
