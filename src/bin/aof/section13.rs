@@ -1,10 +1,8 @@
-use crate::aux::calc_alpha_2d;
-use crate::aux::calc_beta_2d;
-use crate::aux::join_calc_s_and_beta;
-use crate::format::pretty_percent;
-use crate::search::binary_search;
 use crate::section12::calc_beta12;
-use crate::types::S;
+use hardcore_aof::aux;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::search::binary_search;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section13(equitizer: &mut Equitizer) {
@@ -36,7 +34,7 @@ pub fn calc_s13_and_beta(equitizer: &mut Equitizer) -> (S, f64) {
     let p_and_eq_2 = equitizer.query_prob_and_eq("A3s", "KK+,AKs");
     let p_and_eq_3 = equitizer.query_prob_and_eq("A3s", "AKo");
 
-    join_calc_s_and_beta((p_and_eq_0, p_and_eq_1), (p_and_eq_2, p_and_eq_3))
+    aux::join_calc_s_and_beta((p_and_eq_0, p_and_eq_1), (p_and_eq_2, p_and_eq_3))
 }
 
 pub struct Alpha13 {
@@ -52,7 +50,7 @@ pub fn calc_alpha13(equitizer: &mut Equitizer, s: S) -> Alpha13 {
     let p_and_eq_4 = equitizer.query_prob_and_eq("JJ", "A3s");
     let p_and_eq_5 = equitizer.query_prob_and_eq("JJ", "TT");
 
-    let (a3s, tt) = calc_alpha_2d(
+    let (a3s, tt) = aux::calc_alpha_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,
@@ -74,7 +72,7 @@ pub fn calc_beta13(equitizer: &mut Equitizer, s: S) -> Beta13 {
     let p_and_eq_4 = equitizer.query_prob_and_eq("TT", "AKo");
     let p_and_eq_5 = equitizer.query_prob_and_eq("TT", "JJ");
 
-    let (ako, jj) = calc_beta_2d(
+    let (ako, jj) = aux::calc_beta_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,

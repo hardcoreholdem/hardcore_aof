@@ -1,15 +1,11 @@
-use crate::aux::calc_alpha_2d;
-use crate::aux::calc_attacker_ev_2d;
-use crate::aux::calc_beta_2d;
-use crate::aux::calc_eq_2d;
-use crate::aux::calc_eq_3d;
-use crate::combos;
-use crate::format::pretty_percent;
-use crate::format::pretty_s;
-use crate::search::binary_search;
 use crate::section14::calc_alpha14;
 use crate::section14::calc_beta14;
-use crate::types::S;
+use hardcore_aof::aux;
+use hardcore_aof::combos;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::format::pretty_s;
+use hardcore_aof::search::binary_search;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 use std::fmt;
 
@@ -40,9 +36,13 @@ pub fn section15(equitizer: &mut Equitizer) {
             let (p_1, eq_1) = equitizer.query_prob_and_eq(&combo, defender_1);
             let (p_2, eq_2) = equitizer.query_prob_and_eq(&combo, defender_2);
 
-            let eq = calc_eq_2d((p_0, eq_0), (beta_1, p_1, eq_1), (beta_2, p_2, eq_2));
-            let ev =
-                calc_attacker_ev_2d((p_0, eq_0), (beta_1, p_1, eq_1), (beta_2, p_2, eq_2), s15);
+            let eq = aux::calc_eq_2d((p_0, eq_0), (beta_1, p_1, eq_1), (beta_2, p_2, eq_2));
+            let ev = aux::calc_attacker_ev_2d(
+                (p_0, eq_0),
+                (beta_1, p_1, eq_1),
+                (beta_2, p_2, eq_2),
+                s15,
+            );
 
             combo_and_eq_and_ev_vec.push((combo, eq, ev));
         }
@@ -73,7 +73,7 @@ pub fn section15(equitizer: &mut Equitizer) {
             let p_and_eq_2 = equitizer.query_prob_and_eq(&combo, attacker_2);
             let p_and_eq_3 = equitizer.query_prob_and_eq(&combo, attacker_3);
 
-            let eq = calc_eq_3d(
+            let eq = aux::calc_eq_3d(
                 p_and_eq_0, p_and_eq_1, p_and_eq_2, p_and_eq_3, beta_1, beta_2, beta_3,
             );
 
@@ -123,7 +123,7 @@ pub fn calc_alpha15(equitizer: &mut Equitizer, s: S) -> Alpha15 {
     let p_and_eq_4 = equitizer.query_prob_and_eq("QQ", "TT");
     let p_and_eq_5 = equitizer.query_prob_and_eq("QQ", "QQ");
 
-    let (tt, qq) = calc_alpha_2d(
+    let (tt, qq) = aux::calc_alpha_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,
@@ -156,7 +156,7 @@ pub fn calc_beta15(equitizer: &mut Equitizer, s: S) -> Beta15 {
     let p_and_eq_4 = equitizer.query_prob_and_eq("QQ", "AKo");
     let p_and_eq_5 = equitizer.query_prob_and_eq("QQ", "QQ");
 
-    let (ako, qq) = calc_beta_2d(
+    let (ako, qq) = aux::calc_beta_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,

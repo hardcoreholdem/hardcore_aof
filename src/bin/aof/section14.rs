@@ -1,11 +1,10 @@
-use crate::aux::calc_alpha_3d;
-use crate::aux::calc_attacker_ev_2d;
-use crate::aux::calc_beta_3d;
-use crate::format::pretty_percent;
-use crate::search::binary_search;
 use crate::section13::calc_alpha13;
 use crate::section13::calc_beta13;
-use crate::types::S;
+use hardcore_aof::aux;
+use hardcore_aof::aux::calc_alpha_3d;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::search::binary_search;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 use std::fmt;
 
@@ -41,7 +40,7 @@ fn search_s14_for_ev_qq_equals_0(equitizer: &mut Equitizer) -> S {
 
     let f = |s| {
         let beta = calc_beta13(equitizer, s);
-        calc_attacker_ev_2d(
+        aux::calc_attacker_ev_2d(
             (p_0, eq_0),
             (beta.ako_1, p_1, eq_1),
             (beta.jj_2, p_2, eq_2),
@@ -126,7 +125,7 @@ pub fn calc_beta14(equitizer: &mut Equitizer, s: S) -> Beta14 {
     let p_and_eq_22 = equitizer.query_prob_and_eq("QQ", "JJ");
     let p_and_eq_23 = equitizer.query_prob_and_eq("QQ", "QQ");
 
-    let (ako, jj, qq) = calc_beta_3d(
+    let (ako, jj, qq) = aux::calc_beta_3d(
         (p_and_eq_00, p_and_eq_01, p_and_eq_02, p_and_eq_03),
         (p_and_eq_10, p_and_eq_11, p_and_eq_12, p_and_eq_13),
         (p_and_eq_20, p_and_eq_21, p_and_eq_22, p_and_eq_23),

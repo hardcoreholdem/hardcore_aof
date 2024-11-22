@@ -1,14 +1,13 @@
-use hardcore_equitizer::Equitizer;
-
-use crate::aux;
-use crate::format::pretty_percent;
-use crate::research_attacker::research_attacker_2d;
-use crate::research_defender::research_defender_2d;
-use crate::search::binary_search;
 use crate::section17::calc_alpha17;
 use crate::section17::calc_beta17;
-use crate::types::BetaAKoQQ;
-use crate::types::S;
+use hardcore_aof::aux;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::research_attacker::research_attacker_2d;
+use hardcore_aof::research_defender::research_defender_2d;
+use hardcore_aof::search::binary_search;
+use hardcore_aof::types::BetaAKoQQ;
+use hardcore_aof::types::S;
+use hardcore_equitizer::Equitizer;
 use std::fmt;
 
 pub fn section18(equitizer: &mut Equitizer) {
@@ -22,7 +21,12 @@ pub fn section18(equitizer: &mut Equitizer) {
     println!("");
 
     research_attacker_2d(
-        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s, 15,
+        equitizer,
+        "KK+,AKs",
+        (beta.ako_1, "AKo"),
+        (beta.qq_2, "QQ"),
+        s,
+        15,
     );
 
     research_defender_2d(
@@ -58,7 +62,12 @@ pub fn section18(equitizer: &mut Equitizer) {
     println!("");
 
     research_attacker_2d(
-        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s18, 20,
+        equitizer,
+        "KK+,AKs",
+        (beta.ako_1, "AKo"),
+        (beta.qq_2, "QQ"),
+        s18,
+        20,
     );
 
     research_defender_2d(
@@ -80,7 +89,12 @@ pub fn section18(equitizer: &mut Equitizer) {
     println!("");
 
     research_attacker_2d(
-        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s18, 15,
+        equitizer,
+        "KK+,AKs",
+        (beta.ako_1, "AKo"),
+        (beta.qq_2, "QQ"),
+        s18,
+        15,
     );
 
     research_defender_2d(

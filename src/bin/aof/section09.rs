@@ -1,5 +1,5 @@
-use super::aux::calc_s;
-use crate::types::S;
+use hardcore_aof::aux;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section09(equitizer: &mut Equitizer) {
@@ -9,5 +9,5 @@ pub fn section09(equitizer: &mut Equitizer) {
 
 fn calc_s9(equitizer: &mut Equitizer) -> S {
     let p_and_eq = equitizer.query_prob_and_eq("A4s", "KK+");
-    calc_s(p_and_eq)
+    aux::calc_s(p_and_eq)
 }

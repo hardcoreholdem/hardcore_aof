@@ -1,6 +1,6 @@
-use crate::aux::calc_alpha_1d;
-use crate::aux::join_calc_s_and_beta;
-use crate::types::S;
+use hardcore_aof::aux::calc_alpha_1d;
+use hardcore_aof::aux::join_calc_s_and_beta;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section07(equitizer: &mut Equitizer) {

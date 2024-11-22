@@ -1,8 +1,8 @@
-use super::search::binary_search;
-use super::section06::calc_beta6;
-use super::section07::calc_alpha7;
-use crate::format::pretty_percent;
-use crate::types::S;
+use crate::section06::calc_beta6;
+use crate::section07::calc_alpha7;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::search;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section08(equitizer: &mut Equitizer) {
@@ -36,5 +36,5 @@ pub fn section08(equitizer: &mut Equitizer) {
 
 pub fn search_s8_for_beta6_equals_1(equitizer: &mut Equitizer) -> S {
     let f = |s| calc_beta6(equitizer, s) - 1.0;
-    binary_search(0.into(), 315.into(), f)
+    search::binary_search(0.into(), 315.into(), f)
 }

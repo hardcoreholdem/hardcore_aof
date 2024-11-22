@@ -1,8 +1,8 @@
-use crate::aux::calc_alpha_2d;
-use crate::aux::calc_beta_2d;
-use crate::aux::join_calc_s_and_beta;
-use crate::format::pretty_percent;
-use crate::types::S;
+use hardcore_aof::aux::calc_alpha_2d;
+use hardcore_aof::aux::calc_beta_2d;
+use hardcore_aof::aux::join_calc_s_and_beta;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section04(equitizer: &mut Equitizer) {

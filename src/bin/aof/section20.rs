@@ -1,15 +1,15 @@
 use hardcore_equitizer::Equitizer;
 
-use crate::aux;
-use crate::format::pretty_percent;
-use crate::research_attacker::research_attacker_1d;
-use crate::research_attacker::research_attacker_2d;
-use crate::research_defender::research_defender_2d;
-use crate::search::binary_search;
 use crate::section19::calc_alpha19;
 use crate::section19::calc_beta19;
-use crate::types::BetaAKoJJ;
-use crate::types::S;
+use hardcore_aof::aux;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::research_attacker::research_attacker_1d;
+use hardcore_aof::research_attacker::research_attacker_2d;
+use hardcore_aof::research_defender::research_defender_2d;
+use hardcore_aof::search::binary_search;
+use hardcore_aof::types::BetaAKoJJ;
+use hardcore_aof::types::S;
 use std::fmt;
 
 pub fn section20(equitizer: &mut Equitizer) {
@@ -24,10 +24,8 @@ pub fn section20(equitizer: &mut Equitizer) {
     research_attacker_2d(
         equitizer,
         "KK+,AKs",
-        "AKo",
-        beta.ako_1,
-        "QQ",
-        beta.qq_2,
+        (beta.ako_1, "AKo"),
+        (beta.qq_2, "QQ"),
         s_neighbour,
         15,
     );
@@ -127,16 +125,6 @@ pub fn calc_alpha20(equitizer: &mut Equitizer, s: S) -> Alpha20 {
     );
 
     Alpha20 { tt_1, ats_2 }
-}
-
-pub struct Beta20 {
-    pub ako_1: f64,
-}
-
-impl fmt::Display for Beta20 {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "AKo:{}", pretty_percent(self.ako_1))
-    }
 }
 
 pub fn calc_beta20(equitizer: &mut Equitizer, s: S) -> BetaAKoJJ {

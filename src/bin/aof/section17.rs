@@ -1,13 +1,12 @@
-use crate::aux;
-use crate::aux::calc_attacker_ev_2d;
-use crate::format::pretty_percent;
-use crate::research_attacker::research_attacker_2d;
-use crate::research_defender::research_defender_2d;
-use crate::search::binary_search;
 use crate::section16::calc_alpha16;
 use crate::section16::calc_beta16;
-use crate::types::BetaAKoQQ;
-use crate::types::S;
+use hardcore_aof::aux;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::research_attacker::research_attacker_2d;
+use hardcore_aof::research_defender::research_defender_2d;
+use hardcore_aof::search::binary_search;
+use hardcore_aof::types::BetaAKoQQ;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 use std::fmt;
 
@@ -18,7 +17,12 @@ pub fn section17(equitizer: &mut Equitizer) {
     println!("s = {}, alpha = {}, beta = {}", s, alpha, beta);
 
     research_attacker_2d(
-        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s, 15,
+        equitizer,
+        "KK+,AKs",
+        (beta.ako_1, "AKo"),
+        (beta.qq_2, "QQ"),
+        s,
+        15,
     );
 
     research_defender_2d(
@@ -56,7 +60,12 @@ pub fn section17(equitizer: &mut Equitizer) {
     println!("beta(s) = {}", beta);
 
     research_attacker_2d(
-        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s, 15,
+        equitizer,
+        "KK+,AKs",
+        (beta.ako_1, "AKo"),
+        (beta.qq_2, "QQ"),
+        s,
+        15,
     );
 
     research_defender_2d(
@@ -78,7 +87,12 @@ pub fn section17(equitizer: &mut Equitizer) {
     println!("");
 
     research_attacker_2d(
-        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s, 15,
+        equitizer,
+        "KK+,AKs",
+        (beta.ako_1, "AKo"),
+        (beta.qq_2, "QQ"),
+        s,
+        15,
     );
 
     research_defender_2d(
@@ -106,7 +120,7 @@ fn search_s_for_attacker_ev_of_aqs_equals_0(equitizer: &mut Equitizer) -> S {
         let (p_0, eq_0) = equitizer.query_prob_and_eq("AQs", "KK+,AKs");
         let (p_1, eq_1) = equitizer.query_prob_and_eq("AQs", "AKo");
         let (p_2, eq_2) = equitizer.query_prob_and_eq("AQs", "QQ");
-        calc_attacker_ev_2d(
+        aux::calc_attacker_ev_2d(
             (p_0, eq_0),
             (beta.ako_1, p_1, eq_1),
             (beta.qq_2, p_2, eq_2),

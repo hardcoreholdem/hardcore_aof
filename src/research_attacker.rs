@@ -10,10 +10,8 @@ use hardcore_equitizer::Equitizer;
 pub fn research_attacker_2d(
     equitizer: &mut Equitizer,
     defender_0: &str,
-    defender_1: &str,
-    beta_1: f64,
-    defender_2: &str,
-    beta_2: f64,
+    (beta_1, defender_1): (f64, &str),
+    (beta_2, defender_2): (f64, &str),
     s: S,
     limit: usize,
 ) {

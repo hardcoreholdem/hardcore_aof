@@ -1,7 +1,7 @@
-use crate::aux::calc_beta_1d;
-use crate::format::pretty_percent;
 use crate::section01::calc_alpha_old;
-use crate::types::S;
+use hardcore_aof::aux::calc_beta_1d;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 
 fn inv_beta1(equitizer: &mut Equitizer, beta: f64) -> S {

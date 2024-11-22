@@ -1,12 +1,12 @@
-use crate::aux::calc_beta_1d;
-use crate::aux::calc_s;
-use crate::combos::calc_all_combos;
-use crate::format::pretty_percent;
-use crate::types::S;
+use hardcore_aof::aux;
+use hardcore_aof::aux::calc_beta_1d;
+use hardcore_aof::combos::calc_all_combos;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section01(equitizer: &mut Equitizer) {
-    let s1 = calc_s(equitizer.query_prob_and_eq("A5s", "AA"));
+    let s1 = aux::calc_s(equitizer.query_prob_and_eq("A5s", "AA"));
     println!("s1=s(A5s;AA)={:.2}", s1);
 
     {

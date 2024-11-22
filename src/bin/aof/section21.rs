@@ -1,17 +1,16 @@
 use hardcore_equitizer::Equitizer;
 
-use crate::aux;
-// use crate::format::pretty_percent;
-use crate::research_attacker::research_attacker_2d;
-// use crate::research_defender::research_defender_1d;
-use crate::research_defender::research_defender_2d;
-// use crate::search::binary_search;
-// use crate::section19::calc_beta19;
 use crate::section20::calc_alpha20;
 use crate::section20::calc_beta20;
-// use std::fmt;
-use crate::search::binary_search;
-use crate::types::S;
+use core::f64;
+use hardcore_aof::aux;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::research_attacker::research_attacker_2d;
+use hardcore_aof::research_defender::research_defender_2d;
+use hardcore_aof::search::binary_search;
+use hardcore_aof::types::BetaAKoJJ;
+use hardcore_aof::types::S;
+use std::fmt;
 
 pub fn section21(equitizer: &mut Equitizer) {
     let s_neighbour = 122.into();
@@ -25,10 +24,8 @@ pub fn section21(equitizer: &mut Equitizer) {
     research_attacker_2d(
         equitizer,
         "QQ+,AKs",
-        "AKo",
-        beta_neighbour.ako_1,
-        "JJ",
-        beta_neighbour.jj_2,
+        (beta_neighbour.ako_1, "AKo"),
+        (beta_neighbour.jj_2, "JJ"),
         s_neighbour,
         15,
     );
@@ -42,14 +39,37 @@ pub fn section21(equitizer: &mut Equitizer) {
         10,
     );
 
-    for s in [120.into(), 115.into(), 110.into()] {
-        let alpha = calc_alpha20(equitizer, s);
-        let beta = calc_beta20(equitizer, s);
-        println!("s = {}, alpha = {}, beta = {}", s, alpha, beta);
-    }
-
     let s21 = search_s21_for_attacker_ev_of_jj_equals_0(equitizer);
+    let alpha20_s21 = calc_alpha20(equitizer, s21);
+    let beta20_s21 = calc_beta20(equitizer, s21);
     println!("s21 = {}", s21);
+    println!("alpha21(s21) = {}", alpha20_s21);
+    println!("beta21(s21) = {}", beta20_s21);
+
+    research_attacker_2d(
+        equitizer,
+        "QQ+,AKs",
+        (beta20_s21.jj_2, "JJ"),
+        (beta20_s21.ako_1, "AKo"),
+        s21,
+        15,
+    );
+
+    research_defender_2d(
+        equitizer,
+        "QQ+,AQs+,A5s-A3s,AKo",
+        (alpha20_s21.tt_1, "TT"),
+        (alpha20_s21.ats_2, "ATs"),
+        s21,
+        10,
+    );
+
+    let alpha21 = calc_alpha21(equitizer, s21);
+    println!("alpha21(s21) = {}", alpha21);
+    //    println!("beta21(s21) = {}", beta21);
+
+    let beta21 = calc_beta21(equitizer, s21);
+    println!("beta21(s21) = {}", beta21);
 }
 
 fn search_s21_for_attacker_ev_of_jj_equals_0(equitizer: &mut Equitizer) -> S {
@@ -130,40 +150,52 @@ fn search_s21_for_attacker_ev_of_jj_equals_0(equitizer: &mut Equitizer) -> S {
 //     binary_search(120.0, 130.0, f)
 // }
 
-// pub struct Alpha20 {
-//     pub ats_1: f64,
-// }
+pub struct Alpha21 {
+    pub tt_1: f64,
+    pub jj_2: f64,
+}
 
-// impl fmt::Display for Alpha20 {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         write!(f, "ATs:{}", pretty_percent(self.ats_1))
-//     }
-// }
+impl fmt::Display for Alpha21 {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "TT:{},JJ:{}",
+            pretty_percent(self.tt_1),
+            pretty_percent(self.jj_2),
+        )
+    }
+}
 
-// // pub fn calc_alpha20(equitizer: &mut Equitizer, s: f64) -> Alpha20 {
-// //     let p_and_eq_0 = equitizer.query_prob_and_eq("AKo", "QQ+,TT,AQs+,A5s-A3s,AKo");
-// //     let p_and_eq_1 = equitizer.query_prob_and_eq("AKo", "ATs");
+pub fn calc_alpha21(equitizer: &mut Equitizer, s: S) -> Alpha21 {
+    let p_and_eq_0 = equitizer.query_prob_and_eq("AKo", "QQ+,AQs+,ATs,A5s-A3s,AKo");
+    let p_and_eq_1 = equitizer.query_prob_and_eq("AKo", "TT");
+    let p_and_eq_2 = equitizer.query_prob_and_eq("AKo", "JJ");
+    let p_and_eq_3 = equitizer.query_prob_and_eq("JJ", "QQ+,AQs+,ATs,A5s-A3s,AKo");
+    let p_and_eq_4 = equitizer.query_prob_and_eq("JJ", "TT");
+    let p_and_eq_5 = equitizer.query_prob_and_eq("JJ", "JJ");
 
-// //     let ats_1 = aux::calc_alpha_1d(p_and_eq_0, p_and_eq_1, s);
+    let (tt_1, jj_2) = aux::calc_alpha_2d(
+        (p_and_eq_0, p_and_eq_1, p_and_eq_2),
+        (p_and_eq_3, p_and_eq_4, p_and_eq_5),
+        s,
+    );
 
-// //     Alpha20 { ats_1 }
-// // }
+    Alpha21 { tt_1, jj_2 }
+}
 
-// pub struct Beta20 {
-//     pub ako_1: f64,
-// }
+pub fn calc_beta21(equitizer: &mut Equitizer, s: S) -> BetaAKoJJ {
+    let p_and_eq_0 = equitizer.query_prob_and_eq("TT", "QQ+,AKs");
+    let p_and_eq_1 = equitizer.query_prob_and_eq("TT", "AKo");
+    let p_and_eq_2 = equitizer.query_prob_and_eq("TT", "JJ");
+    let p_and_eq_3 = equitizer.query_prob_and_eq("JJ", "QQ+,AKs");
+    let p_and_eq_4 = equitizer.query_prob_and_eq("JJ", "AKo");
+    let p_and_eq_5 = equitizer.query_prob_and_eq("JJ", "JJ");
 
-// impl fmt::Display for Beta20 {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         write!(f, "AKo:{}", pretty_percent(self.ako_1))
-//     }
-// }
+    let (ako_1, jj_2) = aux::calc_beta_2d(
+        (p_and_eq_0, p_and_eq_1, p_and_eq_2),
+        (p_and_eq_3, p_and_eq_4, p_and_eq_5),
+        s,
+    );
 
-// // pub fn calc_beta20(equitizer: &mut Equitizer, s: f64) -> Beta20 {
-// //     let p_and_eq_0 = equitizer.query_prob_and_eq("ATs", "QQ+,AKs");
-// //     let p_and_eq_1 = equitizer.query_prob_and_eq("ATs", "AKo");
-
-// //     let ako_1 = aux::calc_beta_1d(p_and_eq_0, p_and_eq_1, s);
-
-// //     Beta20 { ako_1 }
-// // }
+    BetaAKoJJ { ako_1, jj_2 }
+}

@@ -1,6 +1,6 @@
 use hardcore_equitizer::Equitizer;
 
-use crate::aux::calc_s;
+use hardcore_aof::aux;
 
 pub fn section00(equitizer: &mut Equitizer) {
     println!("# section 1");
@@ -40,7 +40,7 @@ pub fn section00(equitizer: &mut Equitizer) {
 
     println!(
         "s(65s;AA)={:.2}",
-        calc_s(equitizer.query_prob_and_eq("65s", "AA"),)
+        aux::calc_s(equitizer.query_prob_and_eq("65s", "AA"),)
     );
 
     {
@@ -58,7 +58,7 @@ pub fn section00(equitizer: &mut Equitizer) {
         println!("");
     }
 
-    let s0 = calc_s(equitizer.query_prob_and_eq("ATs", "AA"));
+    let s0 = aux::calc_s(equitizer.query_prob_and_eq("ATs", "AA"));
 
     println!("s0=s(ATs;AA)={:.2}", s0);
 

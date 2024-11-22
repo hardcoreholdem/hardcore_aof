@@ -1,5 +1,5 @@
 use crate::section01::calc_alpha_old;
-use crate::types::S;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section03(equitizer: &mut Equitizer) {
