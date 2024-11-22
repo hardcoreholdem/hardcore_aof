@@ -115,8 +115,5 @@ pub fn calc_beta16(equitizer: &mut Equitizer, s: f64) -> BetaAKoQQ {
         s,
     );
 
-    BetaAKoQQ {
-        v1_ako: ako_1,
-        v2_qq: qq_2,
-    }
+    BetaAKoQQ { ako_1, qq_2 }
 }

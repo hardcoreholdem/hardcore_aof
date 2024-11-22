@@ -2,8 +2,8 @@ use crate::format::pretty_percent;
 use std::fmt;
 
 pub struct BetaAKoQQ {
-    pub v1_ako: f64,
-    pub v2_qq: f64,
+    pub ako_1: f64,
+    pub qq_2: f64,
 }
 
 impl fmt::Display for BetaAKoQQ {
@@ -11,8 +11,8 @@ impl fmt::Display for BetaAKoQQ {
         write!(
             f,
             "AKo:{},QQ:{}",
-            pretty_percent(self.v1_ako),
-            pretty_percent(self.v2_qq)
+            pretty_percent(self.ako_1),
+            pretty_percent(self.qq_2)
         )
     }
 }

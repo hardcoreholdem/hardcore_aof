@@ -22,14 +22,7 @@ pub fn section18(equitizer: &mut Equitizer) {
     println!("");
 
     research_attacker_2d(
-        equitizer,
-        "KK+,AKs",
-        "AKo",
-        beta.v1_ako,
-        "QQ",
-        beta.v2_qq,
-        s,
-        15,
+        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s, 15,
     );
 
     research_defender_2d(
@@ -50,24 +43,17 @@ pub fn section18(equitizer: &mut Equitizer) {
     }
     println!("");
 
-    let s = search_s_for_alpha17_aqs_ev_equals_0(equitizer);
-    let alpha = calc_alpha17(equitizer, s);
-    let beta = calc_beta17(equitizer, s);
+    let s18 = search_s18_for_alpha17_aqs_ev_equals_0(equitizer);
+    let alpha = calc_alpha17(equitizer, s18);
+    let beta = calc_beta17(equitizer, s18);
 
-    println!("s = {}", pretty_s(s));
+    println!("s = {}", pretty_s(s18));
     println!("alpha(s) = {}", alpha);
     println!("beta(s) = {}", beta);
     println!("");
 
     research_attacker_2d(
-        equitizer,
-        "KK+,AKs",
-        "AKo",
-        beta.v1_ako,
-        "QQ",
-        beta.v2_qq,
-        s,
-        20,
+        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s18, 20,
     );
 
     research_defender_2d(
@@ -77,7 +63,7 @@ pub fn section18(equitizer: &mut Equitizer) {
         alpha.tt,
         "AQs",
         alpha.aqs,
-        s,
+        s18,
         10,
     );
 
@@ -91,14 +77,7 @@ pub fn section18(equitizer: &mut Equitizer) {
     println!("");
 
     research_attacker_2d(
-        equitizer,
-        "KK+,AKs",
-        "AKo",
-        beta.v1_ako,
-        "QQ",
-        beta.v2_qq,
-        s18,
-        15,
+        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s18, 15,
     );
 
     research_defender_2d(
@@ -118,7 +97,7 @@ pub fn section18(equitizer: &mut Equitizer) {
     println!("beta18(s18) = {}", beta18);
 }
 
-fn search_s_for_alpha17_aqs_ev_equals_0(equitizer: &mut Equitizer) -> f64 {
+fn search_s18_for_alpha17_aqs_ev_equals_0(equitizer: &mut Equitizer) -> f64 {
     let f = |s: f64| calc_alpha17(equitizer, s).aqs;
     binary_search(130.0, 140.0, f)
 }
@@ -129,9 +108,9 @@ fn search_s_for_attacker_ev_of_a3s_equals_0(equitizer: &mut Equitizer) -> f64 {
         aux::calc_attacker_ev_2d(
             equitizer.query_prob_and_eq("A3s", "KK+,AKs"),
             equitizer.query_prob_and_eq("A3s", "AKo"),
-            beta.v1_ako,
+            beta.ako_1,
             equitizer.query_prob_and_eq("A3s", "QQ"),
-            beta.v2_qq,
+            beta.qq_2,
             s,
         )
     };
@@ -140,8 +119,8 @@ fn search_s_for_attacker_ev_of_a3s_equals_0(equitizer: &mut Equitizer) -> f64 {
 }
 
 pub struct Alpha18 {
-    pub tt: f64,
-    pub a3s: f64,
+    pub tt_1: f64,
+    pub a3s_2: f64,
 }
 
 impl fmt::Display for Alpha18 {
@@ -149,8 +128,8 @@ impl fmt::Display for Alpha18 {
         write!(
             f,
             "TT:{},A3s:{}",
-            pretty_percent(self.tt),
-            pretty_percent(self.a3s)
+            pretty_percent(self.tt_1),
+            pretty_percent(self.a3s_2)
         )
     }
 }
@@ -169,7 +148,10 @@ pub fn calc_alpha18(equitizer: &mut Equitizer, s: f64) -> Alpha18 {
         s,
     );
 
-    Alpha18 { tt, a3s }
+    Alpha18 {
+        tt_1: tt,
+        a3s_2: a3s,
+    }
 }
 
 pub fn calc_beta18(equitizer: &mut Equitizer, s: f64) -> BetaAKoQQ {
@@ -186,8 +168,5 @@ pub fn calc_beta18(equitizer: &mut Equitizer, s: f64) -> BetaAKoQQ {
         s,
     );
 
-    BetaAKoQQ {
-        v1_ako: ako_1,
-        v2_qq: qq_2,
-    }
+    BetaAKoQQ { ako_1, qq_2 }
 }

@@ -18,14 +18,7 @@ pub fn section17(equitizer: &mut Equitizer) {
     println!("s = {}, alpha = {}, beta = {}", pretty_s(s), alpha, beta);
 
     research_attacker_2d(
-        equitizer,
-        "KK+,AKs",
-        "AKo",
-        beta.v1_ako,
-        "QQ",
-        beta.v2_qq,
-        s,
-        15,
+        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s, 15,
     );
 
     research_defender_2d(
@@ -57,14 +50,7 @@ pub fn section17(equitizer: &mut Equitizer) {
     println!("beta(s) = {}", beta);
 
     research_attacker_2d(
-        equitizer,
-        "KK+,AKs",
-        "AKo",
-        beta.v1_ako,
-        "QQ",
-        beta.v2_qq,
-        s,
-        15,
+        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s, 15,
     );
 
     research_defender_2d(
@@ -88,14 +74,7 @@ pub fn section17(equitizer: &mut Equitizer) {
     println!("");
 
     research_attacker_2d(
-        equitizer,
-        "KK+,AKs",
-        "AKo",
-        beta.v1_ako,
-        "QQ",
-        beta.v2_qq,
-        s,
-        15,
+        equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s, 15,
     );
 
     research_defender_2d(
@@ -125,9 +104,9 @@ fn search_s_for_attacker_ev_of_aqs_equals_0(equitizer: &mut Equitizer) -> f64 {
         calc_attacker_ev_2d(
             equitizer.query_prob_and_eq("AQs", "KK+,AKs"),
             equitizer.query_prob_and_eq("AQs", "AKo"),
-            beta.v1_ako,
+            beta.ako_1,
             equitizer.query_prob_and_eq("AQs", "QQ"),
-            beta.v2_qq,
+            beta.qq_2,
             s,
         )
     };
@@ -182,8 +161,5 @@ pub fn calc_beta17(equitizer: &mut Equitizer, s: f64) -> BetaAKoQQ {
         s,
     );
 
-    BetaAKoQQ {
-        v1_ako: ako_1,
-        v2_qq: qq_2,
-    }
+    BetaAKoQQ { ako_1, qq_2 }
 }
