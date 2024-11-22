@@ -40,9 +40,7 @@ pub fn section15(equitizer: &mut Equitizer) {
             let p_and_eq_2 = equitizer.query_prob_and_eq(&combo, defender_2);
 
             let eq = calc_eq_2d(p_and_eq_0, p_and_eq_1, p_and_eq_2, beta_1, beta_2);
-
-            let ev = calc_attacker_ev_2d(p_and_eq_0, p_and_eq_1, beta_1, p_and_eq_2, beta_2, s15);
-            // println!("{}: {}", combo, ev);
+            let ev = calc_attacker_ev_2d(p_and_eq_0, beta_1, p_and_eq_1, beta_2, p_and_eq_2, s15);
 
             combo_and_eq_and_ev_vec.push((combo, eq, ev));
         }

@@ -41,7 +41,7 @@ fn search_s14_for_ev_qq_equals_0(equitizer: &mut Equitizer) -> f64 {
 
     let f = |s| {
         let beta = calc_beta13(equitizer, s);
-        calc_attacker_ev_2d(p_and_eq_0, p_and_eq_1, beta.ako_1, p_and_eq_2, beta.jj_2, s)
+        calc_attacker_ev_2d(p_and_eq_0, beta.ako_1, p_and_eq_1, beta.jj_2, p_and_eq_2, s)
     };
 
     binary_search(0.0, 300.0, f)

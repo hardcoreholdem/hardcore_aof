@@ -107,10 +107,10 @@ fn search_s_for_attacker_ev_of_a3s_equals_0(equitizer: &mut Equitizer) -> f64 {
         let beta = calc_beta17(equitizer, s);
         aux::calc_attacker_ev_2d(
             equitizer.query_prob_and_eq("A3s", "KK+,AKs"),
-            equitizer.query_prob_and_eq("A3s", "AKo"),
             beta.ako_1,
-            equitizer.query_prob_and_eq("A3s", "QQ"),
+            equitizer.query_prob_and_eq("A3s", "AKo"),
             beta.qq_2,
+            equitizer.query_prob_and_eq("A3s", "QQ"),
             s,
         )
     };

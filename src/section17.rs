@@ -103,10 +103,10 @@ fn search_s_for_attacker_ev_of_aqs_equals_0(equitizer: &mut Equitizer) -> f64 {
         let beta = calc_beta16(equitizer, s);
         calc_attacker_ev_2d(
             equitizer.query_prob_and_eq("AQs", "KK+,AKs"),
-            equitizer.query_prob_and_eq("AQs", "AKo"),
             beta.ako_1,
-            equitizer.query_prob_and_eq("AQs", "QQ"),
+            equitizer.query_prob_and_eq("AQs", "AKo"),
             beta.qq_2,
+            equitizer.query_prob_and_eq("AQs", "QQ"),
             s,
         )
     };

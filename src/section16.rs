@@ -57,10 +57,10 @@ fn search_s16_for_attacker_ev_eof_ajs_quals_0(equitizer: &mut Equitizer) -> f64 
         let beta = calc_beta15(equitizer, s);
         calc_attacker_ev_2d(
             equitizer.query_prob_and_eq("AJs", "KK+,AKs"),
-            equitizer.query_prob_and_eq("AJs", "AKo"),
             beta.ako,
-            equitizer.query_prob_and_eq("AJs", "QQ"),
+            equitizer.query_prob_and_eq("AJs", "AKo"),
             beta.qq,
+            equitizer.query_prob_and_eq("AJs", "QQ"),
             s,
         )
     };

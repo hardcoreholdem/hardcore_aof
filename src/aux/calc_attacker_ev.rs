@@ -1,9 +1,9 @@
 pub fn calc_attacker_ev_2d(
     (p_0, eq_0): (f64, f64),
-    (p_1, eq_1): (f64, f64),
     beta_1: f64,
+    (p_1, eq_1): (f64, f64),
+    beta_2: f64,
     (p_2, eq_2): (f64, f64),
-    beta_2: f64, // TODO: 调整变量顺序
     s: f64,
 ) -> f64 {
     let v0 = p_0 * (eq_0 * (2.0 * s + 1.0) - s);
