@@ -46,7 +46,7 @@ pub fn research_defender_2d(
 }
 
 // 攻方的不同组合面对 attacker_0 + attacker_1:beta1 的 EQ
-// 1d表示两个自由度
+// 1d表示零个自由度
 pub fn research_defender_1d(
     equitizer: &mut Equitizer,
     defender_0: &str,
@@ -67,30 +67,6 @@ pub fn research_defender_1d(
 
         let eq = aux::calc_eq_1d(p_and_eq_0, alpha_1, p_and_eq_1);
 
-        combo_and_eq_vec.push((combo, eq));
-    }
-
-    combo_and_eq_vec.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
-
-    for (combo, eq) in combo_and_eq_vec.iter().take(limit) {
-        let extra = if f64::abs(eq - s / (2.0 * s + 1.0)) < 1e-9 {
-            " (BE)"
-        } else {
-            ""
-        };
-        println!("{combo}, eq={}{extra}", pretty_percent(*eq));
-    }
-    println!("");
-}
-
-// 攻方的不同组合面对 attacker_0 + attacker_1:beta1 的 EQ
-// 1d表示两个自由度
-pub fn research_defender_0d(equitizer: &mut Equitizer, defender_0: &str, s: f64, limit: usize) {
-    println!("EQ vs {defender_0}");
-    let mut combo_and_eq_vec = Vec::new();
-
-    for combo in combos::calc_all_combos() {
-        let eq = equitizer.query_eq(&combo, defender_0);
         combo_and_eq_vec.push((combo, eq));
     }
 

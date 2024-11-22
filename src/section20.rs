@@ -119,7 +119,7 @@ pub fn calc_alpha20(equitizer: &mut Equitizer, s: f64) -> Alpha20 {
     Alpha20 { ats_1 }
 }
 
-struct Beta20 {
+pub struct Beta20 {
     pub ako_1: f64,
 }
 
