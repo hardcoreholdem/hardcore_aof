@@ -2,6 +2,7 @@ use crate::aux::calc_beta_1d;
 use crate::aux::calc_s;
 use crate::combos::calc_all_combos;
 use crate::format::pretty_percent;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section01(equitizer: &mut Equitizer) {
@@ -47,7 +48,9 @@ pub fn section01(equitizer: &mut Equitizer) {
 }
 
 #[deprecated]
-pub fn calc_alpha_old(p1: f64, eq1: f64, p2: f64, eq2: f64, s: f64) -> f64 {
+pub fn calc_alpha_old(p1: f64, eq1: f64, p2: f64, eq2: f64, s: S) -> f64 {
+    let s: f64 = s.into();
+
     // a x + b = 0
     let a = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
     let b = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;
@@ -56,7 +59,9 @@ pub fn calc_alpha_old(p1: f64, eq1: f64, p2: f64, eq2: f64, s: f64) -> f64 {
 }
 
 #[deprecated]
-pub fn calc_alpha_new((p1, eq1): (f64, f64), (p2, eq2): (f64, f64), s: f64) -> f64 {
+pub fn calc_alpha_new((p1, eq1): (f64, f64), (p2, eq2): (f64, f64), s: S) -> f64 {
+    let s: f64 = s.into();
+
     // a x + b = 0
     let a = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;
     let b = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;
@@ -64,7 +69,7 @@ pub fn calc_alpha_new((p1, eq1): (f64, f64), (p2, eq2): (f64, f64), s: f64) -> f
     -b / a
 }
 
-fn calc_alpha1(equitizer: &mut Equitizer, s: f64) -> f64 {
+fn calc_alpha1(equitizer: &mut Equitizer, s: S) -> f64 {
     let p1 = equitizer.query_prob("AKs", "AA,ATs");
     let eq1 = equitizer.query_eq("AKs", "AA,ATs");
     let p2 = equitizer.query_prob("AKs", "A5s");
@@ -72,7 +77,7 @@ fn calc_alpha1(equitizer: &mut Equitizer, s: f64) -> f64 {
     calc_alpha_old(p1, eq1, p2, eq2, s)
 }
 
-fn calc_beta1(equitizer: &mut Equitizer, s: f64) -> f64 {
+fn calc_beta1(equitizer: &mut Equitizer, s: S) -> f64 {
     let (p0, eq0) = equitizer.query_prob_and_eq("A5s", "AA");
     let (p1, eq1) = equitizer.query_prob_and_eq("A5s", "AKs");
     calc_beta_1d((p0, eq0), (p1, eq1), s)

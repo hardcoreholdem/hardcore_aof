@@ -2,18 +2,18 @@ use crate::aux::calc_alpha_2d;
 use crate::aux::calc_beta_2d;
 use crate::aux::join_calc_s_and_beta;
 use crate::format::pretty_percent;
-use crate::format::pretty_s;
 use crate::search::binary_search;
 use crate::section12::calc_beta12;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section13(equitizer: &mut Equitizer) {
     let s = search_s_for_beta_12_equals_1(equitizer);
-    println!("s: {}", pretty_s(s));
+    println!("s: {}", s);
     println!("");
 
     let (s13, beta) = calc_s13_and_beta(equitizer);
-    println!("s13: {}", pretty_s(s13));
+    println!("s13: {}", s13);
     println!("beta: {}", pretty_percent(beta));
 
     let alpha13 = calc_alpha13(equitizer, s13);
@@ -25,12 +25,12 @@ pub fn section13(equitizer: &mut Equitizer) {
     println!("beta_JJ: {}", pretty_percent(beta13.jj_2));
 }
 
-fn search_s_for_beta_12_equals_1(equitizer: &mut Equitizer) -> f64 {
+fn search_s_for_beta_12_equals_1(equitizer: &mut Equitizer) -> S {
     let f = |s| calc_beta12(equitizer, s) - 1.0;
-    binary_search(0.0, 300.0, f)
+    binary_search(0.into(), 300.into(), f)
 }
 
-pub fn calc_s13_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
+pub fn calc_s13_and_beta(equitizer: &mut Equitizer) -> (S, f64) {
     let p_and_eq_0 = equitizer.query_prob_and_eq("TT", "KK+,AKs");
     let p_and_eq_1 = equitizer.query_prob_and_eq("TT", "AKo");
     let p_and_eq_2 = equitizer.query_prob_and_eq("A3s", "KK+,AKs");
@@ -44,7 +44,7 @@ pub struct Alpha13 {
     pub tt: f64,
 }
 
-pub fn calc_alpha13(equitizer: &mut Equitizer, s: f64) -> Alpha13 {
+pub fn calc_alpha13(equitizer: &mut Equitizer, s: S) -> Alpha13 {
     let p_and_eq_0 = equitizer.query_prob_and_eq("AKo", "KK+,AK,ATs,A5s,A4s");
     let p_and_eq_1 = equitizer.query_prob_and_eq("AKo", "A3s");
     let p_and_eq_2 = equitizer.query_prob_and_eq("AKo", "TT");
@@ -66,7 +66,7 @@ pub struct Beta13 {
     pub jj_2: f64,
 }
 
-pub fn calc_beta13(equitizer: &mut Equitizer, s: f64) -> Beta13 {
+pub fn calc_beta13(equitizer: &mut Equitizer, s: S) -> Beta13 {
     let p_and_eq_0 = equitizer.query_prob_and_eq("A3s", "KK+,AKs");
     let p_and_eq_1 = equitizer.query_prob_and_eq("A3s", "AKo");
     let p_and_eq_2 = equitizer.query_prob_and_eq("A3s", "JJ");

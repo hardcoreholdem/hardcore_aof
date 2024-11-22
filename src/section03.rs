@@ -1,7 +1,6 @@
-use hardcore_equitizer::Equitizer;
-
-use crate::format::pretty_s;
 use crate::section01::calc_alpha_old;
+use crate::types::S;
+use hardcore_equitizer::Equitizer;
 
 pub fn section03(equitizer: &mut Equitizer) {
     println!("# section 4");
@@ -41,7 +40,7 @@ pub fn section03(equitizer: &mut Equitizer) {
     println!("beta_AKs_eq_ATs={:.2}%", beta_aks_eq_ats * 100.0);
 
     let s3 = calc_inv_beta2(equitizer, beta_aks_eq_ats);
-    println!("s3=inv_beta2={}", pretty_s(s3));
+    println!("s3=inv_beta2={}", s3);
 
     {
         let ratio = beta_aks_eq_ats;
@@ -79,7 +78,7 @@ pub fn section03(equitizer: &mut Equitizer) {
     println!("alpha3={:.2}%", calc_alpha3(equitizer, s3) * 100.0);
 }
 
-fn calc_inv_beta2(equitizer: &mut Equitizer, beta: f64) -> f64 {
+fn calc_inv_beta2(equitizer: &mut Equitizer, beta: f64) -> S {
     // TODO: use query_prob_and_eq
     let prob_ats_vs_aa = equitizer.query_prob("ATs", "AA");
     let eq_ats_vs_aa = equitizer.query_eq("ATs", "AA");
@@ -96,10 +95,10 @@ fn calc_inv_beta2(equitizer: &mut Equitizer, beta: f64) -> f64 {
         - prob_ats_vs_aa
         - beta * prob_ats_vs_aks;
 
-    -b / a
+    (-b / a).into()
 }
 
-fn calc_alpha3(equitizer: &mut Equitizer, s3: f64) -> f64 {
+fn calc_alpha3(equitizer: &mut Equitizer, s3: S) -> f64 {
     let p1 = equitizer.query_prob("AKs", "AA,AKs,A5s");
     let eq1 = equitizer.query_eq("AKs", "AA,AKs,A5s");
     let p2 = equitizer.query_prob("AKs", "ATs");

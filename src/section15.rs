@@ -9,11 +9,12 @@ use crate::format::pretty_s;
 use crate::search::binary_search;
 use crate::section14::calc_alpha14;
 use crate::section14::calc_beta14;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 use std::fmt;
 
 pub fn section15(equitizer: &mut Equitizer) {
-    for s in [180.0, 179.0, 178.0] {
+    for s in [180.into(), 179.into(), 178.into()] {
         println!("s = {}", s);
         println!("alpha = {}", calc_alpha14(equitizer, s));
         println!("beta = {}", calc_beta14(equitizer, s));
@@ -21,7 +22,7 @@ pub fn section15(equitizer: &mut Equitizer) {
     }
 
     let s15 = search_s15_for_beta_jj_equals_0(equitizer);
-    println!("s15 = {}", pretty_s(s15));
+    println!("s15 = {}", s15);
 
     {
         let beta = calc_beta14(equitizer, s15);
@@ -92,9 +93,9 @@ pub fn section15(equitizer: &mut Equitizer) {
     println!("beta = {}", beta);
 }
 
-fn search_s15_for_beta_jj_equals_0(equitizer: &mut Equitizer) -> f64 {
+fn search_s15_for_beta_jj_equals_0(equitizer: &mut Equitizer) -> S {
     let f = |s| calc_beta14(equitizer, s).jj;
-    binary_search(178.0, 180.0, f)
+    binary_search(178.into(), 180.into(), f)
 }
 
 pub struct Alpha15 {
@@ -113,7 +114,7 @@ impl fmt::Display for Alpha15 {
     }
 }
 
-pub fn calc_alpha15(equitizer: &mut Equitizer, s: f64) -> Alpha15 {
+pub fn calc_alpha15(equitizer: &mut Equitizer, s: S) -> Alpha15 {
     let p_and_eq_0 = equitizer.query_prob_and_eq("AKo", "KK+,AK,ATs,A5s-A3s");
     let p_and_eq_1 = equitizer.query_prob_and_eq("AKo", "TT");
     let p_and_eq_2 = equitizer.query_prob_and_eq("AKo", "QQ");
@@ -146,7 +147,7 @@ impl fmt::Display for Beta15 {
     }
 }
 
-pub fn calc_beta15(equitizer: &mut Equitizer, s: f64) -> Beta15 {
+pub fn calc_beta15(equitizer: &mut Equitizer, s: S) -> Beta15 {
     let p_and_eq_0 = equitizer.query_prob_and_eq("TT", "KK+,AKs");
     let p_and_eq_1 = equitizer.query_prob_and_eq("TT", "AKo");
     let p_and_eq_2 = equitizer.query_prob_and_eq("TT", "QQ");

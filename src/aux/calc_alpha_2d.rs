@@ -1,10 +1,13 @@
 use super::solve_linear_eq_2d::solve_linear_eq_2d;
+use crate::types::S;
 
 pub fn calc_alpha_2d(
     ((p0, eq0), (p1, eq1), (p2, eq2)): ((f64, f64), (f64, f64), (f64, f64)),
     ((p3, eq3), (p4, eq4), (p5, eq5)): ((f64, f64), (f64, f64), (f64, f64)),
-    s: f64,
+    s: S,
 ) -> (f64, f64) {
+    let s: f64 = s.into();
+
     // ax + by + c = 0
     let a = p1 * eq1 * (2.0 * s + 1.0) - p1 * s;
     let b = p2 * eq2 * (2.0 * s + 1.0) - p2 * s;

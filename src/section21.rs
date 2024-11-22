@@ -8,18 +8,17 @@ use hardcore_equitizer::Equitizer;
 // use crate::research_defender::research_defender_2d;
 // use crate::search::binary_search;
 // use crate::section19::calc_beta19;
-use crate::format::pretty_s;
 use crate::section20::calc_alpha20;
 use crate::section20::calc_beta20;
 // use std::fmt;
 
 pub fn section21(equitizer: &mut Equitizer) {
-    let s_neighbour = 122.0;
+    let s_neighbour = 122.into();
     let alpha = calc_alpha20(equitizer, s_neighbour);
     let beta = calc_beta20(equitizer, s_neighbour);
 
-    println!("α20({}) = {}", pretty_s(s_neighbour), alpha);
-    println!("β20({}) = {}", pretty_s(s_neighbour), beta);
+    println!("α20({}) = {}", s_neighbour, alpha);
+    println!("β20({}) = {}", s_neighbour, beta);
     println!("");
 }
 

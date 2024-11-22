@@ -1,6 +1,7 @@
 use crate::aux::calc_alpha_1d;
 use crate::aux::calc_beta_1d;
 use crate::aux::join_calc_s_and_beta;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section06(equitizer: &mut Equitizer) {
@@ -14,7 +15,7 @@ pub fn section06(equitizer: &mut Equitizer) {
     println!("alpha6(s6): {:.2}%", calc_alpha6(equitizer, s6) * 100.0);
 }
 
-fn calc_s6_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
+fn calc_s6_and_beta(equitizer: &mut Equitizer) -> (S, f64) {
     let (p0, eq0) = equitizer.query_prob_and_eq("A5s", "AA");
     let (p1, eq1) = equitizer.query_prob_and_eq("A5s", "KK");
     let (p2, eq2) = equitizer.query_prob_and_eq("AKo", "AA");
@@ -23,14 +24,14 @@ fn calc_s6_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
     join_calc_s_and_beta(((p0, eq0), (p1, eq1)), ((p2, eq2), (p3, eq3)))
 }
 
-pub fn calc_beta6(equitizer: &mut Equitizer, s: f64) -> f64 {
+pub fn calc_beta6(equitizer: &mut Equitizer, s: S) -> f64 {
     let (p0, eq0) = equitizer.query_prob_and_eq("A5s", "AA");
     let (p1, eq1) = equitizer.query_prob_and_eq("A5s", "KK");
 
     calc_beta_1d((p0, eq0), (p1, eq1), s)
 }
 
-pub fn calc_alpha6(equitizer: &mut Equitizer, s: f64) -> f64 {
+pub fn calc_alpha6(equitizer: &mut Equitizer, s: S) -> f64 {
     let (p0, eq0) = equitizer.query_prob_and_eq("KK", "AA,AK");
     let (p1, eq1) = equitizer.query_prob_and_eq("KK", "A5s");
 

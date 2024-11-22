@@ -1,21 +1,21 @@
 use crate::aux;
 use crate::aux::calc_attacker_ev_2d;
 use crate::format::pretty_percent;
-use crate::format::pretty_s;
 use crate::research_attacker::research_attacker_2d;
 use crate::research_defender::research_defender_2d;
 use crate::search::binary_search;
 use crate::section16::calc_alpha16;
 use crate::section16::calc_beta16;
 use crate::types::BetaAKoQQ;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 use std::fmt;
 
 pub fn section17(equitizer: &mut Equitizer) {
-    let s = 177.0;
+    let s = 177.into();
     let alpha = calc_alpha16(equitizer, s);
     let beta = calc_beta16(equitizer, s);
-    println!("s = {}, alpha = {}, beta = {}", pretty_s(s), alpha, beta);
+    println!("s = {}, alpha = {}, beta = {}", s, alpha, beta);
 
     research_attacker_2d(
         equitizer, "KK+,AKs", "AKo", beta.ako_1, "QQ", beta.qq_2, s, 15,
@@ -33,11 +33,19 @@ pub fn section17(equitizer: &mut Equitizer) {
     );
 
     for s in [
-        177.0, 176.0, 175.0, 170.0, 165.0, 160.0, 150.0, 140.0, 130.0,
+        177.into(),
+        176.into(),
+        175.into(),
+        170.into(),
+        165.into(),
+        160.into(),
+        150.into(),
+        140.into(),
+        130.into(),
     ] {
         let alpha = calc_alpha16(equitizer, s);
         let beta = calc_beta16(equitizer, s);
-        println!("s = {}, alpha = {}, beta = {}", pretty_s(s), alpha, beta);
+        println!("s = {}, alpha = {}, beta = {}", s, alpha, beta);
     }
     println!("");
 
@@ -45,7 +53,7 @@ pub fn section17(equitizer: &mut Equitizer) {
     let alpha = calc_alpha16(equitizer, s);
     let beta = calc_beta16(equitizer, s);
 
-    println!("s = {}", pretty_s(s));
+    println!("s = {}", s);
     println!("alpha(s) = {}", alpha);
     println!("beta(s) = {}", beta);
 
@@ -68,7 +76,7 @@ pub fn section17(equitizer: &mut Equitizer) {
     let alpha = calc_alpha16(equitizer, s);
     let beta = calc_beta16(equitizer, s);
 
-    println!("s = {}", pretty_s(s));
+    println!("s = {}", s);
     println!("alpha(s) = {}", alpha);
     println!("beta(s) = {}", beta);
     println!("");
@@ -93,13 +101,13 @@ pub fn section17(equitizer: &mut Equitizer) {
     println!("beta17(s17) = {}", calc_beta17(equitizer, s));
 }
 
-fn search_s_for_alpha16_ajs_ev_equals_0(equitizer: &mut Equitizer) -> f64 {
-    let f = |s: f64| calc_alpha16(equitizer, s).ajs;
-    binary_search(130.0, 140.0, f)
+fn search_s_for_alpha16_ajs_ev_equals_0(equitizer: &mut Equitizer) -> S {
+    let f = |s| calc_alpha16(equitizer, s).ajs;
+    binary_search(130.into(), 140.into(), f)
 }
 
-fn search_s_for_attacker_ev_of_aqs_equals_0(equitizer: &mut Equitizer) -> f64 {
-    let f = |s: f64| -> f64 {
+fn search_s_for_attacker_ev_of_aqs_equals_0(equitizer: &mut Equitizer) -> S {
+    let f = |s| -> f64 {
         let beta = calc_beta16(equitizer, s);
         calc_attacker_ev_2d(
             equitizer.query_prob_and_eq("AQs", "KK+,AKs"),
@@ -111,7 +119,7 @@ fn search_s_for_attacker_ev_of_aqs_equals_0(equitizer: &mut Equitizer) -> f64 {
         )
     };
 
-    binary_search(130.0, 177.0, f)
+    binary_search(130.into(), 177.into(), f)
 }
 
 pub struct Alpha17 {
@@ -130,7 +138,7 @@ impl fmt::Display for Alpha17 {
     }
 }
 
-pub fn calc_alpha17(equitizer: &mut Equitizer, s: f64) -> Alpha17 {
+pub fn calc_alpha17(equitizer: &mut Equitizer, s: S) -> Alpha17 {
     let p_and_eq_0 = equitizer.query_prob_and_eq("AKo", "QQ+,AK,ATs,A5s-A3s");
     let p_and_eq_1 = equitizer.query_prob_and_eq("AKo", "TT");
     let p_and_eq_2 = equitizer.query_prob_and_eq("AKo", "AQs");
@@ -147,7 +155,7 @@ pub fn calc_alpha17(equitizer: &mut Equitizer, s: f64) -> Alpha17 {
     Alpha17 { tt, aqs }
 }
 
-pub fn calc_beta17(equitizer: &mut Equitizer, s: f64) -> BetaAKoQQ {
+pub fn calc_beta17(equitizer: &mut Equitizer, s: S) -> BetaAKoQQ {
     let p_and_eq_0 = equitizer.query_prob_and_eq("TT", "KK+,AKs");
     let p_and_eq_1 = equitizer.query_prob_and_eq("TT", "AKo");
     let p_and_eq_2 = equitizer.query_prob_and_eq("TT", "QQ");

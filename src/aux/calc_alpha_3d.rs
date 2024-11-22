@@ -1,4 +1,5 @@
 use super::solve_linear_eq_3d::solve_linear_eq_3d;
+use crate::types::S;
 
 pub fn calc_alpha_3d(
     ((p00, eq00), (p01, eq01), (p02, eq02), (p03, eq03)): (
@@ -19,8 +20,10 @@ pub fn calc_alpha_3d(
         (f64, f64),
         (f64, f64),
     ),
-    s: f64,
+    s: S,
 ) -> (f64, f64, f64) {
+    let s: f64 = s.into();
+
     // ax + by + cz + d = 0
     let a0 = p01 * eq01 * (2.0 * s + 1.0) - p01 * s;
     let b0 = p02 * eq02 * (2.0 * s + 1.0) - p02 * s;

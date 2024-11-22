@@ -2,6 +2,7 @@ use crate::aux::calc_alpha_2d;
 use crate::aux::calc_beta_2d;
 use crate::aux::join_calc_s_and_beta;
 use crate::format::pretty_percent;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 
 pub fn section04(equitizer: &mut Equitizer) {
@@ -23,6 +24,8 @@ pub fn section04(equitizer: &mut Equitizer) {
             let p2 = equitizer.query_prob(&combo, "AKs");
             let eq2 = equitizer.query_eq(&combo, "AKs");
             let eq = (eq1 * p1 + eq2 * p2 * beta) / (p1 + p2 * beta);
+
+            let s4: f64 = s4.into(); // TODO: refactor
 
             let ev = p1 * (eq1 * (2.0 * s4 + 1.0) - s4)
                 + beta * p2 * (eq2 * (2.0 * s4 + 1.0) - s4)
@@ -84,7 +87,7 @@ pub struct Alpha4 {
     pub ako: f64,
 }
 
-pub fn calc_alpha4(equitizer: &mut Equitizer, s: f64) -> Alpha4 {
+pub fn calc_alpha4(equitizer: &mut Equitizer, s: S) -> Alpha4 {
     let p_and_eq_0 = equitizer.query_prob_and_eq("AKs", "AA,AKs,A5s");
     let p_and_eq_1 = equitizer.query_prob_and_eq("AKs", "ATs");
     let p_and_eq_2 = equitizer.query_prob_and_eq("AKs", "AKo");
@@ -106,7 +109,7 @@ pub struct Beta4 {
     pub kk: f64,
 }
 
-pub fn calc_beta4(equitizer: &mut Equitizer, s: f64) -> Beta4 {
+pub fn calc_beta4(equitizer: &mut Equitizer, s: S) -> Beta4 {
     let (p1, eq1) = equitizer.query_prob_and_eq("ATs", "AKs");
     let (p2, eq2) = equitizer.query_prob_and_eq("ATs", "KK");
     let (p0, eq0) = equitizer.query_prob_and_eq("ATs", "AA");
@@ -123,7 +126,7 @@ pub fn calc_beta4(equitizer: &mut Equitizer, s: f64) -> Beta4 {
     Beta4 { aks, kk }
 }
 
-pub fn calc_s4_and_beta(equitizer: &mut Equitizer) -> (f64, f64) {
+pub fn calc_s4_and_beta(equitizer: &mut Equitizer) -> (S, f64) {
     // TODO: refactor
     let (p1, eq1, p2, eq2) = (
         equitizer.query_prob("ATs", "AA"),

@@ -1,4 +1,6 @@
-pub fn binary_search(low: f64, high: f64, mut f: impl FnMut(f64) -> f64) -> f64 {
+use crate::types::S;
+
+pub fn binary_search(low: S, high: S, mut f: impl FnMut(S) -> f64) -> S {
     let f_low = f(low);
     let f_high = f(high);
 
@@ -11,9 +13,9 @@ pub fn binary_search(low: f64, high: f64, mut f: impl FnMut(f64) -> f64) -> f64 
     }
 }
 
-fn binary_search_increasing(mut low: f64, mut high: f64, mut f: impl FnMut(f64) -> f64) -> f64 {
+fn binary_search_increasing(mut low: S, mut high: S, mut f: impl FnMut(S) -> f64) -> S {
     for _ in 0..100 {
-        let mid = (high + low) / 2.0;
+        let mid = high.midpoint(low);
         let f_mid = f(mid);
 
         match f_mid.signum() {
@@ -28,12 +30,12 @@ fn binary_search_increasing(mut low: f64, mut high: f64, mut f: impl FnMut(f64) 
         }
     }
 
-    (low + high) / 2.0
+    low.midpoint(high)
 }
 
-fn binary_search_decreasing(mut low: f64, mut high: f64, mut f: impl FnMut(f64) -> f64) -> f64 {
+fn binary_search_decreasing(mut low: S, mut high: S, mut f: impl FnMut(S) -> f64) -> S {
     for _ in 0..100 {
-        let mid = (high + low) / 2.0;
+        let mid = high.midpoint(low);
         let f_mid = f(mid);
 
         match f_mid.signum() {
@@ -48,5 +50,5 @@ fn binary_search_decreasing(mut low: f64, mut high: f64, mut f: impl FnMut(f64) 
         }
     }
 
-    (low + high) / 2.0
+    high.midpoint(low)
 }

@@ -1,6 +1,7 @@
 use crate::aux;
 use crate::combos;
 use crate::format::pretty_percent;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 
 // 攻方的不同组合面对 attacker_0 + attacker_1:beta1, attacker_2:beta2 的 EQ
@@ -12,7 +13,7 @@ pub fn research_defender_2d(
     alpha_1: f64,
     defender_2: &str,
     alpha_2: f64,
-    s: f64,
+    s: S,
     limit: usize,
 ) {
     println!(
@@ -35,6 +36,7 @@ pub fn research_defender_2d(
     combo_and_eq_vec.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
 
     for (combo, eq) in combo_and_eq_vec.iter().take(limit) {
+        let s: f64 = s.into();
         let extra = if f64::abs(eq - s / (2.0 * s + 1.0)) < 1e-9 {
             " (BE)"
         } else {

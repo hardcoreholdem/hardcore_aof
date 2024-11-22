@@ -7,11 +7,12 @@ use crate::research_defender::research_defender_2d;
 use crate::search::binary_search;
 use crate::section15::{calc_alpha15, calc_beta15};
 use crate::types::BetaAKoQQ;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 use std::fmt;
 
 pub fn section16(equitizer: &mut Equitizer) {
-    let s = 178.0;
+    let s = 178.into();
     let alpha = calc_alpha15(equitizer, s);
     let beta = calc_beta15(equitizer, s);
 
@@ -33,14 +34,14 @@ pub fn section16(equitizer: &mut Equitizer) {
         10,
     );
 
-    for s in [178.0, 177.0, 175.0, 170.0, 165.0] {
+    for s in [178.into(), 177.into(), 175.into(), 170.into(), 165.into()] {
         let alpha = calc_alpha15(equitizer, s);
         let beta = calc_beta15(equitizer, s);
-        println!("s = {}, alpha = {}, beta = {}", pretty_s(s), alpha, beta);
+        println!("s = {}, alpha = {}, beta = {}", s, alpha, beta);
     }
 
-    let s16: f64 = search_s16_for_attacker_ev_eof_ajs_quals_0(equitizer);
-    println!("s16 = {}", pretty_s(s16));
+    let s16 = search_s16_for_attacker_ev_eof_ajs_quals_0(equitizer);
+    println!("s16 = {}", s16);
     println!("alpha(s16) = {}", calc_alpha15(equitizer, s16));
     println!("beta(s16) = {}", calc_beta15(equitizer, s16));
     println!("");
@@ -52,8 +53,8 @@ pub fn section16(equitizer: &mut Equitizer) {
     println!("beta16(s16) = {}", beta16);
 }
 
-fn search_s16_for_attacker_ev_eof_ajs_quals_0(equitizer: &mut Equitizer) -> f64 {
-    let f = |s: f64| -> f64 {
+fn search_s16_for_attacker_ev_eof_ajs_quals_0(equitizer: &mut Equitizer) -> S {
+    let f = |s| -> f64 {
         let beta = calc_beta15(equitizer, s);
         calc_attacker_ev_2d(
             equitizer.query_prob_and_eq("AJs", "KK+,AKs"),
@@ -65,7 +66,7 @@ fn search_s16_for_attacker_ev_eof_ajs_quals_0(equitizer: &mut Equitizer) -> f64 
         )
     };
 
-    binary_search(165.0, 178.0, f)
+    binary_search(165.into(), 178.into(), f)
 }
 
 pub struct Alpha16 {
@@ -84,7 +85,7 @@ impl fmt::Display for Alpha16 {
     }
 }
 
-pub fn calc_alpha16(equitizer: &mut Equitizer, s: f64) -> Alpha16 {
+pub fn calc_alpha16(equitizer: &mut Equitizer, s: S) -> Alpha16 {
     let p_and_eq_0 = equitizer.query_prob_and_eq("AKo", "QQ+,AK,ATs,A5s-A3s");
     let p_and_eq_1 = equitizer.query_prob_and_eq("AKo", "TT");
     let p_and_eq_2 = equitizer.query_prob_and_eq("AKo", "AJs");
@@ -101,7 +102,7 @@ pub fn calc_alpha16(equitizer: &mut Equitizer, s: f64) -> Alpha16 {
     Alpha16 { tt, ajs }
 }
 
-pub fn calc_beta16(equitizer: &mut Equitizer, s: f64) -> BetaAKoQQ {
+pub fn calc_beta16(equitizer: &mut Equitizer, s: S) -> BetaAKoQQ {
     let p_and_eq_0 = equitizer.query_prob_and_eq("TT", "KK+,AKs");
     let p_and_eq_1 = equitizer.query_prob_and_eq("TT", "AKo");
     let p_and_eq_2 = equitizer.query_prob_and_eq("TT", "QQ");

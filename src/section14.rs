@@ -2,16 +2,16 @@ use crate::aux::calc_alpha_3d;
 use crate::aux::calc_attacker_ev_2d;
 use crate::aux::calc_beta_3d;
 use crate::format::pretty_percent;
-use crate::format::pretty_s;
 use crate::search::binary_search;
 use crate::section13::calc_alpha13;
 use crate::section13::calc_beta13;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 use std::fmt;
 
 pub fn section14(equitizer: &mut Equitizer) {
     let s14 = search_s14_for_ev_qq_equals_0(equitizer);
-    println!("s14={}", pretty_s(s14));
+    println!("s14={}", s14);
 
     let alpha13 = calc_alpha13(equitizer, s14);
     println!("alpha_A3s={}", pretty_percent(alpha13.a3s));
@@ -34,7 +34,7 @@ pub fn section14(equitizer: &mut Equitizer) {
     println!("");
 }
 
-fn search_s14_for_ev_qq_equals_0(equitizer: &mut Equitizer) -> f64 {
+fn search_s14_for_ev_qq_equals_0(equitizer: &mut Equitizer) -> S {
     let p_and_eq_0 = equitizer.query_prob_and_eq("QQ", "KK+,AKs");
     let p_and_eq_1 = equitizer.query_prob_and_eq("QQ", "AKo");
     let p_and_eq_2 = equitizer.query_prob_and_eq("QQ", "JJ");
@@ -44,7 +44,7 @@ fn search_s14_for_ev_qq_equals_0(equitizer: &mut Equitizer) -> f64 {
         calc_attacker_ev_2d(p_and_eq_0, beta.ako_1, p_and_eq_1, beta.jj_2, p_and_eq_2, s)
     };
 
-    binary_search(0.0, 300.0, f)
+    binary_search(0.into(), 300.into(), f)
 }
 
 pub struct Alpha14 {
@@ -65,7 +65,7 @@ impl fmt::Display for Alpha14 {
     }
 }
 
-pub fn calc_alpha14(equitizer: &mut Equitizer, s: f64) -> Alpha14 {
+pub fn calc_alpha14(equitizer: &mut Equitizer, s: S) -> Alpha14 {
     let p_and_eq_00 = equitizer.query_prob_and_eq("AKo", "KK+,AK,ATs,A5s,A4s");
     let p_and_eq_01 = equitizer.query_prob_and_eq("AKo", "A3s");
     let p_and_eq_02 = equitizer.query_prob_and_eq("AKo", "TT");
@@ -107,7 +107,7 @@ impl fmt::Display for Beta14 {
     }
 }
 
-pub fn calc_beta14(equitizer: &mut Equitizer, s: f64) -> Beta14 {
+pub fn calc_beta14(equitizer: &mut Equitizer, s: S) -> Beta14 {
     let p_and_eq_00 = equitizer.query_prob_and_eq("A3s", "KK+,AKs");
     let p_and_eq_01 = equitizer.query_prob_and_eq("A3s", "AKo");
     let p_and_eq_02 = equitizer.query_prob_and_eq("A3s", "JJ");

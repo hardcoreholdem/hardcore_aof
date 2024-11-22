@@ -1,9 +1,10 @@
 use crate::aux::calc_beta_1d;
 use crate::format::pretty_percent;
 use crate::section01::calc_alpha_old;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 
-fn inv_beta1(equitizer: &mut Equitizer, beta: f64) -> f64 {
+fn inv_beta1(equitizer: &mut Equitizer, beta: f64) -> S {
     // TODO: rename to p_and_eq_xxx
     let prob_a5s_vs_a = equitizer.query_prob("A5s", "AA");
     let eq_a5s_vs_aa = equitizer.query_eq("A5s", "AA");
@@ -20,10 +21,10 @@ fn inv_beta1(equitizer: &mut Equitizer, beta: f64) -> f64 {
         - prob_a5s_vs_a
         - beta * prob_a5s_vs_aks;
 
-    -b / a
+    (-b / a).into()
 }
 
-fn calc_alpha2(equitizer: &mut Equitizer, s: f64) -> f64 {
+fn calc_alpha2(equitizer: &mut Equitizer, s: S) -> f64 {
     // TODO: use query_prob_and_eq
     let p1 = equitizer.query_prob("AKs", "AA,A5s");
     let eq1 = equitizer.query_eq("AKs", "AA,A5s");
@@ -32,7 +33,7 @@ fn calc_alpha2(equitizer: &mut Equitizer, s: f64) -> f64 {
     calc_alpha_old(p1, eq1, n2, p2, s)
 }
 
-fn calc_beta2(equitizer: &mut Equitizer, s: f64) -> f64 {
+fn calc_beta2(equitizer: &mut Equitizer, s: S) -> f64 {
     let (p0, eq0) = equitizer.query_prob_and_eq("ATs", "AA");
     let (p1, eq1) = equitizer.query_prob_and_eq("ATs", "AKs");
     calc_beta_1d((p0, eq0), (p1, eq1), s)

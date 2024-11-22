@@ -2,6 +2,7 @@ use crate::aux;
 use crate::combos;
 use crate::format::pretty_percent;
 use crate::format::pretty_s;
+use crate::types::S;
 use hardcore_equitizer::Equitizer;
 
 // 攻方的不同组合面对 defender_0 + defender_1:beta1, defender_2:beta2 的 EQ 和 EV
@@ -13,7 +14,7 @@ pub fn research_attacker_2d(
     beta_1: f64,
     defender_2: &str,
     beta_2: f64,
-    s: f64,
+    s: S,
     limit: usize,
 ) {
     println!(
@@ -49,7 +50,7 @@ pub fn research_attacker_1d(
     defender_0: &str,
     defender_1: &str,
     beta_1: f64,
-    s: f64,
+    s: S,
     limit: usize,
 ) {
     println!(
