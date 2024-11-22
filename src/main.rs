@@ -28,6 +28,7 @@ mod section17;
 mod section18;
 mod section19;
 mod section20;
+mod section21;
 mod types;
 
 use clap::Parser;
@@ -52,7 +53,7 @@ use section17::section17;
 use section18::section18;
 use section19::section19;
 use section20::section20;
-
+use section21::section21;
 #[derive(Parser)]
 struct Cli {
     #[arg(short, long)]
@@ -92,6 +93,7 @@ fn main() {
         18 => section18(&mut equitizer),
         19 => section19(&mut equitizer),
         20 => section20(&mut equitizer),
+        21 => section21(&mut equitizer),
         _ => panic!("invalid section"),
     }
 }
