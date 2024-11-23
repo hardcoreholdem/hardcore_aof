@@ -1,3 +1,4 @@
+use crate::calc_alpha::calc_alpha_2d;
 use crate::calc_attacker_ev::calc_attacker_ev_2d;
 use crate::section14::calc_alpha14;
 use crate::section14::calc_beta14;
@@ -134,7 +135,7 @@ pub fn calc_alpha15(equitizer: &mut Equitizer, s: S) -> Alpha15 {
     let p_and_eq_4 = equitizer.query_prob_and_eq(&PureRange::from("QQ"), &PureRange::from("TT"));
     let p_and_eq_5 = equitizer.query_prob_and_eq(&PureRange::from("QQ"), &PureRange::from("QQ"));
 
-    let (tt, qq) = aux::calc_alpha_2d(
+    let (tt, qq) = calc_alpha_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,

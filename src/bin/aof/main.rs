@@ -1,6 +1,7 @@
 use hardcore_equitizer::Equitizer;
 use hardcore_equitizer::HandRanker;
 
+mod calc_alpha;
 mod calc_attacker_ev;
 mod research_attacker;
 mod research_defender;

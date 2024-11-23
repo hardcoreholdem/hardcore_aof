@@ -1,8 +1,10 @@
+use crate::calc_alpha::calc_alpha_1d;
 use hardcore_aof::aux;
 use hardcore_aof::format::pretty_percent;
 use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 use hardcore_equitizer::PureRange;
+
 pub fn section12(equitizer: &mut Equitizer) {
     let s12 = calc_s12(equitizer);
     println!("s12: {}", s12);
@@ -25,7 +27,7 @@ pub fn calc_alpha12(equitizer: &mut Equitizer, s: S) -> f64 {
         equitizer.query_prob_and_eq(&PureRange::from("AKo"), &PureRange::from("KK+AKATsA5sA4s"));
     let (p1, eq1) = equitizer.query_prob_and_eq(&PureRange::from("AKo"), &PureRange::from("A3s"));
 
-    aux::calc_alpha_1d((p0, eq0), (p1, eq1), s)
+    calc_alpha_1d((p0, eq0), (p1, eq1), s)
 }
 
 pub fn calc_beta12(equitizer: &mut Equitizer, s: S) -> f64 {

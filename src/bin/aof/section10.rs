@@ -1,3 +1,4 @@
+use crate::calc_alpha::calc_alpha_1d;
 use hardcore_aof::aux;
 use hardcore_aof::format;
 use hardcore_aof::types::S;
@@ -26,7 +27,7 @@ fn calc_alpha10(equitizer: &mut Equitizer, s: S) -> f64 {
     let (p0, eq0) =
         equitizer.query_prob_and_eq(&PureRange::from("AKs"), &PureRange::from("KK+AKA5sA4s"));
     let (p1, eq1) = equitizer.query_prob_and_eq(&PureRange::from("AKs"), &PureRange::from("ATs"));
-    aux::calc_alpha_1d((p0, eq0), (p1, eq1), s)
+    calc_alpha_1d((p0, eq0), (p1, eq1), s)
 }
 
 pub fn calc_beta10(equitizer: &mut Equitizer, s: S) -> f64 {

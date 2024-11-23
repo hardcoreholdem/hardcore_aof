@@ -1,3 +1,4 @@
+use crate::calc_alpha::calc_alpha_2d;
 use crate::section12::calc_beta12;
 use hardcore_aof::aux;
 use hardcore_aof::format::pretty_percent;
@@ -5,6 +6,7 @@ use hardcore_aof::search::binary_search;
 use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 use hardcore_equitizer::PureRange;
+
 pub fn section13(equitizer: &mut Equitizer) {
     let s = search_s_for_beta_12_equals_1(equitizer);
     println!("s: {}", s);
@@ -54,7 +56,7 @@ pub fn calc_alpha13(equitizer: &mut Equitizer, s: S) -> Alpha13 {
     let p_and_eq_4 = equitizer.query_prob_and_eq(&PureRange::from("JJ"), &PureRange::from("A3s"));
     let p_and_eq_5 = equitizer.query_prob_and_eq(&PureRange::from("JJ"), &PureRange::from("TT"));
 
-    let (a3s, tt) = aux::calc_alpha_2d(
+    let (a3s, tt) = calc_alpha_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,

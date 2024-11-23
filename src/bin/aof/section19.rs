@@ -1,5 +1,6 @@
 use hardcore_equitizer::Equitizer;
 
+use crate::calc_alpha::calc_alpha_2d;
 use crate::calc_attacker_ev::calc_attacker_ev_2d;
 use crate::research_attacker::research_attacker_2d;
 use crate::research_defender::research_defender_2d;
@@ -173,7 +174,7 @@ pub fn calc_alpha19(equitizer: &mut Equitizer, s: S) -> Alpha19 {
     let p_and_eq_4 = equitizer.query_prob_and_eq(&PureRange::from("QQ"), &PureRange::from("TT"));
     let p_and_eq_5 = equitizer.query_prob_and_eq(&PureRange::from("QQ"), &PureRange::from("ATs"));
 
-    let (tt_1, ats_2) = aux::calc_alpha_2d(
+    let (tt_1, ats_2) = calc_alpha_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,

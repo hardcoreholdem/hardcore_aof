@@ -1,4 +1,4 @@
-use hardcore_aof::aux::calc_alpha_1d;
+use crate::calc_alpha::calc_alpha_1d;
 use hardcore_aof::aux::calc_beta_1d;
 use hardcore_aof::aux::join_calc_s_and_beta;
 use hardcore_aof::types::S;

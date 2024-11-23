@@ -1,8 +1,8 @@
+use crate::calc_alpha::calc_alpha_3d;
 use crate::calc_attacker_ev::calc_attacker_ev_2d;
 use crate::section13::calc_alpha13;
 use crate::section13::calc_beta13;
 use hardcore_aof::aux;
-use hardcore_aof::aux::calc_alpha_3d;
 use hardcore_aof::format::pretty_percent;
 use hardcore_aof::search::binary_search;
 use hardcore_aof::types::S;
