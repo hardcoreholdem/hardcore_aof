@@ -1,5 +1,5 @@
 use crate::calc_alpha::calc_alpha_2d;
-use hardcore_aof::aux::calc_beta_2d;
+use crate::calc_beta::calc_beta_2d;
 use hardcore_aof::aux::join_calc_s_and_beta;
 use hardcore_aof::format::pretty_percent;
 use hardcore_aof::types::S;

@@ -1,8 +1,8 @@
+use crate::calc_beta::calc_beta_1d;
 use crate::section01::calc_alpha_new;
 use crate::section04::calc_alpha4;
 use crate::section04::calc_beta4;
 use crate::section04::calc_s4_and_beta;
-use hardcore_aof::aux::calc_beta_1d;
 use hardcore_aof::format::pretty_percent;
 use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;

@@ -1,11 +1,11 @@
 use crate::calc_alpha::calc_alpha_2d;
 use crate::calc_attacker_ev::calc_attacker_ev_2d;
+use crate::calc_beta::calc_beta_2d;
 use crate::research_attacker::research_attacker_2d;
 use crate::research_defender::research_defender_2d;
 use crate::section20::calc_alpha20;
 use crate::section20::calc_beta20;
 use core::f64;
-use hardcore_aof::aux;
 use hardcore_aof::format::pretty_percent;
 use hardcore_aof::search::binary_search;
 use hardcore_aof::types::BetaAKoJJ;
@@ -204,7 +204,7 @@ pub fn calc_beta21(equitizer: &mut Equitizer, s: S) -> BetaAKoJJ {
     let p_and_eq_4 = equitizer.query_prob_and_eq(&PureRange::from("JJ"), &PureRange::from("AKo"));
     let p_and_eq_5 = equitizer.query_prob_and_eq(&PureRange::from("JJ"), &PureRange::from("JJ"));
 
-    let (ako_1, jj_2) = aux::calc_beta_2d(
+    let (ako_1, jj_2) = calc_beta_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,

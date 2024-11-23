@@ -1,5 +1,5 @@
-use super::solve_linear_eq_2d::solve_linear_eq_2d;
-use crate::types::S;
+use hardcore_aof::aux::solve_linear_eq_2d;
+use hardcore_aof::types::S;
 
 pub fn calc_beta_2d(
     ((p0, eq0), (p1, eq1), (p2, eq2)): ((f64, f64), (f64, f64), (f64, f64)),

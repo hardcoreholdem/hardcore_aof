@@ -1,4 +1,5 @@
 use crate::calc_alpha::calc_alpha_1d;
+use crate::calc_beta::calc_beta_1d;
 use hardcore_aof::aux;
 use hardcore_aof::format::pretty_percent;
 use hardcore_aof::types::S;
@@ -35,5 +36,5 @@ pub fn calc_beta12(equitizer: &mut Equitizer, s: S) -> f64 {
         equitizer.query_prob_and_eq(&PureRange::from("A3s"), &PureRange::from("KK+AKs"));
     let (p1, eq1) = equitizer.query_prob_and_eq(&PureRange::from("A3s"), &PureRange::from("AKo"));
 
-    aux::calc_beta_1d((p0, eq0), (p1, eq1), s)
+    calc_beta_1d((p0, eq0), (p1, eq1), s)
 }

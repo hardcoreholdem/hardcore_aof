@@ -1,5 +1,5 @@
-use super::solve_linear_eq_3d::solve_linear_eq_3d;
-use crate::types::S;
+use hardcore_aof::aux::solve_linear_eq_3d;
+use hardcore_aof::types::S;
 
 pub fn calc_beta_3d(
     ((p00, eq00), (p01, eq01), (p02, eq02), (p03, eq03)): (

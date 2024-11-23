@@ -1,5 +1,6 @@
 use crate::calc_alpha::calc_alpha_2d;
 use crate::calc_attacker_ev::calc_attacker_ev_2d;
+use crate::calc_beta::calc_beta_2d;
 use crate::section14::calc_alpha14;
 use crate::section14::calc_beta14;
 use hardcore_aof::aux;
@@ -170,7 +171,7 @@ pub fn calc_beta15(equitizer: &mut Equitizer, s: S) -> Beta15 {
     let p_and_eq_4 = equitizer.query_prob_and_eq(&PureRange::from("QQ"), &PureRange::from("AKo"));
     let p_and_eq_5 = equitizer.query_prob_and_eq(&PureRange::from("QQ"), &PureRange::from("QQ"));
 
-    let (ako, qq) = aux::calc_beta_2d(
+    let (ako, qq) = calc_beta_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
         (p_and_eq_3, p_and_eq_4, p_and_eq_5),
         s,

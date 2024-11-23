@@ -1,5 +1,5 @@
+use crate::calc_beta::calc_beta_1d;
 use hardcore_aof::aux;
-use hardcore_aof::aux::calc_beta_1d;
 use hardcore_aof::combos::calc_all_combos;
 use hardcore_aof::format::pretty_percent;
 use hardcore_aof::types::S;

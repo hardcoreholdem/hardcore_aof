@@ -31,11 +31,11 @@ pub fn calc_attacker_ev_1d(
     v0 + v1 + v_fold
 }
 
-pub fn calc_attacker_ev_0d((p_0, eq_0): (f64, f64), s: S) -> f64 {
-    let s: f64 = s.into();
+// pub fn calc_attacker_ev_0d((p_0, eq_0): (f64, f64), s: S) -> f64 {
+//     let s: f64 = s.into();
 
-    let v0 = p_0 * (eq_0 * (2.0 * s + 1.0) - s);
-    let v_fold = (1.0 - p_0) * 1.0;
+//     let v0 = p_0 * (eq_0 * (2.0 * s + 1.0) - s);
+//     let v_fold = (1.0 - p_0) * 1.0;
 
-    v0 + v_fold
-}
+//     v0 + v_fold
+// }

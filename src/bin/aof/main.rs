@@ -3,6 +3,7 @@ use hardcore_equitizer::HandRanker;
 
 mod calc_alpha;
 mod calc_attacker_ev;
+mod calc_beta;
 mod research_attacker;
 mod research_defender;
 mod section00;
