@@ -4,7 +4,7 @@ use hardcore_aof::aux::join_calc_s_and_beta;
 use hardcore_aof::format::pretty_percent;
 use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
-
+use hardcore_equitizer::PureRange;
 pub fn section04(equitizer: &mut Equitizer) {
     let (s4, beta) = calc_s4_and_beta(equitizer);
 
@@ -13,16 +13,16 @@ pub fn section04(equitizer: &mut Equitizer) {
 
     {
         let mut combo_and_eq_and_ev_vec = Vec::new();
-        for combo in [
+        for &combo in [
             "AKs", "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s", "A5s", "A4s", "A3s", "A2s",
             "AKo", "AQo", "AJo", "ATo", "A9o", "A8o", "A7o", "A6o", "A5o", "A4o", "A3o", "A2o",
         ]
         .iter()
         {
-            let p1 = equitizer.query_prob(&combo, "AA");
-            let eq1 = equitizer.query_eq(&combo, "AA");
-            let p2 = equitizer.query_prob(&combo, "AKs");
-            let eq2 = equitizer.query_eq(&combo, "AKs");
+            let p1 = equitizer.query_prob(&PureRange::from(combo), &PureRange::from("AA"));
+            let eq1 = equitizer.query_eq(&PureRange::from(combo), &PureRange::from("AA"));
+            let p2 = equitizer.query_prob(&PureRange::from(combo), &PureRange::from("AKs"));
+            let eq2 = equitizer.query_eq(&PureRange::from(combo), &PureRange::from("AKs"));
             let eq = (eq1 * p1 + eq2 * p2 * beta) / (p1 + p2 * beta);
 
             let s4: f64 = s4.into(); // TODO: refactor
@@ -47,7 +47,7 @@ pub fn section04(equitizer: &mut Equitizer) {
             let attacker = "AA,AKs,A5s";
             println!(
                 "EQ[{defender};{attacker}]={:.2}%",
-                equitizer.query_eq(defender, attacker) * 100.0
+                equitizer.query_eq(&PureRange::from(defender), &PureRange::from(attacker)) * 100.0
             );
         }
 
@@ -56,7 +56,7 @@ pub fn section04(equitizer: &mut Equitizer) {
             let attacker = "AA,AKs,A5s,AKo";
             println!(
                 "EQ[{defender};{attacker}]={:.2}%",
-                equitizer.query_eq(defender, attacker) * 100.0
+                equitizer.query_eq(&PureRange::from(defender), &PureRange::from(attacker)) * 100.0
             );
         }
 
@@ -65,7 +65,7 @@ pub fn section04(equitizer: &mut Equitizer) {
             let attacker = "AA,AKs,A5s,AKo";
             println!(
                 "EQ[{defender};{attacker}]={:.2}%",
-                equitizer.query_eq(defender, attacker) * 100.0
+                equitizer.query_eq(&PureRange::from(defender), &PureRange::from(attacker)) * 100.0
             );
         }
 
@@ -88,12 +88,14 @@ pub struct Alpha4 {
 }
 
 pub fn calc_alpha4(equitizer: &mut Equitizer, s: S) -> Alpha4 {
-    let p_and_eq_0 = equitizer.query_prob_and_eq("AKs", "AA,AKs,A5s");
-    let p_and_eq_1 = equitizer.query_prob_and_eq("AKs", "ATs");
-    let p_and_eq_2 = equitizer.query_prob_and_eq("AKs", "AKo");
-    let p_and_eq_3 = equitizer.query_prob_and_eq("KK", "AA,AKs,A5s");
-    let p_and_eq_4 = equitizer.query_prob_and_eq("KK", "ATs");
-    let p_and_eq_5 = equitizer.query_prob_and_eq("KK", "AKo");
+    let p_and_eq_0 =
+        equitizer.query_prob_and_eq(&PureRange::from("AKs"), &PureRange::from("AA,AKs,A5s"));
+    let p_and_eq_1 = equitizer.query_prob_and_eq(&PureRange::from("AKs"), &PureRange::from("ATs"));
+    let p_and_eq_2 = equitizer.query_prob_and_eq(&PureRange::from("AKs"), &PureRange::from("AKo"));
+    let p_and_eq_3 =
+        equitizer.query_prob_and_eq(&PureRange::from("KK"), &PureRange::from("AA,AKs,A5s"));
+    let p_and_eq_4 = equitizer.query_prob_and_eq(&PureRange::from("KK"), &PureRange::from("ATs"));
+    let p_and_eq_5 = equitizer.query_prob_and_eq(&PureRange::from("KK"), &PureRange::from("AKo"));
 
     let (ats, ako) = calc_alpha_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
@@ -110,12 +112,12 @@ pub struct Beta4 {
 }
 
 pub fn calc_beta4(equitizer: &mut Equitizer, s: S) -> Beta4 {
-    let (p1, eq1) = equitizer.query_prob_and_eq("ATs", "AKs");
-    let (p2, eq2) = equitizer.query_prob_and_eq("ATs", "KK");
-    let (p0, eq0) = equitizer.query_prob_and_eq("ATs", "AA");
-    let (p4, eq4) = equitizer.query_prob_and_eq("AKo", "AKs");
-    let (p5, eq5) = equitizer.query_prob_and_eq("AKo", "KK");
-    let (p3, eq3) = equitizer.query_prob_and_eq("AKo", "AA");
+    let (p1, eq1) = equitizer.query_prob_and_eq(&PureRange::from("ATs"), &PureRange::from("AKs"));
+    let (p2, eq2) = equitizer.query_prob_and_eq(&PureRange::from("ATs"), &PureRange::from("KK"));
+    let (p0, eq0) = equitizer.query_prob_and_eq(&PureRange::from("ATs"), &PureRange::from("AA"));
+    let (p4, eq4) = equitizer.query_prob_and_eq(&PureRange::from("AKo"), &PureRange::from("AKs"));
+    let (p5, eq5) = equitizer.query_prob_and_eq(&PureRange::from("AKo"), &PureRange::from("KK"));
+    let (p3, eq3) = equitizer.query_prob_and_eq(&PureRange::from("AKo"), &PureRange::from("AA"));
 
     let (aks, kk) = calc_beta_2d(
         ((p0, eq0), (p1, eq1), (p2, eq2)),
@@ -129,16 +131,16 @@ pub fn calc_beta4(equitizer: &mut Equitizer, s: S) -> Beta4 {
 pub fn calc_s4_and_beta(equitizer: &mut Equitizer) -> (S, f64) {
     // TODO: refactor
     let (p1, eq1, p2, eq2) = (
-        equitizer.query_prob("ATs", "AA"),
-        equitizer.query_eq("ATs", "AA"),
-        equitizer.query_prob("ATs", "AKs"),
-        equitizer.query_eq("ATs", "AKs"),
+        equitizer.query_prob(&PureRange::from("ATs"), &PureRange::from("AA")),
+        equitizer.query_eq(&PureRange::from("ATs"), &PureRange::from("AA")),
+        equitizer.query_prob(&PureRange::from("ATs"), &PureRange::from("AKs")),
+        equitizer.query_eq(&PureRange::from("ATs"), &PureRange::from("AKs")),
     );
     let (p3, eq3, p4, eq4) = (
-        equitizer.query_prob("AKo", "AA"),
-        equitizer.query_eq("AKo", "AA"),
-        equitizer.query_prob("AKo", "AKs"),
-        equitizer.query_eq("AKo", "AKs"),
+        equitizer.query_prob(&PureRange::from("AKo"), &PureRange::from("AA")),
+        equitizer.query_eq(&PureRange::from("AKo"), &PureRange::from("AA")),
+        equitizer.query_prob(&PureRange::from("AKo"), &PureRange::from("AKs")),
+        equitizer.query_eq(&PureRange::from("AKo"), &PureRange::from("AKs")),
     );
 
     join_calc_s_and_beta(((p1, eq1), (p2, eq2)), ((p3, eq3), (p4, eq4)))

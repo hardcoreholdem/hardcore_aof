@@ -1,27 +1,24 @@
 use hardcore_aof::aux;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 use hardcore_equitizer::PureRange;
 
 pub fn section00(equitizer: &mut Equitizer) {
-    let all_combos = {
-        let mut combos: Vec<String> = Vec::new();
+    let full_range = PureRange::from("99+,AJs+,AQo+");
+    for s in [
+        1000.into(),
+        500.into(),
+        250.into(),
+        100.into(),
+        50.into(),
+        40.into(),
+        30.into(),
+    ] {
+        crate::research_attacker::research_attacker_0d(equitizer, &full_range, "AA", s, 5);
+    }
+    return;
 
-        let rank_strs = "AKQJT98765432";
-
-        // pocket pairs
-        for rank_str in rank_strs.chars() {
-            combos.push(format!("{}{}", rank_str, rank_str));
-        }
-
-        for i in 0..rank_strs.len() {
-            for j in (i + 1)..rank_strs.len() {
-                combos.push(format!("{}{}s", &rank_strs[i..i + 1], &rank_strs[j..j + 1]));
-                combos.push(format!("{}{}o", &rank_strs[i..i + 1], &rank_strs[j..j + 1]));
-            }
-        }
-
-        combos
-    };
+    let all_combos = hardcore_aof::combos::calc_all_combos();
 
     {
         let mut combo_and_eq_vs_aa = all_combos

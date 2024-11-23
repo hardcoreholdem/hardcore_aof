@@ -9,6 +9,7 @@ use hardcore_aof::research_defender::research_defender_2d;
 use hardcore_aof::search::binary_search;
 use hardcore_aof::types::BetaAKoQQ;
 use hardcore_aof::types::S;
+use hardcore_equitizer::PureRange;
 use std::fmt;
 
 pub fn section19(equitizer: &mut Equitizer) {
@@ -122,9 +123,12 @@ fn search_s_for_beta18_qq_equals_1(equitizer: &mut Equitizer) -> S {
 
 fn search_s19_for_attacker_ev_of_ats_equals_0(equitizer: &mut Equitizer) -> S {
     let f = |s| -> f64 {
-        let (p_0, eq_0) = equitizer.query_prob_and_eq("ATs", "KK+,AKs");
-        let (p_1, eq_1) = equitizer.query_prob_and_eq("ATs", "AKo");
-        let (p_2, eq_2) = equitizer.query_prob_and_eq("ATs", "QQ");
+        let (p_0, eq_0) =
+            equitizer.query_prob_and_eq(&PureRange::from("ATs"), &PureRange::from("KK+,AKs"));
+        let (p_1, eq_1) =
+            equitizer.query_prob_and_eq(&PureRange::from("ATs"), &PureRange::from("AKo"));
+        let (p_2, eq_2) =
+            equitizer.query_prob_and_eq(&PureRange::from("ATs"), &PureRange::from("QQ"));
         let beta = calc_beta18(equitizer, s);
 
         aux::calc_attacker_ev_2d(
@@ -155,12 +159,18 @@ impl fmt::Display for Alpha19 {
 }
 
 pub fn calc_alpha19(equitizer: &mut Equitizer, s: S) -> Alpha19 {
-    let p_and_eq_0 = equitizer.query_prob_and_eq("AKo", "QQ+,AQs+,A5s-A3s,AKo");
-    let p_and_eq_1 = equitizer.query_prob_and_eq("AKo", "TT");
-    let p_and_eq_2 = equitizer.query_prob_and_eq("AKo", "ATs");
-    let p_and_eq_3 = equitizer.query_prob_and_eq("QQ", "QQ+,AQs+,A5s-A3s,AKo");
-    let p_and_eq_4 = equitizer.query_prob_and_eq("QQ", "TT");
-    let p_and_eq_5 = equitizer.query_prob_and_eq("QQ", "ATs");
+    let p_and_eq_0 = equitizer.query_prob_and_eq(
+        &PureRange::from("AKo"),
+        &PureRange::from("QQ+,AQs+,A5s-A3s,AKo"),
+    );
+    let p_and_eq_1 = equitizer.query_prob_and_eq(&PureRange::from("AKo"), &PureRange::from("TT"));
+    let p_and_eq_2 = equitizer.query_prob_and_eq(&PureRange::from("AKo"), &PureRange::from("ATs"));
+    let p_and_eq_3 = equitizer.query_prob_and_eq(
+        &PureRange::from("QQ"),
+        &PureRange::from("QQ+,AQs+,A5s-A3s,AKo"),
+    );
+    let p_and_eq_4 = equitizer.query_prob_and_eq(&PureRange::from("QQ"), &PureRange::from("TT"));
+    let p_and_eq_5 = equitizer.query_prob_and_eq(&PureRange::from("QQ"), &PureRange::from("ATs"));
 
     let (tt_1, ats_2) = aux::calc_alpha_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),
@@ -172,12 +182,14 @@ pub fn calc_alpha19(equitizer: &mut Equitizer, s: S) -> Alpha19 {
 }
 
 pub fn calc_beta19(equitizer: &mut Equitizer, s: S) -> BetaAKoQQ {
-    let p_and_eq_0 = equitizer.query_prob_and_eq("TT", "KK+,AKs");
-    let p_and_eq_1 = equitizer.query_prob_and_eq("TT", "AKo");
-    let p_and_eq_2 = equitizer.query_prob_and_eq("TT", "QQ");
-    let p_and_eq_3 = equitizer.query_prob_and_eq("ATs", "KK+,AKs");
-    let p_and_eq_4 = equitizer.query_prob_and_eq("ATs", "AKo");
-    let p_and_eq_5 = equitizer.query_prob_and_eq("ATs", "QQ");
+    let p_and_eq_0 =
+        equitizer.query_prob_and_eq(&PureRange::from("TT"), &PureRange::from("KK+,AKs"));
+    let p_and_eq_1 = equitizer.query_prob_and_eq(&PureRange::from("TT"), &PureRange::from("AKo"));
+    let p_and_eq_2 = equitizer.query_prob_and_eq(&PureRange::from("TT"), &PureRange::from("QQ"));
+    let p_and_eq_3 =
+        equitizer.query_prob_and_eq(&PureRange::from("ATs"), &PureRange::from("KK+,AKs"));
+    let p_and_eq_4 = equitizer.query_prob_and_eq(&PureRange::from("ATs"), &PureRange::from("AKo"));
+    let p_and_eq_5 = equitizer.query_prob_and_eq(&PureRange::from("ATs"), &PureRange::from("QQ"));
 
     let (ako_1, qq_2) = aux::calc_beta_2d(
         (p_and_eq_0, p_and_eq_1, p_and_eq_2),

@@ -2,14 +2,9 @@ use hardcore_aof::aux::calc_alpha_1d;
 use hardcore_aof::aux::join_calc_s_and_beta;
 use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
+use hardcore_equitizer::PureRange;
 
 pub fn section07(equitizer: &mut Equitizer) {
-    // for s in [318.0, 315.0, 310.0, 300.0] {
-    //     println!("s: {}", s);
-    //     println!("alpha6(s): {:.2}%", alpha6(equitizer, s) * 100.0);
-    //     //        println!("beta6(): {:.2}%", beta6(equitizer, s) * 100);
-    // }
-
     let (s7, beta) = calc_s7_and_beta(equitizer);
 
     println!("s: {:.2}", s7);
@@ -19,17 +14,17 @@ pub fn section07(equitizer: &mut Equitizer) {
 }
 
 fn calc_s7_and_beta(equitizer: &mut Equitizer) -> (S, f64) {
-    let (p0, eq0) = equitizer.query_prob_and_eq("KK", "AA");
-    let (p1, eq1) = equitizer.query_prob_and_eq("KK", "KK");
-    let (p2, eq2) = equitizer.query_prob_and_eq("A5s", "AA");
-    let (p3, eq3) = equitizer.query_prob_and_eq("A5s", "KK");
+    let (p0, eq0) = equitizer.query_prob_and_eq(&PureRange::from("KK"), &PureRange::from("AA"));
+    let (p1, eq1) = equitizer.query_prob_and_eq(&PureRange::from("KK"), &PureRange::from("KK"));
+    let (p2, eq2) = equitizer.query_prob_and_eq(&PureRange::from("A5s"), &PureRange::from("AA"));
+    let (p3, eq3) = equitizer.query_prob_and_eq(&PureRange::from("A5s"), &PureRange::from("KK"));
 
     join_calc_s_and_beta(((p0, eq0), (p1, eq1)), ((p2, eq2), (p3, eq3)))
 }
 
 pub fn calc_alpha7(equitizer: &mut Equitizer, s: S) -> f64 {
-    let (p0, eq0) = equitizer.query_prob_and_eq("KK", "KK+,AK");
-    let (p1, eq1) = equitizer.query_prob_and_eq("KK", "A5s");
+    let (p0, eq0) = equitizer.query_prob_and_eq(&PureRange::from("KK"), &PureRange::from("KK+AK"));
+    let (p1, eq1) = equitizer.query_prob_and_eq(&PureRange::from("KK"), &PureRange::from("A5s"));
 
     calc_alpha_1d((p0, eq0), (p1, eq1), s)
 }

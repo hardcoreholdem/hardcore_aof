@@ -3,8 +3,7 @@ use crate::combos;
 use crate::format::pretty_percent;
 use crate::types::S;
 use hardcore_equitizer::Equitizer;
-use hardcore_equitizer::Range;
-
+use hardcore_equitizer::PureRange;
 // 攻方的不同组合面对 attacker_0 + attacker_1:beta1, attacker_2:beta2 的 EQ
 // 2d表示两个自由度
 pub fn research_defender_2d(
@@ -15,9 +14,9 @@ pub fn research_defender_2d(
     s: S,
     limit: usize,
 ) {
-    let range_0: Range = defender_0.into();
-    let range_1: Range = defender_1.into();
-    let range_2: Range = defender_2.into();
+    let range_0 = PureRange::from(defender_0);
+    let range_1 = PureRange::from(defender_1);
+    let range_2 = PureRange::from(defender_2);
     if !range_0.is_disjoint(&range_1)
         || !range_0.is_disjoint(&range_2)
         || !range_1.is_disjoint(&range_2)
@@ -33,9 +32,10 @@ pub fn research_defender_2d(
     let mut combo_and_eq_vec = Vec::new();
 
     for combo in combos::calc_all_combos() {
-        let (p_0, eq_0) = equitizer.query_prob_and_eq(&combo, defender_0);
-        let (p_1, eq_1) = equitizer.query_prob_and_eq(&combo, defender_1);
-        let (p_2, eq_2) = equitizer.query_prob_and_eq(&combo, defender_2);
+        let combo_range = PureRange::from(&combo);
+        let (p_0, eq_0) = equitizer.query_prob_and_eq(&combo_range, &range_0);
+        let (p_1, eq_1) = equitizer.query_prob_and_eq(&combo_range, &range_1);
+        let (p_2, eq_2) = equitizer.query_prob_and_eq(&combo_range, &range_2);
 
         let eq = aux::calc_eq_2d((p_0, eq_0), (alpha_1, p_1, eq_1), (alpha_2, p_2, eq_2));
 
@@ -73,8 +73,9 @@ pub fn research_defender_1d(
     let mut combo_and_eq_vec = Vec::new();
 
     for combo in combos::calc_all_combos() {
-        let p_and_eq_0 = equitizer.query_prob_and_eq(&combo, defender_0);
-        let p_and_eq_1 = equitizer.query_prob_and_eq(&combo, defender_1);
+        let combo_range = PureRange::from(&combo);
+        let p_and_eq_0 = equitizer.query_prob_and_eq(&combo_range, &PureRange::from(defender_0));
+        let p_and_eq_1 = equitizer.query_prob_and_eq(&combo_range, &PureRange::from(defender_1));
 
         let eq = aux::calc_eq_1d(p_and_eq_0, alpha_1, p_and_eq_1);
 

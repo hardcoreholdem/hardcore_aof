@@ -57,7 +57,7 @@ fn main() {
     println!("Hello, world!");
 
     let hand_hanker = HandRanker::new("data").unwrap();
-    let mut equitizer = Equitizer::new(&hand_hanker);
+    let mut equitizer = Equitizer::new(&hand_hanker).unwrap();
 
     let cli = Cli::parse();
 

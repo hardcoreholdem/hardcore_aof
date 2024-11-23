@@ -1,3 +1,5 @@
+use hardcore_equitizer::PureRange;
+
 pub fn calc_all_combos() -> Vec<String> {
     let mut combos: Vec<String> = Vec::new();
 
@@ -16,4 +18,11 @@ pub fn calc_all_combos() -> Vec<String> {
     }
 
     combos
+}
+
+pub fn calc_all_combo_ranges() -> Vec<PureRange> {
+    calc_all_combos()
+        .iter()
+        .map(|s| PureRange::from(s))
+        .collect()
 }

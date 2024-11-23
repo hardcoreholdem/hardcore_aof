@@ -6,6 +6,7 @@ use hardcore_aof::aux::calc_beta_1d;
 use hardcore_aof::format::pretty_percent;
 use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
+use hardcore_equitizer::PureRange;
 
 pub fn section05(equitizer: &mut Equitizer) {
     let (s4, _) = calc_s4_and_beta(equitizer);
@@ -70,15 +71,16 @@ fn search_s_for_beta4_equals_0(equitizer: &mut Equitizer, mut low: S, mut high: 
 }
 
 fn calc_alpha5(equitizer: &mut Equitizer, s: S) -> f64 {
-    let (p1, eq1) = equitizer.query_prob_and_eq("KK", "AKo");
-    let (p2, eq2) = equitizer.query_prob_and_eq("KK", "AA,AKs,A5s");
+    let (p1, eq1) = equitizer.query_prob_and_eq(&PureRange::from("KK"), &PureRange::from("AKo"));
+    let (p2, eq2) =
+        equitizer.query_prob_and_eq(&PureRange::from("KK"), &PureRange::from("AA,AKs,A5s"));
 
     calc_alpha_new((p1, eq1), (p2, eq2), s)
 }
 
 fn calc_beta5(equitizer: &mut Equitizer, s: S) -> f64 {
-    let (p0, eq0) = equitizer.query_prob_and_eq("AKo", "AA");
-    let (p1, eq1) = equitizer.query_prob_and_eq("AKo", "KK");
+    let (p0, eq0) = equitizer.query_prob_and_eq(&PureRange::from("AKo"), &PureRange::from("AA"));
+    let (p1, eq1) = equitizer.query_prob_and_eq(&PureRange::from("AKo"), &PureRange::from("KK"));
 
     calc_beta_1d((p0, eq0), (p1, eq1), s)
 }
