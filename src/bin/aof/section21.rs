@@ -1,11 +1,11 @@
 use crate::calc_attacker_ev::calc_attacker_ev_2d;
 use crate::research_attacker::research_attacker_2d;
+use crate::research_defender::research_defender_2d;
 use crate::section20::calc_alpha20;
 use crate::section20::calc_beta20;
 use core::f64;
 use hardcore_aof::aux;
 use hardcore_aof::format::pretty_percent;
-use hardcore_aof::research_defender::research_defender_2d;
 use hardcore_aof::search::binary_search;
 use hardcore_aof::types::BetaAKoJJ;
 use hardcore_aof::types::S;

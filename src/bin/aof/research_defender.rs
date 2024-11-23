@@ -1,7 +1,7 @@
-use crate::aux;
-use crate::combos;
-use crate::format::pretty_percent;
-use crate::types::S;
+use hardcore_aof::aux;
+use hardcore_aof::combos;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 use hardcore_equitizer::PureRange;
 // 攻方的不同组合面对 attacker_0 + attacker_1:beta1, attacker_2:beta2 的 EQ

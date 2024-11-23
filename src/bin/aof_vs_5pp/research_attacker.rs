@@ -82,8 +82,8 @@ use hardcore_equitizer::Range;
 // 2d表示两个自由度
 pub fn research_attacker_0d(
     equitizer: &mut Equitizer,
-    full_range: &impl Range,
     defender_0: &str,
+    full_range: &impl Range,
     s: S,
     limit: usize,
 ) {
