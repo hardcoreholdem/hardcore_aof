@@ -1,11 +1,11 @@
 use hardcore_equitizer::Equitizer;
 
+use crate::research_attacker::research_attacker_1d;
+use crate::research_attacker::research_attacker_2d;
 use crate::section19::calc_alpha19;
 use crate::section19::calc_beta19;
 use hardcore_aof::aux;
 use hardcore_aof::format::pretty_percent;
-use hardcore_aof::research_attacker::research_attacker_1d;
-use hardcore_aof::research_attacker::research_attacker_2d;
 use hardcore_aof::research_defender::research_defender_2d;
 use hardcore_aof::search::binary_search;
 use hardcore_aof::types::BetaAKoJJ;

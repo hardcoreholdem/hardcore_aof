@@ -1,3 +1,4 @@
+use crate::calc_attacker_ev::calc_attacker_ev_0d;
 use hardcore_aof::aux;
 use hardcore_aof::combos;
 use hardcore_aof::format::pretty_percent;
@@ -101,7 +102,7 @@ pub fn research_attacker_0d(
         );
 
         let eq = aux::calc_eq_0d((p_0, eq_0));
-        let ev = aux::calc_attacker_ev_0d((p_0, eq_0), s);
+        let ev = calc_attacker_ev_0d((p_0, eq_0), s);
 
         combo_and_eq_and_ev_vec.push((combo, eq, ev));
     }

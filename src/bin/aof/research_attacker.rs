@@ -1,8 +1,10 @@
-use crate::aux;
-use crate::combos;
-use crate::format::pretty_percent;
-use crate::format::pretty_s;
-use crate::types::S;
+use crate::calc_attacker_ev::calc_attacker_ev_1d;
+use crate::calc_attacker_ev::calc_attacker_ev_2d;
+use hardcore_aof::aux;
+use hardcore_aof::combos;
+use hardcore_aof::format::pretty_percent;
+use hardcore_aof::format::pretty_s;
+use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 use hardcore_equitizer::PureRange;
 
@@ -30,7 +32,7 @@ pub fn research_attacker_2d(
         let (p_2, eq_2) = equitizer.query_prob_and_eq(&combo_range, &PureRange::from(defender_2));
 
         let eq = aux::calc_eq_2d((p_0, eq_0), (beta_1, p_1, eq_1), (beta_2, p_2, eq_2));
-        let ev = aux::calc_attacker_ev_2d((p_0, eq_0), (beta_1, p_1, eq_1), (beta_2, p_2, eq_2), s);
+        let ev = calc_attacker_ev_2d((p_0, eq_0), (beta_1, p_1, eq_1), (beta_2, p_2, eq_2), s);
 
         combo_and_eq_and_ev_vec.push((combo, eq, ev));
     }
@@ -65,7 +67,7 @@ pub fn research_attacker_1d(
         let p_and_eq_1 = equitizer.query_prob_and_eq(&combo_range, &PureRange::from(defender_1));
 
         let eq = aux::calc_eq_1d(p_and_eq_0, beta_1, p_and_eq_1);
-        let ev = aux::calc_attacker_ev_1d(p_and_eq_0, beta_1, p_and_eq_1, s);
+        let ev = calc_attacker_ev_1d(p_and_eq_0, beta_1, p_and_eq_1, s);
 
         combo_and_eq_and_ev_vec.push((combo, eq, ev));
     }

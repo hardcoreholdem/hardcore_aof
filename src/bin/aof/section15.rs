@@ -1,3 +1,4 @@
+use crate::calc_attacker_ev::calc_attacker_ev_2d;
 use crate::section14::calc_alpha14;
 use crate::section14::calc_beta14;
 use hardcore_aof::aux;
@@ -41,12 +42,8 @@ pub fn section15(equitizer: &mut Equitizer) {
                 equitizer.query_prob_and_eq(&PureRange::from(&combo), &PureRange::from(defender_2));
 
             let eq = aux::calc_eq_2d((p_0, eq_0), (beta_1, p_1, eq_1), (beta_2, p_2, eq_2));
-            let ev = aux::calc_attacker_ev_2d(
-                (p_0, eq_0),
-                (beta_1, p_1, eq_1),
-                (beta_2, p_2, eq_2),
-                s15,
-            );
+            let ev =
+                calc_attacker_ev_2d((p_0, eq_0), (beta_1, p_1, eq_1), (beta_2, p_2, eq_2), s15);
 
             combo_and_eq_and_ev_vec.push((combo, eq, ev));
         }

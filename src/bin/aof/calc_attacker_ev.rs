@@ -1,4 +1,5 @@
-use crate::types::S;
+use hardcore_aof::types::S;
+
 pub fn calc_attacker_ev_2d(
     (p_0, eq_0): (f64, f64),
     (beta_1, p_1, eq_1): (f64, f64, f64),

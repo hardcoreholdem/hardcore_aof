@@ -1,7 +1,10 @@
+use crate::calc_attacker_ev::calc_attacker_ev_0d;
 use hardcore_aof::aux;
+use hardcore_aof::search::binary_search;
 use hardcore_aof::types::S;
 use hardcore_equitizer::Equitizer;
 use hardcore_equitizer::PureRange;
+use hardcore_equitizer::Range;
 
 pub fn section00(equitizer: &mut Equitizer) {
     let full_range = PureRange::from("99+,AJs+,AQo+");
@@ -16,6 +19,9 @@ pub fn section00(equitizer: &mut Equitizer) {
     ] {
         crate::research_attacker::research_attacker_0d(equitizer, &full_range, "AA", s, 5);
     }
+
+    let s0 = search_s0_for_atk_eq_of_ats_equals_0(equitizer, &full_range);
+    println!("s0={}", s0);
     return;
 
     let all_combos = hardcore_aof::combos::calc_all_combos();
@@ -86,4 +92,20 @@ pub fn section00(equitizer: &mut Equitizer) {
     }
 
     println!("");
+}
+
+pub fn search_s0_for_atk_eq_of_ats_equals_0(
+    equitizer: &mut Equitizer,
+    full_range: &impl Range,
+) -> S {
+    let f = |s| -> f64 {
+        let (p_0, eq_0) = equitizer.query_sub_prob_and_eq(
+            &PureRange::from("ATs"),
+            &PureRange::from("AA"),
+            full_range,
+        );
+        calc_attacker_ev_0d((p_0, eq_0), s)
+    };
+
+    binary_search(30.into(), 40.into(), f)
 }

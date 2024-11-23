@@ -1,8 +1,9 @@
+use crate::calc_attacker_ev::calc_attacker_ev_2d;
+use crate::research_attacker::research_attacker_2d;
 use crate::section17::calc_alpha17;
 use crate::section17::calc_beta17;
 use hardcore_aof::aux;
 use hardcore_aof::format::pretty_percent;
-use hardcore_aof::research_attacker::research_attacker_2d;
 use hardcore_aof::research_defender::research_defender_2d;
 use hardcore_aof::search::binary_search;
 use hardcore_aof::types::BetaAKoQQ;
@@ -80,7 +81,7 @@ pub fn section18(equitizer: &mut Equitizer) {
         10,
     );
 
-    let s18 = search_s_for_attacker_ev_of_a3s_equals_0(equitizer);
+    let s18 = search_s_for_atk_ev_of_a3s_equals_0(equitizer);
     let alpha = calc_alpha17(equitizer, s18);
     let beta = calc_beta17(equitizer, s18);
 
@@ -119,7 +120,7 @@ fn search_s18_for_alpha17_aqs_ev_equals_0(equitizer: &mut Equitizer) -> S {
     binary_search(130.into(), 140.into(), f)
 }
 
-fn search_s_for_attacker_ev_of_a3s_equals_0(equitizer: &mut Equitizer) -> S {
+fn search_s_for_atk_ev_of_a3s_equals_0(equitizer: &mut Equitizer) -> S {
     let f = |s| -> f64 {
         let (p_0, eq_0) =
             equitizer.query_prob_and_eq(&PureRange::from("A3s"), &PureRange::from("KK+,AKs"));
@@ -129,7 +130,7 @@ fn search_s_for_attacker_ev_of_a3s_equals_0(equitizer: &mut Equitizer) -> S {
             equitizer.query_prob_and_eq(&PureRange::from("A3s"), &PureRange::from("QQ"));
         let beta = calc_beta17(equitizer, s);
 
-        aux::calc_attacker_ev_2d(
+        calc_attacker_ev_2d(
             (p_0, eq_0),
             (beta.ako_1, p_1, eq_1),
             (beta.qq_2, p_2, eq_2),

@@ -1,9 +1,10 @@
+use crate::calc_attacker_ev::calc_attacker_ev_2d;
+use crate::research_attacker::research_attacker_2d;
 use crate::section20::calc_alpha20;
 use crate::section20::calc_beta20;
 use core::f64;
 use hardcore_aof::aux;
 use hardcore_aof::format::pretty_percent;
-use hardcore_aof::research_attacker::research_attacker_2d;
 use hardcore_aof::research_defender::research_defender_2d;
 use hardcore_aof::search::binary_search;
 use hardcore_aof::types::BetaAKoJJ;
@@ -39,7 +40,7 @@ pub fn section21(equitizer: &mut Equitizer) {
         10,
     );
 
-    let s21 = search_s21_for_attacker_ev_of_jj_equals_0(equitizer);
+    let s21 = search_s21_for_atk_ev_of_jj_equals_0(equitizer);
     let alpha20_s21 = calc_alpha20(equitizer, s21);
     let beta20_s21 = calc_beta20(equitizer, s21);
     println!("s21 = {}", s21);
@@ -72,7 +73,7 @@ pub fn section21(equitizer: &mut Equitizer) {
     println!("beta21(s21) = {}", beta21);
 }
 
-fn search_s21_for_attacker_ev_of_jj_equals_0(equitizer: &mut Equitizer) -> S {
+fn search_s21_for_atk_ev_of_jj_equals_0(equitizer: &mut Equitizer) -> S {
     let f = |s| -> f64 {
         let (p_0, eq_0) =
             equitizer.query_prob_and_eq(&PureRange::from("JJ"), &PureRange::from("QQ+,AKs"));
@@ -81,7 +82,7 @@ fn search_s21_for_attacker_ev_of_jj_equals_0(equitizer: &mut Equitizer) -> S {
         let (p_2, eq_2) =
             equitizer.query_prob_and_eq(&PureRange::from("JJ"), &PureRange::from("JJ"));
         let beta = calc_beta20(equitizer, s);
-        aux::calc_attacker_ev_2d(
+        calc_attacker_ev_2d(
             (p_0, eq_0),
             (beta.ako_1, p_1, eq_1),
             (beta.jj_2, p_2, eq_2),

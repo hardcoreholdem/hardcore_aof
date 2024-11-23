@@ -1,7 +1,8 @@
+use crate::calc_attacker_ev::calc_attacker_ev_2d;
+use crate::research_attacker::research_attacker_2d;
 use crate::section15::{calc_alpha15, calc_beta15};
 use hardcore_aof::aux;
 use hardcore_aof::format::pretty_percent;
-use hardcore_aof::research_attacker::research_attacker_2d;
 use hardcore_aof::research_defender::research_defender_2d;
 use hardcore_aof::search::binary_search;
 use hardcore_aof::types::BetaAKoQQ;
@@ -66,7 +67,7 @@ fn search_s16_for_attacker_ev_eof_ajs_quals_0(equitizer: &mut Equitizer) -> S {
             equitizer.query_prob_and_eq(&PureRange::from("AJs"), &PureRange::from("AKo"));
         let (p_2, eq_2) =
             equitizer.query_prob_and_eq(&PureRange::from("AJs"), &PureRange::from("QQ"));
-        aux::calc_attacker_ev_2d(
+        calc_attacker_ev_2d(
             (p_0, eq_0),
             (beta.ako_1, p_1, eq_1),
             (beta.qq_2, p_2, eq_2),

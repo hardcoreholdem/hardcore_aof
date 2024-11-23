@@ -1,3 +1,4 @@
+use crate::calc_attacker_ev::calc_attacker_ev_2d;
 use crate::section13::calc_alpha13;
 use crate::section13::calc_beta13;
 use hardcore_aof::aux;
@@ -42,7 +43,7 @@ fn search_s14_for_ev_qq_equals_0(equitizer: &mut Equitizer) -> S {
 
     let f = |s| {
         let beta = calc_beta13(equitizer, s);
-        aux::calc_attacker_ev_2d(
+        calc_attacker_ev_2d(
             (p_0, eq_0),
             (beta.ako_1, p_1, eq_1),
             (beta.jj_2, p_2, eq_2),
