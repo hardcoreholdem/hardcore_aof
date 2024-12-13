@@ -13,6 +13,7 @@ pub fn research_defender_2d(
     defender_0: &str,
     (alpha_1, defender_1): (f64, &str),
     (alpha_2, defender_2): (f64, &str),
+    full_range: &impl Range,
     s: S,
     limit: usize,
 ) {
@@ -35,6 +36,13 @@ pub fn research_defender_2d(
 
     for combo in combos::calc_all_combos() {
         let combo_range = PureRange::from(&combo);
+        if !full_range
+            .iter_combos()
+            .any(|c| c == combo_range.iter_combos().next().unwrap())
+        {
+            continue;
+        }
+
         let (p_0, eq_0) = equitizer.query_prob_and_eq(&combo_range, &range_0);
         let (p_1, eq_1) = equitizer.query_prob_and_eq(&combo_range, &range_1);
         let (p_2, eq_2) = equitizer.query_prob_and_eq(&combo_range, &range_2);
@@ -61,22 +69,23 @@ pub fn research_defender_2d(
 // 攻方的不同组合面对 attacker_0 + attacker_1:beta1 的 EQ
 // 1d表示零个自由度
 pub fn research_defender_1d(
-    // TODO: update BE
     equitizer: &mut Equitizer,
     defender_0: &str,
-    alpha_1: f64,
-    defender_1: &str,
-    s: f64,
+    (alpha_1, defender_1): (f64, &str),
+    full_range: &impl Range,
+    s: S,
     limit: usize,
 ) {
-    println!(
-        "EQ vs {defender_0},{defender_1}:{}",
-        pretty_percent(alpha_1),
-    );
     let mut combo_and_eq_vec = Vec::new();
 
     for combo in combos::calc_all_combos() {
         let combo_range = PureRange::from(&combo);
+        if !full_range
+            .iter_combos()
+            .any(|c| c == combo_range.iter_combos().next().unwrap())
+        {
+            continue;
+        }
         let p_and_eq_0 = equitizer.query_prob_and_eq(&combo_range, &PureRange::from(defender_0));
         let p_and_eq_1 = equitizer.query_prob_and_eq(&combo_range, &PureRange::from(defender_1));
 
@@ -87,15 +96,20 @@ pub fn research_defender_1d(
 
     combo_and_eq_vec.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
 
+    let s: f64 = s.into();
+    let be_point = (s - 1.0) / (2.0 * s);
+
+    let mut output = String::new();
     for (combo, eq) in combo_and_eq_vec.iter().take(limit) {
-        let extra = if f64::abs(eq - s / (2.0 * s + 1.0)) < 1e-9 {
-            " (BE)"
-        } else {
-            ""
-        };
-        println!("{combo}, eq={}{extra}", pretty_percent(*eq));
+        if !output.is_empty() {
+            output += ", ";
+        }
+        output += &format!("{combo}:{}", pretty_percent(*eq));
+        if f64::abs(*eq - be_point) < 1e-9 {
+            output += "(BE)";
+        }
     }
-    println!("");
+    println!("{output}");
 }
 
 // 攻方的不同组合面对 attacker_0 的 EQ
@@ -131,7 +145,7 @@ pub fn research_defender_0d(
 
     for (combo, eq) in combo_and_eq_vec.iter().take(limit) {
         let extra = if f64::abs(eq - be_point) < 1e-9 {
-            " (BE)"
+            "(BE)"
         } else {
             ""
         };

@@ -1,4 +1,5 @@
 use crate::types::S;
+
 pub fn join_calc_s_and_beta(
     // p0 (eq0 (2s+1) - s) + β p1 (eq1 (2s+1) - s) + (1 - p0 - βp1) = 0
     // p2 (eq2 (2s+1) - s) + β p3 (eq3 (2s+1) - s) + (1 - p2 - βp3) = 0
