@@ -1,4 +1,4 @@
-use hardcore_aof::aux::solve_linear_eq_2d;
+use hardcore_aof::math;
 use hardcore_aof::types::S;
 
 pub fn calc_beta_2d(
@@ -18,5 +18,5 @@ pub fn calc_beta_2d(
     let e = p5 * (eq5 * (2.0 * s + 1.0) - s) - p5;
     let f = p3 * (eq3 * (2.0 * s + 1.0) - s) + (1.0 - p3) * 1.0;
 
-    solve_linear_eq_2d((a, b, c), (d, e, f))
+    math::solve_linear_eq_2d((a, b, c), (d, e, f))
 }

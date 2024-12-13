@@ -1,4 +1,4 @@
-use hardcore_aof::aux;
+use hardcore_aof::math;
 use hardcore_aof::types::S;
 
 pub fn calc_alpha_3d(
@@ -40,5 +40,5 @@ pub fn calc_alpha_3d(
     let c2 = p23 * eq23 * (2.0 * s + 1.0) - p23 * s;
     let d2 = p20 * eq20 * (2.0 * s + 1.0) - p20 * s;
 
-    aux::solve_linear_eq_3d((a0, b0, c0, d0), (a1, b1, c1, d1), (a2, b2, c2, d2))
+    math::solve_linear_eq_3d((a0, b0, c0, d0), (a1, b1, c1, d1), (a2, b2, c2, d2))
 }

@@ -1,4 +1,4 @@
-use hardcore_aof::aux;
+use hardcore_aof::math;
 use hardcore_aof::types::S;
 
 pub fn calc_alpha_2d(
@@ -18,5 +18,5 @@ pub fn calc_alpha_2d(
     let e = p5 * eq5 * (2.0 * s + 1.0) - p5 * s;
     let f = p3 * eq3 * (2.0 * s + 1.0) - p3 * s;
 
-    aux::solve_linear_eq_2d((a, b, c), (d, e, f))
+    math::solve_linear_eq_2d((a, b, c), (d, e, f))
 }

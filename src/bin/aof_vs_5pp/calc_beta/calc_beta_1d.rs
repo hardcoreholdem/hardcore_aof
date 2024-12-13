@@ -1,4 +1,4 @@
-use hardcore_aof::aux::solve_linear_eq_1d;
+use hardcore_aof::math;
 use hardcore_aof::types::S;
 
 pub fn calc_beta_1d(
@@ -13,5 +13,5 @@ pub fn calc_beta_1d(
     let a = p1 * (eq1 * (2.0 * s) - s) - p1;
     let b = p0 * (eq0 * (2.0 * s) - s) + 1.0 - p0;
 
-    solve_linear_eq_1d(a, b)
+    math::solve_linear_eq_1d(a, b)
 }
